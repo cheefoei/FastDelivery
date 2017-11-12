@@ -31,7 +31,6 @@ public class CustomerScreen {
     }
 
     private void customerMenu() {
-        Scanner s = new Scanner(System.in);
 
         System.out.println("Please choose a restaurant.\n"
                 + "------------------------\n"
@@ -40,24 +39,31 @@ public class CustomerScreen {
                 + "3. Malay Restaurant\n"
                 + "4. Exit\n\n\n"
                 + "Your choice: ");
+
         int input = scanner.nextInt();
-        if (input == 1) {
-            chineseMenu();
-        } else if (input == 2) {
-            indianMenu();
-        } else if (input == 3) {
-            malayMenu();
-        } else if (input == 4) {
-            customerMenu();
-        } else {
-            
-        
-            System.out.println("Invalid option, please try again!\n");
-            customerMenu();
+
+        switch (input) {
+            case 1:
+                chineseMenu();
+                break;
+            case 2:
+                indianMenu();
+                break;
+            case 3:
+                malayMenu();
+                break;
+            case 4:
+                customerMenu();
+                break;
+            default:
+                System.out.println("Invalid option, please try again!\n");
+                customerMenu();
+                break;
         }
     }
 
-    public static void chineseMenu() {
+    private void chineseMenu() {
+
         System.out.println("Chinese Food Menu\n "
                 + "Please choose your food.\n"
                 + "------------------------\n"
@@ -67,10 +73,10 @@ public class CustomerScreen {
                 + "4. Back To Main Menu\n"
                 + "5. Exit\n\n\n"
                 + "Your choice: ");
-        
     }
-    
-    public static void indianMenu() {
+
+    private void indianMenu() {
+
         System.out.println("Indian Food Menu\n "
                 + "Please choose your food.\n"
                 + "------------------------\n"
@@ -81,8 +87,9 @@ public class CustomerScreen {
                 + "5. Exit\n\n\n"
                 + "Your choice: ");
     }
-    
-    public static void malayMenu() {
+
+    private void malayMenu() {
+
         System.out.println("Malay Food Menu\n "
                 + "Please choose your food.\n"
                 + "------------------------\n"
@@ -93,5 +100,5 @@ public class CustomerScreen {
                 + "5. Exit\n\n\n"
                 + "Your choice: ");
     }
-    
+
 }

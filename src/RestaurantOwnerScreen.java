@@ -1,13 +1,13 @@
 
 import java.util.Scanner;
 
-public class CustomerScreen {
+public class RestaurantOwnerScreen {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public CustomerScreen() {
+    public RestaurantOwnerScreen() {
 
-        System.out.printf("\nCustomer Login\n");
+        System.out.printf("\nHuman Resource Executive Login\n");
         System.out.println("==============");
 
         System.out.print("Username >");
@@ -17,7 +17,7 @@ public class CustomerScreen {
         String password = scanner.nextLine();
 
         if (isAuthorised(username, password)) {
-            customerMenu();
+            restaurantOwnerMenu();
         }
     }
 
@@ -30,7 +30,7 @@ public class CustomerScreen {
         }
     }
 
-    private void customerMenu() {
+    private void restaurantOwnerMenu() {
 
     }
 }

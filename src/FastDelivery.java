@@ -39,30 +39,18 @@ public class FastDelivery {
                 new CustomerScreen();
                 break;
             case 2:
-                RestaurantOwnerScreen();
+                new RestaurantOwnerScreen();
                 break;
             case 3:
-                DeliveryManScreen();
+                new DeliveryManScreen();
                 break;
             case 4:
-                HumanResourceScreen();
+                new HumanResourceScreen();
                 break;
             default:
                 System.out.printf("Error! Just choose 1, 2, 3 or 4. \n\n");
                 promptRole();
                 break;
         }
-    }
-
-    private static void RestaurantOwnerScreen() {
-
-    }
-
-    private static void DeliveryManScreen() {
-
-    }
-
-    private static void HumanResourceScreen() {
-
     }
 }
