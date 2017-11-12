@@ -10,23 +10,22 @@ public class DeliveryManScreen {
         System.out.printf("\nHuman Resource Executive Login\n");
         System.out.println("==============");
 
+        checkAutho();
+    }
+
+    private void checkAutho() {
+
         System.out.print("Username >");
         String username = scanner.nextLine();
 
         System.out.print("Password >");
         String password = scanner.nextLine();
 
-        if (isAuthorised(username, password)) {
-            deliveryManMenu();
-        }
-    }
-
-    private boolean isAuthorised(String username, String password) {
-
         if (1 == 1) {
-            return true;
+            deliveryManMenu();
         } else {
-            return false;
+            System.out.println(Constants.ERROR_LOG_IN);
+            checkAutho();
         }
     }
 

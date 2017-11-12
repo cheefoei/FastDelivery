@@ -30,7 +30,7 @@ public class FastDelivery {
         try {
             roleNum = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException ex) {
-            System.out.printf("Error! Just choose 1, 2, 3 or 4. \n\n");
+            System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
             promptRole();
         }
 
@@ -48,7 +48,7 @@ public class FastDelivery {
                 new HumanResourceScreen();
                 break;
             default:
-                System.out.printf("Error! Just choose 1, 2, 3 or 4. \n\n");
+                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
                 promptRole();
                 break;
         }
