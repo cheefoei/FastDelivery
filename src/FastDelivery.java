@@ -1,11 +1,20 @@
 
+import entity.DeliveryMan;
+import entity.HumanResource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FastDelivery {
 
     private static Scanner scanner = new Scanner(System.in);
+    
+    public static List<HumanResource> humanResources = new ArrayList<>();
+    public static List<DeliveryMan> deliveryMen = new ArrayList<>();
 
     public static void main(String[] args) {
+
+        createData();
 
         System.out.println("###################################");
         System.out.println("#                                 #");
@@ -52,5 +61,34 @@ public class FastDelivery {
                 promptRole();
                 break;
         }
+    }
+
+    private static void createData() {
+
+        HumanResource hr1 = new HumanResource(
+                "Ali", 
+                "Mohd", 
+                "880512-14-5881", 
+                "Blok A34 Pengkalan Tldm Teluk Muruk 32100 Lumut Lumut Perak",
+                "ali@email.com",
+                "0182546897", 
+                "ali",
+                "ali123"
+        );
+        
+        humanResources.add(hr1);
+        
+        DeliveryMan dm1 = new DeliveryMan(
+                "Ali", 
+                "Mohd", 
+                "880512-14-5881", 
+                "Blok A34 Pengkalan Tldm Teluk Muruk 32100 Lumut Lumut Perak",
+                "ali@email.com",
+                "0182546897", 
+                "ali",
+                "ali123"
+        );
+        
+        deliveryMen.add(dm1);
     }
 }
