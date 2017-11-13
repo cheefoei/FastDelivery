@@ -5,6 +5,7 @@ public class Constants {
     public static final String ERROR_ACC_NOT_EXIST = "ERROR! No account found.";
     public static final String ERROR_OPTION_NOT_AVAILABLE = "ERROR! Your option is invalid.\n\n";
 
+    public static final String MSG_REG_SUCCESS = "You are registered successfully.";
     public static final String MSG_FAILED_TOO_MANY = "You failed too many times!";
 }
 
