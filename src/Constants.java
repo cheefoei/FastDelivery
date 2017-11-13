@@ -7,3 +7,4 @@ public class Constants {
 
     public static final String MSG_FAILED_TOO_MANY = "You failed too many times!";
 }
+
