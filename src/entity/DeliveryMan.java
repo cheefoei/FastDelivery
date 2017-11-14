@@ -16,6 +16,7 @@ public class DeliveryMan extends Staff implements Serializable {
     public DeliveryMan(
             String fname,
             String lname,
+            char gender,
             String nric,
             String address,
             String email,
@@ -23,12 +24,13 @@ public class DeliveryMan extends Staff implements Serializable {
             String username,
             String password) {
 
-        super(fname, lname, nric, address, email, phoneNumber, username, password);
+        super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
     }
 
     public DeliveryMan(
             String fname,
             String lname,
+            char gender,
             String nric,
             String address,
             String email,
@@ -38,15 +40,17 @@ public class DeliveryMan extends Staff implements Serializable {
             String status,
             Date clock_in,
             String punched_status) {
-        
-        super(fname, lname, nric, address, email, phoneNumber, username, password);
+
+        super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
         this.status = status;
         this.punched_status = punched_status;
         this.clock_in = clock_in;
     }
+
     public DeliveryMan(
             String fname,
             String lname,
+            char gender,
             String nric,
             String address,
             String email,
@@ -57,14 +61,13 @@ public class DeliveryMan extends Staff implements Serializable {
             Date clock_in,
             String punched_status,
             Date clock_out) {
-        
-        super(fname, lname, nric, address, email, phoneNumber, username, password);
+
+        super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
         this.status = status;
         this.punched_status = punched_status;
         this.clock_in = clock_in;
         this.clock_out = clock_out;
     }
-    
 
     public String getStatus() {
         return status;
@@ -73,22 +76,28 @@ public class DeliveryMan extends Staff implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    public String getPunchedStatus(){
+
+    public String getPunchedStatus() {
         return punched_status;
     }
-    public void setPunchedStatus(String punched_status){
+
+    public void setPunchedStatus(String punched_status) {
         this.punched_status = punched_status;
     }
-    public Date getClockIn(){
+
+    public Date getClockIn() {
         return clock_in;
     }
-    public void setClockIn(Date clock_in){
+
+    public void setClockIn(Date clock_in) {
         this.clock_in = clock_in;
     }
-    public Date getClokcOut(){
+
+    public Date getClokcOut() {
         return clock_out;
     }
-    public void setClockOut(Date clock_out){
+
+    public void setClockOut(Date clock_out) {
         this.clock_out = clock_out;
     }
 }

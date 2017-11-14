@@ -4,6 +4,7 @@ public class Staff {
 
     public String fname;
     public String lname;
+    public char gender;
     public String nric;
     public String address;
     public String email;
@@ -15,17 +16,19 @@ public class Staff {
     }
 
     public Staff(
-            String fname,
-            String lname,
-            String nric,
-            String address,
-            String email,
-            String phoneNumber,
-            String username,
+            String fname, 
+            String lname, 
+            char gender,
+            String nric, 
+            String address, 
+            String email, 
+            String phoneNumber, 
+            String username, 
             String password) {
-
+        
         this.fname = fname;
         this.lname = lname;
+        this.gender = gender;
         this.nric = nric;
         this.address = address;
         this.email = email;

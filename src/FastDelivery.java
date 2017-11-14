@@ -1,3 +1,4 @@
+
 import entity.Customer;
 import entity.DeliveryMan;
 import entity.HumanResource;
@@ -21,13 +22,16 @@ public class FastDelivery {
 
         createData();
 
-        System.out.println("###################################");
-        System.out.println("#                                 #");
-        System.out.println("# Welocme to FastDelivery System! #");
-        System.out.println("#                                 #");
-        System.out.println("###################################");
+        while (true) {
 
-        promptRole();
+            System.out.println("###################################");
+            System.out.println("#                                 #");
+            System.out.println("# Welocme to FastDelivery System! #");
+            System.out.println("#                                 #");
+            System.out.println("###################################");
+
+            promptRole();
+        }
     }
 
     private static void promptRole() {
@@ -38,6 +42,7 @@ public class FastDelivery {
         System.out.println("2) Restaurant Owner");
         System.out.println("3) Delivery Man");
         System.out.println("4) Human Resource Executive");
+        System.out.println("5) EXIT SYSTEM");
         System.out.print("Option >");
 
         int roleNum = -1;
@@ -51,15 +56,18 @@ public class FastDelivery {
         switch (roleNum) {
             case 1:
                 new CustomerScreen();
-                break;
+                return;
             case 2:
                 new RestaurantOwnerScreen();
-                break;
+                return;
             case 3:
                 new DeliveryManScreen();
-                break;
+                return;
             case 4:
                 new HumanResourceScreen();
+                return;
+            case 5:
+                System.exit(0);
                 break;
             default:
                 System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
@@ -71,14 +79,15 @@ public class FastDelivery {
     private static void createData() {
 
         HumanResource hr1 = new HumanResource(
-                "Ali",
-                "Mohd",
-                "880512-14-5881",
-                "Blok A34 Pengkalan Tldm Teluk Muruk 32100 Lumut Lumut Perak",
-                "ali@email.com",
-                "0182546897",
-                "ali",
-                "ali123"
+                "Gal",
+                "Gadot",
+                'F',
+                "890921-10-5486",
+                "No 56 Pengkalan Tldm Teluk Muruk 43000 Kajang Selangor",
+                "galgadot@email.com",
+                "0125683786",
+                "gal",
+                "wonder"
         );
 
         humanResources.add(hr1);
@@ -86,6 +95,7 @@ public class FastDelivery {
         DeliveryMan dm1 = new DeliveryMan(
                 "Ali",
                 "Mohd",
+                'M',
                 "880512-14-5881",
                 "Blok A34 Pengkalan Tldm Teluk Muruk 32100 Lumut Lumut Perak",
                 "ali@email.com",
@@ -111,19 +121,18 @@ public class FastDelivery {
         );
 
         restaurantOwners.add(rol);
-        
+
         Customer cus1 = new Customer(
-        "Allan",
-        "950103-14-7777",
-        "Male",
-        "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
-        "0101234567",
-        "allan0103@gmail.com",
-        "allan",
-        "allan0103"
+                "Allan",
+                "950103-14-7777",
+                "Male",
+                "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
+                "0101234567",
+                "allan0103@gmail.com",
+                "allan",
+                "allan0103"
         );
         customerArray.add(cus1);
-        
-    
+
     }
 }

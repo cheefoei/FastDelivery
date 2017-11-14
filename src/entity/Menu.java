@@ -5,11 +5,14 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Clarity
  */
-public class Menu {
+public class Menu implements Serializable {
+    
     private int foodId;
     private String foodName;
     private int foodPrice;

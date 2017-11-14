@@ -5,11 +5,13 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Clarity
  */
-public class Orders {
+public class Orders implements Serializable {
     
     private int orderId;
     private String status;

@@ -5,13 +5,14 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Clarity
  */
-public class Payment {
+public class Payment implements Serializable {
     
     private int paymentId;
     private String paymentType;

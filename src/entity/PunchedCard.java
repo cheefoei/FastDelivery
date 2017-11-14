@@ -5,13 +5,15 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author admin
  */
-public class PunchedCard {
+public class PunchedCard implements Serializable {
+    
     private int punched_id;
     private String punched_status;
     private Date clock_in;
