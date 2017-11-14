@@ -12,6 +12,8 @@ public class CustomerScreen {
     private Scanner scanner = new Scanner(System.in);
     public static List<Customer> customerArray = new ArrayList<>();
     private Customer currentUser;
+    private OrderDetails orderDetails;
+    
     
     private int failedCount = 0;
 
@@ -87,29 +89,18 @@ public class CustomerScreen {
     }
 
     private void chineseMenu() {
-
-        System.out.println("Chinese Food Menu\n "
-                + "Please choose your food.\n"
-                + "------------------------\n"
-                + "1. Char Kuey Teow - RM 5\n"
-                + "2. Chicken Rice - RM 8\n"
-                + "3. Fish head noodles - RM 15\n"
-                + "4. Back To Main Menu\n"
-                + "5. Exit\n\n\n"
-                + "Your choice: ");
         Scanner s = new Scanner(System.in);
 
-        int foodChoice;
-        int foodQty;
+        int foodId;
+        int qty;
         do {
-            System.out.println("Chinese Food Menu\n "
+            System.out.println(" Chinese Food Menu\n "
                 + "Please choose your food.\n"
                 + "------------------------\n"
                 + "1. Char Kuey Teow - RM 5\n"
                 + "2. Chicken Rice - RM 8\n"
                 + "3. Fish head noodles - RM 15\n"
-                + "4. Back To Main Menu\n"
-                + "5. Exit\n\n\n"
+                + "4. Fried Rice - RM 6\n"
                 + "Your choice: ");
             while (!s.hasNextInt()) {
                 System.out.println("\n**Invalid option, please try again!**");
@@ -119,13 +110,12 @@ public class CustomerScreen {
                 + "1. Char Kuey Teow - RM 5\n"
                 + "2. Chicken Rice - RM 8\n"
                 + "3. Fish head noodles - RM 15\n"
-                + "4. Back To Main Menu\n"
-                + "5. Exit\n\n\n"
+                + "4. Fried Rice - RM 6\n"
                 + "Your choice:  ");
                 s.next();
             }
-            foodChoice = s.nextInt();
-        } while (foodChoice <= 0);
+            foodId = s.nextInt();
+        } while (foodId <= 0);
 
         do {
             System.out.println("\nEnter food quantity: ");
@@ -134,17 +124,18 @@ public class CustomerScreen {
                 System.out.println("\nEnter food quantity: ");
                 s.next();
             }
-            foodQty = s.nextInt();
-        } while (foodQty <= 0);
-        //OrderDetails newOrder = new OrderDetails(foodChoice, foodQty);
-        //OrderFoodList.add(newOrder);
-
-        System.out.println("\nNew food added!\n");
-        System.out.println("Order List");
-        System.out.printf("%-10s %-20s %-20s\n", "No.", "Food Name", "Quantity");
-        System.out.println("----------------------------------------------------");
+            qty = s.nextInt();
+        } while (qty <= 0);
+        //OrderDetails newOrder = new OrderDetails(foodId, qty);
+        //OrderFoodList.addNewOrder();\
+        orderDetails = new OrderDetails(foodId, qty);
+        if (FastDelivery.orderDetail.add(orderDetails)) {
+            System.out.printf("\n");
+            System.out.println("\nNew food added!\n");
+//        System.out.println("Order List");
+//        System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Food Name", "Quantity", "Price");
+//        System.out.println("-----------------------------------------------------------------");
         //System.out.println(OrderDetails);
-
         System.out.println("Back to Menu?\n"
                 + "1. Yes\n"
                 + "2. No\n");
@@ -154,8 +145,10 @@ public class CustomerScreen {
         } else {
             System.exit(0);
         }
-    }
+        }
 
+        
+    }
     private void indianMenu() {
 
         System.out.println("Indian Food Menu\n "
@@ -167,6 +160,7 @@ public class CustomerScreen {
                 + "4. Back To Main Menu\n"
                 + "5. Exit\n\n\n"
                 + "Your choice: ");
+        
     }
 
     private void malayMenu() {

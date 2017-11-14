@@ -12,21 +12,20 @@ package entity;
 public class OrderDetails {
     
     private int foodId;
-    private String foodName;
-    private int foodPrice;
-    private int orderId;
+    //private String foodName;
+    //private int foodPrice;
+    //private int orderId;
     private int qty;
-    private int totalPrice;
+    //private int totalPrice;
     
-    public OrderDetails(int foodId, String foodName,int foodPrice,int orderId,int qty,int totalPrice) {
+    public OrderDetails(int foodId, int qty) {
         
         this.foodId = foodId;
-        this.foodName = foodName;
-        this.foodPrice = foodPrice;
-        this.orderId = orderId;
-        this.orderId = orderId;
+        //this.foodName = foodName;
+        //this.foodPrice = foodPrice;
+        //this.orderId = orderId;
         this.qty = qty;
-        this.totalPrice = totalPrice;
+        //this.totalPrice = totalPrice;
         
     }
 
@@ -38,7 +37,7 @@ public class OrderDetails {
         this.foodId = foodId;
     }
 
-    public String getFoodName() {
+    /*public String getFoodName() {
         return foodName;
     }
 
@@ -60,7 +59,14 @@ public class OrderDetails {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+   
     }
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;*/
 
     public int getQty() {
         return qty;
@@ -70,11 +76,21 @@ public class OrderDetails {
         this.qty = qty;
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+    
+    
+    
+    public String toString(){
+        String s;
+        if(foodId == 1){
+            s = "Char Kuey Teow";
+        }else if(foodId == 2){
+            s = "Chicken Rice";
+        }else if(foodId == 3){
+            s = "Fish head noodles";
+        }else{
+            s = "Fried rice";
+        }
+        
+       return String.format("%-10s %-20s %-20s","",s,qty);
     }
 }

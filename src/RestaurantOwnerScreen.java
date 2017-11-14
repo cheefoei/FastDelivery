@@ -48,7 +48,7 @@ public class RestaurantOwnerScreen {
     private void register() {
 
         System.out.printf("\nPlease enter your detail...\n");
-        System.out.print("Frist Name >");
+        System.out.print("First Name >");
         String fname = scanner.nextLine();
 
         System.out.print("Last Name >");
@@ -126,7 +126,7 @@ public class RestaurantOwnerScreen {
 
     private void restaurantOwnerMenu() {
 
-        System.out.println("Welocme, " + restaurantOwner.getFname() + " " + restaurantOwner.getLname());
+        System.out.println("Welcome, " + restaurantOwner.getFname() + " " + restaurantOwner.getLname());
 
     }
 }

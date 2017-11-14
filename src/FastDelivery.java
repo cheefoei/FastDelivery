@@ -2,6 +2,7 @@ import entity.Customer;
 import entity.DeliveryMan;
 import entity.HumanResource;
 import entity.RestaurantOwner;
+import entity.OrderDetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +15,7 @@ public class FastDelivery {
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Customer> customerArray = new ArrayList<>();
+    public static List<OrderDetails> orderDetail = new ArrayList<>();
 
     public static void main(String[] args) {
 
