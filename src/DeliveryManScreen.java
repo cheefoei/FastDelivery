@@ -1,9 +1,13 @@
 
+import entity.DeliveryMan;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class DeliveryManScreen {
 
     private Scanner scanner = new Scanner(System.in);
+    private DeliveryMan deliveryman;
 
     public DeliveryManScreen() {
 
@@ -30,9 +34,10 @@ public class DeliveryManScreen {
     }
     private void punchedCard(){
         // print option menu
-        System.out.print("Please choose an option below:" + "\n"
+        System.out.print("Do you want to Clock In/Clock Out?:" + "\n"
                + "1:Clock In" + "\n"
-               + "2:Clock Out" + "\n");
+               + "2:Clock Out" + "\n"
+               + "3:Not now"+"\n");
 
         int input = scanner.nextInt();
 
@@ -42,6 +47,9 @@ public class DeliveryManScreen {
                 break;
             case 2:
                 clock_out();
+                break;
+            case 3:
+                deliveryManMenu();
                 break;
             default:
                 System.out.println("Invalid option, please try again!\n");
@@ -53,54 +61,38 @@ public class DeliveryManScreen {
     }
     private void clock_in(){
          
-                // addition of screen choice to arraylist/text file
-                //timeClock.add(choice);
-             
-          
-                
-                
-                // if employee ID is valid, have they punched in already?
-                // if not, try again.
-                
-                    // has employee punched in?  If yes, continue.
-                    for(TimeClock t : timePunches)
-                    {
-                        if(t.getPunchInOrOut() && choice.equalsIgnoreCase("i"))
-                        {
-                            timePunches = t;
-                            break;
-                        }
-                        else()
-                        {
-                            // if employee has not punched in, try again
-                        }
-                    }
- 
-                
-                 
-                TimeClock newTimePunch = new TimeClock(employeeID, new Date(), choice);
- 
-                // if employee ID is valid,
-                // addition of date and time to arraylist/text file
-                timePunches.add(newTimePunch);
- 
-                //write to the file
-                timeClockDAO.writeTimePunch(newTimePunch);
-                 
-                // conditional statement for in/out + formatting
-                System.out.println("Punch-" + (choice.equalsIgnoreCase("i") ? "In" : "Out") + " Successful!" + "\n"
-                                 + "Date & Time:   " + dateFormat.format(new Date()) + "\n"
-                                 + "Employee Name: " + employee.getFirstName() + " " + employee.getLastName() + "\n"
-                                 + "Employee ID:   " + employee.getEmployeeID() + "\n");
- 
-                System.out.println(); // print a blank line
-                break;
-            }
-            else
-            {
-                System.out.println("Invalid entry. Please try again.");
-            }
-        }
+                Calendar now = Calendar.getInstance(); 
+     
+                Date clock_in= now.getTime();
+                if(deliveryman.getPunchedStatus() != "On-Duty"){
+                deliveryman.setClockIn(clock_in);
+                deliveryman.setPunchedStatus("On-Duty");
+                                                       
+                System.out.println("Clock In Successful!\n"
+                                 + "Date & Time:   " + clock_in + "\n"
+                                 + "Employee Name: " + deliveryman.username +"\n"); 
+                }else{
+                    System.out.println("THIS USER IS ALREADY ON-DUTY!!\n");
+                    punchedCard();
+                }
+        
+    }
+    private void clock_out(){
+         
+                Calendar now = Calendar.getInstance(); 
+     
+                Date clock_out= now.getTime();
+                if(deliveryman.getPunchedStatus() != "Off-Duty"){
+                deliveryman.setClockOut(clock_out);
+                deliveryman.setPunchedStatus("Off-Duty");
+                                                       
+                System.out.println("Clock Out Successful!\n"
+                                 + "Date & Time:   " + clock_out + "\n"
+                                 + "Employee Name: " + deliveryman.username +"\n"); 
+                }else{
+                    System.out.println("THIS USER IS ALREADY OFF-DUTY!!\n");
+                    punchedCard();
+                }
         
     }
 

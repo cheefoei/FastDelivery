@@ -5,8 +5,7 @@
  */
 package entity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -15,8 +14,7 @@ import java.text.SimpleDateFormat;
 public class PunchedCard {
     private int punched_id;
     private String punched_status;
-    private DateFormat clock_in = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private DateFormat clock_out =new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        
+    private Date clock_in;
+    private Date clock_out;
     
 }
