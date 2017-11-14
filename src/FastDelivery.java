@@ -1,4 +1,4 @@
-
+import entity.Customer;
 import entity.DeliveryMan;
 import entity.HumanResource;
 import entity.RestaurantOwner;
@@ -13,6 +13,7 @@ public class FastDelivery {
     public static List<HumanResource> humanResources = new ArrayList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
+    public static List<Customer> customerArray = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -108,5 +109,19 @@ public class FastDelivery {
         );
 
         restaurantOwners.add(rol);
+        
+        Customer cus1 = new Customer(
+        "Allan",
+        "950103-14-7777",
+        "Male",
+        "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
+        "0101234567",
+        "allan0103@gmail.com",
+        "allan",
+        "allan0103"
+        );
+        customerArray.add(cus1);
+        
+    
     }
 }
