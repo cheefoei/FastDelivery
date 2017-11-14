@@ -2,8 +2,6 @@
 import java.util.Scanner;
 import entity.Customer;
 import entity.OrderDetails;
-import adt.OrderFoodInterface;
-import adt.OrderFoodList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,30 +148,123 @@ public class CustomerScreen {
         
     }
     private void indianMenu() {
+        Scanner s = new Scanner(System.in);
 
-        System.out.println("Indian Food Menu\n "
+        int foodId;
+        int qty;
+        do {
+            System.out.println(" Indian Food Menu\n "
                 + "Please choose your food.\n"
                 + "------------------------\n"
                 + "1. Tose - RM 3\n"
                 + "2. Roti telur - RM 4\n"
                 + "3. Cheese naan - RM 6\n"
-                + "4. Back To Main Menu\n"
-                + "5. Exit\n\n\n"
+                + "4. Banana Leaf Rice - RM15\n"
                 + "Your choice: ");
-        
+            while (!s.hasNextInt()) {
+                System.out.println("\n**Invalid option, please try again!**");
+                System.out.println("\nIndian Food Menu\n "
+                + "Please choose your food.\n"
+                + "------------------------\n"
+                + "1. Tose - RM 3\n"
+                + "2. Roti telur - RM 4\n"
+                + "3. Cheese naan - RM 6\n"
+                + "4. Banana Leaf Rice - RM15\n"
+                + "Your choice:  ");
+                s.next();
+            }
+            foodId = s.nextInt();
+        } while (foodId <= 0);
+
+        do {
+            System.out.println("\nEnter food quantity: ");
+            while (!s.hasNextInt()) {
+                System.out.println("\n**Invalid option, please try again!**");
+                System.out.println("\nEnter food quantity: ");
+                s.next();
+            }
+            qty = s.nextInt();
+        } while (qty <= 0);
+        //OrderDetails newOrder = new OrderDetails(foodId, qty);
+        //OrderFoodList.addNewOrder();\
+        orderDetails = new OrderDetails(foodId, qty);
+        if (FastDelivery.orderDetail.add(orderDetails)) {
+            System.out.printf("\n");
+            System.out.println("\nNew food added!\n");
+//        System.out.println("Order List");
+//        System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Food Name", "Quantity", "Price");
+//        System.out.println("-----------------------------------------------------------------");
+        //System.out.println(OrderDetails);
+        System.out.println("Back to Menu?\n"
+                + "1. Yes\n"
+                + "2. No\n");
+        int yesno = s.nextInt();
+        if (yesno == 1) {
+            indianMenu();
+        } else {
+            System.exit(0);
+        }
+        }
     }
 
     private void malayMenu() {
+        Scanner s = new Scanner(System.in);
 
-        System.out.println("Malay Food Menu\n "
+        int foodId;
+        int qty;
+        do {
+            System.out.println(" Malay Food Menu\n "
                 + "Please choose your food.\n"
                 + "------------------------\n"
                 + "1. Nasi Lemak - RM 5\n"
                 + "2. Asam Laksa - RM 8\n"
                 + "3. Ayam Penyet - RM 15\n"
-                + "4. Back To Main Menu\n"
-                + "5. Exit\n\n\n"
+                + "4. Murtabak - RM4\n"
                 + "Your choice: ");
+            while (!s.hasNextInt()) {
+                System.out.println("\n**Invalid option, please try again!**");
+                System.out.println("\nIndian Food Menu\n "
+                + "Please choose your food.\n"
+                + "------------------------\n"
+                + "1. Nasi Lemak - RM 5\n"
+                + "2. Asam Laksa - RM 8\n"
+                + "3. Ayam Penyet - RM 15\n"
+                + "4. Murtabak - RM4\n"
+                + "Your choice:  ");
+                s.next();
+            }
+            foodId = s.nextInt();
+        } while (foodId <= 0);
+
+        do {
+            System.out.println("\nEnter food quantity: ");
+            while (!s.hasNextInt()) {
+                System.out.println("\n**Invalid option, please try again!**");
+                System.out.println("\nEnter food quantity: ");
+                s.next();
+            }
+            qty = s.nextInt();
+        } while (qty <= 0);
+        //OrderDetails newOrder = new OrderDetails(foodId, qty);
+        //OrderFoodList.addNewOrder();\
+        orderDetails = new OrderDetails(foodId, qty);
+        if (FastDelivery.orderDetail.add(orderDetails)) {
+            System.out.printf("\n");
+            System.out.println("\nNew food added!\n");
+//        System.out.println("Order List");
+//        System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Food Name", "Quantity", "Price");
+//        System.out.println("-----------------------------------------------------------------");
+        //System.out.println(OrderDetails);
+        System.out.println("Back to Menu?\n"
+                + "1. Yes\n"
+                + "2. No\n");
+        int yesno = s.nextInt();
+        if (yesno == 1) {
+            malayMenu();
+        } else {
+            System.exit(0);
+        }
+        }
     }
 
 }
