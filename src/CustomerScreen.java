@@ -206,7 +206,6 @@ public class CustomerScreen {
         }
         }
     }
-
     private void malayMenu() {
         Scanner s = new Scanner(System.in);
 
@@ -266,5 +265,7 @@ public class CustomerScreen {
         }
         }
     }
+
+
 
 }
