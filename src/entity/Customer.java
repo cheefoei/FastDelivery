@@ -17,8 +17,8 @@ public class Customer {
     private String cusAddress;
     private String cusContactNo;
     private String cusEmail;
-    private String cusUsername;
-    private String cusPw;
+    public String cusUsername;
+    public String cusPw;
 
     public Customer(String cusName, String cusIc,String cusGender,String cusAddress,String cusContactNo,String cusEmail,String cusUsername,String cusPw) {
         this.cusName = cusName;
