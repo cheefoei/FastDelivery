@@ -18,5 +18,6 @@ public class PunchedCard implements Serializable {
     private String punched_status;
     private Date clock_in;
     private Date clock_out;
+    private Staff staff;
     
 }
