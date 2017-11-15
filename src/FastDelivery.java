@@ -4,6 +4,7 @@ import entity.DeliveryMan;
 import entity.HumanResource;
 import entity.RestaurantOwner;
 import entity.OrderDetails;
+import entity.PunchedCard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class FastDelivery {
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Customer> customerArray = new ArrayList<>();
     public static List<OrderDetails> orderDetail = new ArrayList<>();
+    public static List<PunchedCard> punchedCards = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -133,6 +135,13 @@ public class FastDelivery {
                 "allan0103"
         );
         customerArray.add(cus1);
+
+//        PunchedCard pc1 = new PunchedCard(
+//                "ON-DUTY",
+//                "Wed Nov 14 05:33:26 UTC 2017",
+//                "Wed Nov 14 07:33:26 UTC 2017",
+//                dm1
+//        );
 
     }
 }

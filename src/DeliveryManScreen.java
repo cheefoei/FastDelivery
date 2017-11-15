@@ -1,5 +1,6 @@
 
 import entity.DeliveryMan;
+import entity.PunchedCard;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -76,19 +77,29 @@ public class DeliveryManScreen {
     private void clock_in() {
 
         Calendar now = Calendar.getInstance();
-
-        Date clock_in = now.getTime();
-        if (deliveryman.getPunchedStatus() != "On-Duty") {
-            deliveryman.setClockIn(clock_in);
-            deliveryman.setPunchedStatus("On-Duty");
-
-            System.out.println("Clock In Successful!\n"
-                    + "Date & Time:   " + clock_in + "\n"
-                    + "Employee Name: " + deliveryman.username + "\n");
-        } else {
-            System.out.println("THIS USER IS ALREADY ON-DUTY!!\n");
-            punchedCard();
+        PunchedCard t_pc;
+        
+        for(PunchedCard pc: FastDelivery.punchedCards){
+            
+            Date today = new Date();
+            Date date = pc.getClock_in();
+            long diffInMillies = today.getTime() - date.getTime();
+            
+            if(diffInMillies )
         }
+
+////        Date clock_in = now.getTime();
+//        if (deliveryman.getPunchedStatus() != "On-Duty") {
+//            deliveryman.setClockIn(clock_in);
+//            deliveryman.setPunchedStatus("On-Duty");
+//
+//            System.out.println("Clock In Successful!\n"
+//                    + "Date & Time:   " + clock_in + "\n"
+//                    + "Employee Name: " + deliveryman.username + "\n");
+//        } else {
+//            System.out.println("THIS USER IS ALREADY ON-DUTY!!\n");
+//            punchedCard();
+//        }
 
         punchedCard();
     }
