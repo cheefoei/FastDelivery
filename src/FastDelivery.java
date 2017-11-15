@@ -26,7 +26,7 @@ public class FastDelivery {
 
             System.out.println("###################################");
             System.out.println("#                                 #");
-            System.out.println("# Welocme to FastDelivery System! #");
+            System.out.println("# Welcome to FastDelivery System! #");
             System.out.println("#                                 #");
             System.out.println("###################################");
 
