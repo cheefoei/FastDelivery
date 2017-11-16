@@ -132,7 +132,9 @@ public class DeliveryManScreen {
 
                 if (pc.getClock_out() == null) {
 
+                    pc.setPunched_status(Constants.OFF_DUTY);
                     pc.setClock_out(clock_out);
+
                     if (FastDelivery.punchedCards.set(last, pc) != null) {
 
                         System.out.println("Clock Out Successful!\n"
