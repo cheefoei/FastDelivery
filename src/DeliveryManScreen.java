@@ -4,6 +4,7 @@ import entity.PunchedCard;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class DeliveryManScreen {
 
@@ -46,7 +47,7 @@ public class DeliveryManScreen {
     }
 
     private void punchedCard() {
-        
+
         // print option menu
         System.out.print("Do you want to Clock In/Clock Out?:" + "\n"
                 + "1:Clock In" + "\n"
@@ -77,28 +78,38 @@ public class DeliveryManScreen {
     private void clock_in() {
 
         Calendar now = Calendar.getInstance();
-        PunchedCard t_pc;
-        
-//        for(PunchedCard pc: FastDelivery.punchedCards){
-//            
-//            Date today = new Date();
-//            Date date = pc.getClock_in();
-//            long diffInMillies = today.getTime() - date.getTime();
-//            
-//            if(diffInMillies )
-//        }
-
         Date clock_in = now.getTime();
-        if (deliveryman.getPunched_status()!= "On-Duty") {
-            deliveryman.setClock_in(clock_in);
-            deliveryman.setPunched_status("On-Duty");
+        PunchedCard pc = null;
 
-            System.out.println("Clock In Successful!\n"
-                    + "Date & Time:   " + clock_in + "\n"
-                    + "Employee Name: " + deliveryman.username + "\n");
+        if (FastDelivery.punchedCards.isEmpty()) {
+
+            pc = new PunchedCard();
+            pc.setClock_in(clock_in);
+            pc.setPunched_status(Constants.ON_DUTY);
         } else {
-            System.out.println("THIS USER IS ALREADY ON-DUTY!!\n");
-            punchedCard();
+
+            int last = FastDelivery.punchedCards.size() - 1;
+            PunchedCard old_pc = FastDelivery.punchedCards.get(last);
+
+            Date today = new Date();
+            Date date = old_pc.getClock_in();
+
+            if (isSameDay(today, date)) {
+                System.out.println("Today you already clock in on " + date + ". \n");
+            } else {
+
+                pc = new PunchedCard();
+                pc.setClock_in(clock_in);
+                pc.setPunched_status(Constants.ON_DUTY);
+            }
+        }
+
+        if (pc != null) {
+            if (FastDelivery.punchedCards.add(pc)) {
+                System.out.println("Clock In Successful!\n"
+                        + "Date & Time:   " + clock_in + "\n"
+                        + "Employee Name: " + deliveryman.username + "\n");
+            }
         }
 
         punchedCard();
@@ -107,20 +118,49 @@ public class DeliveryManScreen {
     private void clock_out() {
 
         Calendar now = Calendar.getInstance();
-
         Date clock_out = now.getTime();
-        if (deliveryman.getPunched_status()!= "Off-Duty") {
-            deliveryman.setClock_out(clock_out);
-            deliveryman.setPunched_status("Off-Duty");
 
-            System.out.println("Clock Out Successful!\n"
-                    + "Date & Time:   " + clock_out + "\n"
-                    + "Employee Name: " + deliveryman.username + "\n");
+        if (!FastDelivery.punchedCards.isEmpty()) {
+
+            int last = FastDelivery.punchedCards.size() - 1;
+            PunchedCard pc = FastDelivery.punchedCards.get(last);
+
+            Date today = new Date();
+            Date date = pc.getClock_in();
+
+            if (isSameDay(today, date)) {
+
+                if (pc.getClock_out() == null) {
+
+                    pc.setClock_out(clock_out);
+                    if (FastDelivery.punchedCards.set(last, pc) != null) {
+
+                        System.out.println("Clock Out Successful!\n"
+                                + "Date & Time:   " + clock_out + "\n"
+                                + "Employee Name: " + deliveryman.username + "\n");
+                    }
+                } else {
+                    System.out.println("Today you already clock out on " + pc.getClock_out() + ".\n");
+                }
+            } else {
+                System.out.println("Your punch card must be clock in first.\n");
+            }
         } else {
-            System.out.println("THIS USER IS ALREADY OFF-DUTY!!\n");
-            punchedCard();
+            System.out.println("Your punch card must be clock in first.\n");
         }
 
+        punchedCard();
+    }
+
+    private boolean isSameDay(Date date1, Date date2) {
+
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date1);
+        cal2.setTime(date2);
+
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     private void deliveryManMenu() {

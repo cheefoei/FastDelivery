@@ -5,13 +5,18 @@ import entity.HumanResource;
 import entity.RestaurantOwner;
 import entity.OrderDetails;
 import entity.PunchedCard;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class FastDelivery {
 
     private static Scanner scanner = new Scanner(System.in);
+    private static final DateFormat df = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
     public static List<HumanResource> humanResources = new ArrayList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
@@ -136,12 +141,16 @@ public class FastDelivery {
         );
         customerArray.add(cus1);
 
-//        PunchedCard pc1 = new PunchedCard(
-//                "ON-DUTY",
-//                "Wed Nov 14 05:33:26 UTC 2017",
-//                "Wed Nov 14 07:33:26 UTC 2017",
-//                dm1
-//        );
+        try {
+            PunchedCard pc1 = new PunchedCard(
+                    "ON-DUTY",
+                    df.parse("Wed 17-Nov-2017 23:40:26"),
+                    null,
+                    dm1
+            );
+            punchedCards.add(pc1);
+        } catch (ParseException ex) {
+        }
 
     }
 }
