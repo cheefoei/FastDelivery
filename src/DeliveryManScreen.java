@@ -79,27 +79,27 @@ public class DeliveryManScreen {
         Calendar now = Calendar.getInstance();
         PunchedCard t_pc;
         
-        for(PunchedCard pc: FastDelivery.punchedCards){
-            
-            Date today = new Date();
-            Date date = pc.getClock_in();
-            long diffInMillies = today.getTime() - date.getTime();
-            
-            if(diffInMillies )
-        }
-
-////        Date clock_in = now.getTime();
-//        if (deliveryman.getPunchedStatus() != "On-Duty") {
-//            deliveryman.setClockIn(clock_in);
-//            deliveryman.setPunchedStatus("On-Duty");
-//
-//            System.out.println("Clock In Successful!\n"
-//                    + "Date & Time:   " + clock_in + "\n"
-//                    + "Employee Name: " + deliveryman.username + "\n");
-//        } else {
-//            System.out.println("THIS USER IS ALREADY ON-DUTY!!\n");
-//            punchedCard();
+//        for(PunchedCard pc: FastDelivery.punchedCards){
+//            
+//            Date today = new Date();
+//            Date date = pc.getClock_in();
+//            long diffInMillies = today.getTime() - date.getTime();
+//            
+//            if(diffInMillies )
 //        }
+
+        Date clock_in = now.getTime();
+        if (deliveryman.getPunched_status()!= "On-Duty") {
+            deliveryman.setClock_in(clock_in);
+            deliveryman.setPunched_status("On-Duty");
+
+            System.out.println("Clock In Successful!\n"
+                    + "Date & Time:   " + clock_in + "\n"
+                    + "Employee Name: " + deliveryman.username + "\n");
+        } else {
+            System.out.println("THIS USER IS ALREADY ON-DUTY!!\n");
+            punchedCard();
+        }
 
         punchedCard();
     }
@@ -109,9 +109,9 @@ public class DeliveryManScreen {
         Calendar now = Calendar.getInstance();
 
         Date clock_out = now.getTime();
-        if (deliveryman.getPunchedStatus() != "Off-Duty") {
-            deliveryman.setClockOut(clock_out);
-            deliveryman.setPunchedStatus("Off-Duty");
+        if (deliveryman.getPunched_status()!= "Off-Duty") {
+            deliveryman.setClock_out(clock_out);
+            deliveryman.setPunched_status("Off-Duty");
 
             System.out.println("Clock Out Successful!\n"
                     + "Date & Time:   " + clock_out + "\n"
