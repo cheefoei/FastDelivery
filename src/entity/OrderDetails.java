@@ -11,14 +11,17 @@ import java.io.Serializable;
  *
  * @author Clarity
  */
-public class OrderDetails implements Serializable {
+public class OrderDetails implements Comparable<OrderDetails> {
     
-    private int foodId;
-    //private String foodName;
-    //private int foodPrice;
-    //private int orderId;
+    public static double subTotal;
+public static double runningTotal;
+private static double itemPrice;
+    private String foodName;
+    private double foodPrice;
+    private int orderId;
     private int qty;
-    //private int totalPrice;
+    private double totalPrice;
+    private int foodId;
     
     public OrderDetails(int foodId, int qty) {
         
@@ -31,46 +34,7 @@ public class OrderDetails implements Serializable {
         
     }
 
-    public int getFoodId() {
-        return foodId;
-    }
-
-    public void setFoodId(int foodId) {
-        this.foodId = foodId;
-    }
-
-    /*public String getFoodName() {
-        return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
-
-    public int getFoodPrice() {
-        return foodPrice;
-    }
-
-    public void setFoodPrice(int foodPrice) {
-        this.foodPrice = foodPrice;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-   
-    }
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;*/
-
-    public int getQty() {
+    public double getQty() {
         return qty;
     }
 
@@ -78,10 +42,17 @@ public class OrderDetails implements Serializable {
         this.qty = qty;
     }
 
+    public int getFoodId() {
+        return foodId;
+    }
+
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
+    }
     
     
+public String toString(){
     
-    public String toString(){
         String s;
         if(foodId == 1){
             s = "Char Kuey Teow";
@@ -94,5 +65,16 @@ public class OrderDetails implements Serializable {
         }
         
        return String.format("%-10s %-20s %-20s","",s,qty);
+}
+
+@Override
+    public int compareTo(OrderDetails orderdetails) {
+        if (foodId > orderdetails.getFoodId()) {
+            return 1;
+        } else if (foodId == orderdetails.getFoodId()) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }
