@@ -165,7 +165,7 @@ static boolean ordering = true;
     
 
  Scanner s = new Scanner(System.in);
-        int foodId;
+        int foodId = 0;
         int qty;
         do {
         System.out.println("|------------------------------------------|");
@@ -179,6 +179,7 @@ static boolean ordering = true;
         System.out.println("");
         System.out.println("Please choose your food.\n"
                 + "Your choice: ");
+        
             while (!s.hasNextInt()) { //hasNextInt() check int
                 System.out.println("\nInvalid option, please try again!");
                 System.out.println("\nPlease choose 1-4!");
@@ -204,8 +205,12 @@ static boolean ordering = true;
                 System.out.println("\nPlease choose 1-4!");
                 System.out.println("\nEnter food quantity: ");
                 s.next();
+               
+                
             }
             qty = s.nextInt();
+            foodPrice(foodId);
+            subTotal(qty,foodPrice);
         } while (qty <= 0);
         OrderDetails newOrder = new OrderDetails(foodId, qty);
         orderFoodList.addNewOrder(newOrder);
@@ -226,7 +231,7 @@ static boolean ordering = true;
         if (yesno == 1) {
             chineseMenu();
         } else {
-            System.exit(0);
+            done();
         }
 //        }
     }
@@ -439,7 +444,7 @@ public double foodPrice(int foodId) {
         System.out.println("Ordered - Fried Rice\n");
         foodPrice = 4.50;
     }
-    quantity();
+//    quantity();
     return foodPrice;
 }
 public int quantity() {
