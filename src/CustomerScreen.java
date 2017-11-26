@@ -1,9 +1,12 @@
 
 import adt.OrderFoodInterface;
 import adt.OrderFoodList;
+import adt.OrderInterface;
+import adt.OrderList;
 import java.util.Scanner;
 import entity.Customer;
 import entity.OrderDetails;
+import entity.Orders;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +15,12 @@ public class CustomerScreen {
     private Scanner scanner = new Scanner(System.in);
     public static List<Customer> customerArray = new ArrayList<>();
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
+//    public static OrderInterface<Orders> orderList = new OrderList<>();
     private Customer currentUser;
     private OrderDetails orderDetails;
+//    public static int id = 001;
+//    public static String status = "Pending";
+    
     
     public double subTotal;
 public double runningTotal;
@@ -31,6 +38,9 @@ static boolean ordering = true;
         OrderDetails orderdetails1 = new OrderDetails(1, 10);
 
         orderFoodList.addNewOrder(orderdetails1);
+//        Orders order1 = new Orders(id, status);
+//        id++;
+//        orderList.addNewOrder(order1);
     }
 
     private void checkAutho() {
@@ -169,6 +179,78 @@ static boolean ordering = true;
         System.out.println("");
         System.out.println("Please choose your food.\n"
                 + "Your choice: ");
+            while (!s.hasNextInt()) { //hasNextInt() check int
+                System.out.println("\nInvalid option, please try again!");
+                System.out.println("\nPlease choose 1-4!");
+                System.out.println("|------------------------------------------|");
+        System.out.println("| Ho Ciak Menu                             |");
+        System.out.println("|------------------------------------------|");
+        System.out.println("|1. Char Kuey Teow       | RM 5.00         |");
+        System.out.println("|2. Chicken Rice         | RM 8.00         |");
+        System.out.println("|3. Fish head noodles    | RM 15.00        |");
+        System.out.println("|4. Fried Rice           | RM 4.50         |");
+        System.out.println("|------------------------------------------|");
+        System.out.println("");
+        System.out.println("Please choose your food.\n"+ "Your choice: ");
+                s.next();
+            }
+            foodId = s.nextInt();
+        } while (foodId <= 0);
+
+        do {
+            System.out.println("\nEnter food quantity: ");
+            while (!s.hasNextInt()) {
+                System.out.println("\nInvalid option, please try again!");
+                System.out.println("\nPlease choose 1-4!");
+                System.out.println("\nEnter food quantity: ");
+                s.next();
+            }
+            qty = s.nextInt();
+        } while (qty <= 0);
+        OrderDetails newOrder = new OrderDetails(foodId, qty);
+        orderFoodList.addNewOrder(newOrder);
+        orderDetails = new OrderDetails(foodId, qty);
+//        if (FastDelivery.orderDetail.add(orderDetails)) {
+            System.out.printf("\n");
+            System.out.println("\nNew food added!\n");
+        System.out.println("----------------------------------------------");
+        System.out.println("                 Order List");
+        System.out.println("----------------------------------------------");
+        System.out.printf("%-10s %-20s %-20s \n", "No.", "Food Name", "Quantity");
+        System.out.println("----------------------------------------------");
+        System.out.println(orderFoodList);
+        System.out.println("Order more food?\n"
+                + "1. Yes\n"
+                + "2. No\n");
+        int yesno = s.nextInt();
+        if (yesno == 1) {
+            chineseMenu();
+        } else {
+            System.exit(0);
+        }
+//        }
+    }
+    
+
+        
+    
+    private void indianMenu() {
+        
+         Scanner s = new Scanner(System.in);
+        int foodId;
+        int qty;
+        do {
+        System.out.println("|------------------------------------------|");
+        System.out.println("| Ho Ciak Menu                             |");
+        System.out.println("|------------------------------------------|");
+        System.out.println("|1. Char Kuey Teow       | RM 5.00         |");
+        System.out.println("|2. Chicken Rice         | RM 8.00         |");
+        System.out.println("|3. Fish head noodles    | RM 15.00        |");
+        System.out.println("|4. Fried Rice           | RM 4.50         |");
+        System.out.println("|------------------------------------------|");
+        System.out.println("");
+        System.out.println("Please choose your food.\n"
+                + "Your choice: ");
             while (!s.hasNextInt()) {
                 System.out.println("\n**Invalid option, please try again!**");
                 System.out.println("|------------------------------------------|");
@@ -212,17 +294,12 @@ static boolean ordering = true;
                 + "2. No\n");
         int yesno = s.nextInt();
         if (yesno == 1) {
-            chineseMenu();
+            indianMenu();
         } else {
             System.exit(0);
         }
 //        }
     }
-    
-
-        
-    
-    private void indianMenu() {
 //        Scanner s = new Scanner(System.in);
 //
 //        int foodId;
@@ -280,7 +357,7 @@ static boolean ordering = true;
 //            System.exit(0);
 //        }
 //        }
-    }
+    
     private void malayMenu() {
 //        Scanner s = new Scanner(System.in);
 //

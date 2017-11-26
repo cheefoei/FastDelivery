@@ -11,16 +11,16 @@ import java.io.Serializable;
  *
  * @author Clarity
  */
-public class Orders implements Serializable {
+public class Orders implements Comparable<Orders> {
     
     private int orderId;
     private String status;
     private int totalPrice;
     
-    public Orders(int orderId, String status,int totalPrice) {
+    public Orders(int orderId, String status) {
         this.orderId = orderId;
         this.status = status;
-        this.totalPrice = totalPrice;
+//        this.totalPrice = totalPrice;
         
     }
 
@@ -46,5 +46,15 @@ public class Orders implements Serializable {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+    @Override
+    public int compareTo(Orders orders) {
+        if (orderId > orders.getOrderId()) {
+            return 1;
+        } else if (orderId == orders.getOrderId()) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }
