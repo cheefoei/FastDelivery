@@ -196,6 +196,7 @@ static boolean ordering = true;
                 s.next();
             }
             foodId = s.nextInt();
+            foodPrice(foodId);
         } while (foodId <= 0);
 
         do {
@@ -209,7 +210,7 @@ static boolean ordering = true;
                 
             }
             qty = s.nextInt();
-            foodPrice(foodId);
+            
             subTotal(qty,foodPrice);
         } while (qty <= 0);
         OrderDetails newOrder = new OrderDetails(foodId, qty);
@@ -447,25 +448,25 @@ public double foodPrice(int foodId) {
 //    quantity();
     return foodPrice;
 }
-public int quantity() {
-    Scanner s = new Scanner(System.in);
-    Scanner con = new Scanner(System.in);
-    System.out.println("Enter quantity :");       
-    int quantity = s.nextInt();
-    subTotal(quantity, foodPrice);
-    System.out.println("Order more food?\n"
-                + "1. Yes\n"
-                + "2. No\n"
-                + "Your choice: ");
-        int yesno = con.nextInt();
-        if (yesno == 1) {
-            chineseMenu();
-        } else {
-            done();
-        }
-        
-    return quantity;
- }
+//public int quantity() {
+//    Scanner s = new Scanner(System.in);
+//    Scanner con = new Scanner(System.in);
+//    System.out.println("Enter quantity :");       
+//    int quantity = s.nextInt();
+//    subTotal(quantity, foodPrice);
+//    System.out.println("Order more food?\n"
+//                + "1. Yes\n"
+//                + "2. No\n"
+//                + "Your choice: ");
+//        int yesno = con.nextInt();
+//        if (yesno == 1) {
+//            chineseMenu();
+//        } else {
+//            done();
+//        }
+//        
+//    return quantity;
+// }
 public double subTotal(double quantity, double foodPrice) {
     
     double subTotal = quantity*foodPrice;
