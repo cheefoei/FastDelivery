@@ -60,9 +60,26 @@ public String toString(){
             s = "Chicken Rice";
         }else if(foodId == 3){
             s = "Fish head noodles";
-        }else{
-            s = "Fried rice";
+        }else if(foodId == 4){
+            s = "Fried Rice";
+        }else if(foodId == 5){
+            s = "Tose";
+        }else if(foodId == 6){
+            s = "Roti Telur";
+        }else if(foodId == 7){
+            s = "Cheese Naan";
+        }else if(foodId == 8){
+            s = "Banana Leaf Rice";
+        }else if(foodId == 9){
+            s = "Nasi Lemak";
+        }else if(foodId == 10){
+            s = "Asam Laksa";
+        }else if(foodId == 11){
+            s = "Ayam Penyet";
+        }else {
+            s = "Murtabak";
         }
+        
         
        return String.format("%-10s %-20s %-20s","",s,qty);
 }
