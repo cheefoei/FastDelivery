@@ -66,8 +66,11 @@ public class HumanResourceScreen {
 
         System.out.printf("\nWelcome back, " + currentUser.fname + " " + currentUser.lname + "\n");
 
-        boolean valid = true;
+        boolean valid;
         do {
+
+            valid = true;
+
             System.out.println("Human Resource Menu");
             System.out.println("===================");
             System.out.println("1) View delivery men");
@@ -94,6 +97,7 @@ public class HumanResourceScreen {
                     addDeliveryMan();
                     break;
                 case 3:
+                    updateDeliveryMan();
                     break;
                 case 4:
                     break;
@@ -116,37 +120,50 @@ public class HumanResourceScreen {
 
         int count = 1;
         for (DeliveryMan dm : FastDelivery.deliveryMen) {
-            System.out.printf(count + ") " + dm.fname + " " + dm.lname + "\n");
+
+            String status = "";
+            if (dm.isIsLeave()) {
+                status = "LEAVE";
+            } else if (dm.isIsResigned()) {
+                status = "RESIGNED";
+            } else {
+                status = "WORKING";
+            }
+            System.out.printf(count + ") " + dm.fname + " " + dm.lname + " (" + status + ")\n");
             count++;
         }
 
         System.out.println("Enter the number to view full detail.");
         System.out.println("Else will go back to menu.");
         System.out.print(">");
+        String option = scanner.nextLine();
 
-        int opt = -1;
         try {
-            opt = Integer.parseInt(scanner.nextLine());
+
+            int opt = Integer.parseInt(option);
+
+            if (opt > 0 && opt < count) {
+
+                DeliveryMan dm = FastDelivery.deliveryMen.get(opt - 1);
+
+                System.out.printf("First name \t\t: " + dm.fname + "\n");
+                System.out.printf("Last name \t\t: " + dm.lname + "\n");;
+                System.out.printf("Gender \t\t\t: " + dm.gender + "\n");
+                System.out.printf("NRIC \t\t\t: " + dm.nric + "\n");
+                System.out.printf("Home address \t\t: " + dm.address + "\n");
+                System.out.printf("Email address \t\t: " + dm.email + "\n");
+                System.out.printf("Phone number \t\t: " + dm.phoneNumber + "\n");
+
+                System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+                scanner.nextLine();
+                humanResourceMenu();
+
+            } else {
+                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                viewDeliveryMan();
+            }
+
         } catch (NumberFormatException ex) {
-            humanResourceMenu();
-        }
-
-        if (opt > 0 && opt <= count) {
-
-            DeliveryMan dm = FastDelivery.deliveryMen.get(opt - 1);
-
-            System.out.printf("First name \t\t: " + dm.fname + "\n");
-            System.out.printf("Last name \t\t: " + dm.lname + "\n");;
-            System.out.printf("Gender \t\t\t: " + dm.gender + "\n");
-            System.out.printf("NRIC \t\t\t: " + dm.nric + "\n");
-            System.out.printf("Home address \t\t: " + dm.address + "\n");
-            System.out.printf("Email address \t\t: " + dm.email + "\n");
-            System.out.printf("Phone number \t\t: " + dm.phoneNumber + "\n");
-
-            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
-            scanner.nextLine();
-            viewDeliveryMan();
-        } else {
             humanResourceMenu();
         }
     }
@@ -237,5 +254,184 @@ public class HumanResourceScreen {
                 humanResourceMenu();
             }
         }
+    }
+
+    private void updateDeliveryMan() {
+
+        System.out.printf("\nUpdate Delivery Man\n");
+        System.out.println("================");
+
+        int count = 1;
+        for (DeliveryMan dm : FastDelivery.deliveryMen) {
+            System.out.printf(count + ") " + dm.fname + " " + dm.lname + "\n");
+            count++;
+        }
+        System.out.println("Enter the number to select delivery man and update. .");
+        System.out.println("Else will go back to menu.");
+        System.out.print(">");
+
+        try {
+
+            int deliveryManOption = Integer.parseInt(scanner.nextLine());
+
+            if (deliveryManOption > 0 && deliveryManOption < count) {
+
+                DeliveryMan dm = FastDelivery.deliveryMen.get(deliveryManOption - 1);
+
+                System.out.println("\nUpdate " + dm.fname + " " + dm.lname + "'s information");
+                System.out.println("=====================================");
+                System.out.println("1) Home aadress");
+                System.out.println("2) Email address");
+                System.out.println("3) Phone number");
+                System.out.println("4) Set status");
+                System.out.print("Option >");
+
+                String updateOption = scanner.nextLine();
+                boolean valid = true;
+
+                if (updateOption.equals("1")) {
+
+                    System.out.println("Q: What's his/her new home address ?");
+                    System.out.print("New Home address > ");
+                    dm.address = scanner.nextLine();
+
+                    FastDelivery.deliveryMen.set(deliveryManOption - 1, dm);
+                    System.out.println("His/her home address is updated successfully.");
+                    humanResourceMenu();
+
+                } else if (updateOption.equals("2")) {
+
+                    do {
+                        System.out.println("Q: What's his/her new email address ?");
+                        System.out.print("New Email address > ");
+                        dm.email = scanner.nextLine();
+
+                        valid = dm.email.matches("\\S+@\\S+\\.\\S+");
+                        if (!valid) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                        }
+                    } while (!valid);
+
+                    FastDelivery.deliveryMen.set(deliveryManOption - 1, dm);
+                    System.out.println("His/her email address is updated successfully.");
+                    humanResourceMenu();
+
+                } else if (updateOption.equals("3")) {
+
+                    do {
+                        System.out.println("Q: What's his/her new phone number (Exclude '-') ?");
+                        System.out.print("New Phone number > ");
+                        dm.phoneNumber = scanner.nextLine();
+
+                        valid = dm.phoneNumber.matches("\\d{10,12}");
+                        if (!valid) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                        }
+                    } while (!valid);
+
+                    FastDelivery.deliveryMen.set(deliveryManOption - 1, dm);
+                    System.out.println("His/her phone number is updated successfully.");
+                    humanResourceMenu();
+
+                } else if (updateOption.equals("4")) {
+
+                    setDeliveryManStatus(deliveryManOption - 1, dm);
+                } else {
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    updateDeliveryMan();
+                }
+            } else {
+                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                updateDeliveryMan();
+            }
+        } catch (NumberFormatException ex) {
+            humanResourceMenu();
+        }
+
+    }
+
+    private void setDeliveryManStatus(int index, DeliveryMan dm) {
+
+        System.out.println("");
+
+        if (dm.isIsLeave()) {
+
+            System.out.println(dm.fname + " " + dm.lname + " is LEAVE ");
+            System.out.println("Which status need to change to?");
+            System.out.println("1) AVAILABLE TO WORK");
+            System.out.println("2) RESIGNED");
+            System.out.println("Else will go back to menu.");
+            System.out.print("Option >");
+
+            String option = scanner.nextLine();
+            if (option.equals("1")) {
+
+                dm.setIsLeave(false);
+                FastDelivery.deliveryMen.set(index, dm);
+                System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
+                humanResourceMenu();
+
+            } else if (option.equals("2")) {
+
+                dm.setIsLeave(false);
+                dm.setIsResigned(true);
+
+                FastDelivery.deliveryMen.set(index, dm);
+                System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
+                humanResourceMenu();
+
+            } else {
+                updateDeliveryMan();
+            }
+
+        } else if (dm.isIsResigned()) {
+
+            System.out.println(dm.fname + " " + dm.lname + " is RESIGNED ");
+            System.out.println("Which status need to change to?");
+            System.out.println("1) AVAILABLE TO WORK");
+            System.out.println("Else will go back to menu.");
+            System.out.print("Option >");
+
+            String option = scanner.nextLine();
+            if (option.equals("1")) {
+
+                dm.setIsResigned(false);
+                FastDelivery.deliveryMen.set(index, dm);
+                System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
+                humanResourceMenu();
+
+            } else {
+                updateDeliveryMan();
+            }
+        } else {
+
+            System.out.println(dm.fname + " " + dm.lname + " is WORKING ");
+            System.out.println("Which status need to change to?");
+            System.out.println("1) LEAVE");
+            System.out.println("2) RESIGNED");
+            System.out.println("Else will go back to menu.");
+            System.out.print("Option >");
+
+            String option = scanner.nextLine();
+            if (option.equals("1")) {
+
+                dm.setIsLeave(true);
+                FastDelivery.deliveryMen.set(index, dm);
+                System.out.println(dm.fname + " " + dm.lname + " is LEAVE now.");
+                humanResourceMenu();
+
+            } else if (option.equals("2")) {
+
+                dm.setIsResigned(true);
+
+                FastDelivery.deliveryMen.set(index, dm);
+                System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
+                humanResourceMenu();
+
+            } else {
+                updateDeliveryMan();
+            }
+        }
+
     }
 }

@@ -1,14 +1,13 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class DeliveryMan extends Staff implements Serializable {
 
-    private String status;
-    private String punched_status;
-    private Date clock_in;
-    private Date clock_out;
+    private boolean isLeave;
+    private boolean isResigned;
+    private boolean isDeliveryAvailable;
+    private int deliveryNumber;
 
     public DeliveryMan() {
     }
@@ -25,6 +24,9 @@ public class DeliveryMan extends Staff implements Serializable {
             String password) {
 
         super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
+        this.isLeave = false;
+        this.isResigned = false;
+        this.isDeliveryAvailable = true;
     }
 
     public DeliveryMan(
@@ -37,47 +39,38 @@ public class DeliveryMan extends Staff implements Serializable {
             String phoneNumber,
             String username,
             String password,
-            String status,
-            Date clock_in,
-            String punched_status,
-            Date clock_out) {
+            boolean isLeave,
+            boolean isResigned,
+            boolean isDeliveryAvailable) {
 
         super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
-        this.status = status;
-        this.punched_status = punched_status;
-        this.clock_in =clock_in;
-        this.clock_out =clock_out;
+        this.isLeave = isLeave;
+        this.isResigned = isResigned;
+        this.isDeliveryAvailable = isDeliveryAvailable;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isIsLeave() {
+        return isLeave;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public String getPunched_status() {
-        return punched_status;
+    public void setIsLeave(boolean isLeave) {
+        this.isLeave = isLeave;
     }
 
-    public void setPunched_status(String punched_status) {
-        this.punched_status = punched_status;
+    public boolean isIsResigned() {
+        return isResigned;
     }
 
-    public Date getClock_in() {
-        return clock_in;
+    public void setIsResigned(boolean isResigned) {
+        this.isResigned = isResigned;
     }
 
-    public void setClock_in(Date clock_in) {
-        this.clock_in = clock_in;
+    public boolean isIsDeliveryAvailable() {
+        return isDeliveryAvailable;
     }
 
-    public Date getClock_out() {
-        return clock_out;
-    }
-
-    public void setClock_out(Date clock_out) {
-        this.clock_out = clock_out;
+    public void setIsDeliveryAvailable(boolean isDeliveryAvailable) {
+        this.isDeliveryAvailable = isDeliveryAvailable;
     }
 
 }
