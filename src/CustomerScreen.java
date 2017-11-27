@@ -15,15 +15,15 @@ public class CustomerScreen {
     private Scanner scanner = new Scanner(System.in);
     public static List<Customer> customerArray = new ArrayList<>();
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
-//    public static OrderInterface<Orders> orderList = new OrderList<>();
+    public static OrderInterface<Orders> orderList = new OrderList<>();
     private Customer currentUser;
     private OrderDetails orderDetails;
-//    public static int id = 001;
-//    public static String status = "Pending";
+    public static int id = 0001;
+    public static String status = "Pending";
     
     
     public double subTotal;
-public double runningTotal;
+public double totalPrice;
 private double foodPrice;
 static boolean ordering = true;
     
@@ -38,9 +38,9 @@ static boolean ordering = true;
         OrderDetails orderdetails1 = new OrderDetails(1, 10);
 
         orderFoodList.addNewOrder(orderdetails1);
-//        Orders order1 = new Orders(id, status);
-//        id++;
-//        orderList.addNewOrder(order1);
+        Orders order1 = new Orders(id, status, totalPrice);
+        id++;
+        orderList.addNewOrder(order1);
     }
 
     private void checkAutho() {
@@ -219,8 +219,8 @@ static boolean ordering = true;
 //        if (FastDelivery.orderDetail.add(orderDetails)) {
             System.out.printf("\n");
             System.out.println("\nNew food added!\n");
-        System.out.println("----------------------------------------------");
-        System.out.println("                 Order List");
+        System.out.println("---------------------------------------------");
+        System.out.println("             Order Details List");
         System.out.println("----------------------------------------------");
         System.out.printf("%-10s %-20s %-20s \n", "No.", "Food Name", "Quantity");
         System.out.println("----------------------------------------------");
@@ -427,22 +427,22 @@ static boolean ordering = true;
 public double foodPrice(int foodId) {
     if (foodId == 1) {
         //Char Kuey Teow = RM5.00
-        System.out.println("Ordered - Char Kuey Teow\n");
+        System.out.println("Ordered - Char Kuey Teow");
         foodPrice = 5.00;
     }
     if (foodId == 2) {
         //Chicken Rice = RM8.00
-        System.out.println("Ordered - Chicken Rice\n");
+        System.out.println("Ordered - Chicken Rice");
         foodPrice = 8.00;
     }
     if (foodId == 3) {
         //Fish head noodles = RM15.00
-        System.out.println("Ordered - Fish head noodles\n");
+        System.out.println("Ordered - Fish head noodles");
         foodPrice = 15.00;
     }
     if (foodId == 4) {
         //Fried Rice = RM4.50
-        System.out.println("Ordered - Fried Rice\n");
+        System.out.println("Ordered - Fried Rice");
         foodPrice = 4.50;
     }
 //    quantity();
@@ -471,13 +471,29 @@ public double subTotal(double quantity, double foodPrice) {
     
     double subTotal = quantity*foodPrice;
     System.out.println("Subtotal: RM"+ subTotal);
-    runningTotal += subTotal;
+    totalPrice += subTotal;
     return subTotal;
 }
 public void done(){
     ordering = false;
-    System.out.println("Total price: RM"+ runningTotal);
-    System.out.println("Thank you for your order !\n");
-}
+    System.out.println("|-------------------------------|");
+    System.out.println("|Total price: RM"+ totalPrice +"            "+          "|");
+    System.out.println("|-------------------------------|");
+    System.out.println("|Thank you for your order !     |");
+    System.out.println("|-------------------------------|");
+    payment();
 
+}
+public void payment(){
+    System.out.println("\nPlease make payment to the deliveryman. We accept **CASH ONLY!**");
+    Orders newOrders = new Orders(id, status, totalPrice);
+        id++;
+        orderList.addNewOrder(newOrders);
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("                              Order List");
+        System.out.println("------------------------------------------------------------------------");
+        System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println(orderList);
+}
 }
