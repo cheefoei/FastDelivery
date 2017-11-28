@@ -21,12 +21,11 @@ public class CustomerScreen {
     public static int id = 0001;
     public static String status = "Pending";
 
-    
     public double subTotal;
     public double totalPrice;
     private double foodPrice;
     static boolean ordering = true;
-    
+
     private int failedCount = 0;
 
     public CustomerScreen() {
@@ -50,7 +49,7 @@ public class CustomerScreen {
 
         System.out.print("Password >");
         String cusPassword = scanner.nextLine();
-        
+
         for (Customer cus : FastDelivery.customerArray) {
             if (cusUsername.equals(cus.cusUsername)) {
                 currentUser = cus;
@@ -72,7 +71,6 @@ public class CustomerScreen {
         }
 
     }
-
 
     private void customerMenu() {
 
@@ -162,37 +160,36 @@ public class CustomerScreen {
 //        System.out.println(orderFoodList); {
 //
 //    }
-    
 
- Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         int foodId = 0;
         int qty;
         do {
-        System.out.println("|------------------------------------------|");
-        System.out.println("| Ho Ciak Menu                             |");
-        System.out.println("|------------------------------------------|");
-        System.out.println("|1. Char Kuey Teow       | RM 5.00         |");
-        System.out.println("|2. Chicken Rice         | RM 8.00         |");
-        System.out.println("|3. Fish head noodles    | RM 15.00        |");
-        System.out.println("|4. Fried Rice           | RM 4.50         |");
-        System.out.println("|------------------------------------------|");
-        System.out.println("");
-        System.out.println("Please choose your food.\n"
-                + "Your choice: ");
-        
+            System.out.println("|------------------------------------------|");
+            System.out.println("| Ho Ciak Menu                             |");
+            System.out.println("|------------------------------------------|");
+            System.out.println("|1. Char Kuey Teow       | RM 5.00         |");
+            System.out.println("|2. Chicken Rice         | RM 8.00         |");
+            System.out.println("|3. Fish head noodles    | RM 15.00        |");
+            System.out.println("|4. Fried Rice           | RM 4.50         |");
+            System.out.println("|------------------------------------------|");
+            System.out.println("");
+            System.out.println("Please choose your food.\n"
+                    + "Your choice: ");
+
             while (!s.hasNextInt()) { //hasNextInt() check int
                 System.out.println("\nInvalid option, please try again!");
                 System.out.println("\nPlease choose 1-4!");
                 System.out.println("|------------------------------------------|");
-        System.out.println("| Ho Ciak Menu                             |");
-        System.out.println("|------------------------------------------|");
-        System.out.println("|1. Char Kuey Teow       | RM 5.00         |");
-        System.out.println("|2. Chicken Rice         | RM 8.00         |");
-        System.out.println("|3. Fish head noodles    | RM 15.00        |");
-        System.out.println("|4. Fried Rice           | RM 4.50         |");
-        System.out.println("|------------------------------------------|");
-        System.out.println("");
-        System.out.println("Please choose your food.\n"+ "Your choice: ");
+                System.out.println("| Ho Ciak Menu                             |");
+                System.out.println("|------------------------------------------|");
+                System.out.println("|1. Char Kuey Teow       | RM 5.00         |");
+                System.out.println("|2. Chicken Rice         | RM 8.00         |");
+                System.out.println("|3. Fish head noodles    | RM 15.00        |");
+                System.out.println("|4. Fried Rice           | RM 4.50         |");
+                System.out.println("|------------------------------------------|");
+                System.out.println("");
+                System.out.println("Please choose your food.\n" + "Your choice: ");
                 s.next();
             }
             foodId = s.nextInt();
@@ -206,19 +203,18 @@ public class CustomerScreen {
                 System.out.println("\nPlease choose 1-4!");
                 System.out.println("\nEnter food quantity: ");
                 s.next();
-               
-                
+
             }
             qty = s.nextInt();
-            
-            subTotal(qty,foodPrice);
+
+            subTotal(qty, foodPrice);
         } while (qty <= 0);
         OrderDetails newOrder = new OrderDetails(foodId, qty);
         orderFoodList.addNewOrder(newOrder);
         orderDetails = new OrderDetails(foodId, qty);
 //        if (FastDelivery.orderDetail.add(orderDetails)) {
-            System.out.printf("\n");
-            System.out.println("\nNew food added!\n");
+        System.out.printf("\n");
+        System.out.println("\nNew food added!\n");
         System.out.println("---------------------------------------------");
         System.out.println("             Order Details List");
         System.out.println("----------------------------------------------");
@@ -236,41 +232,38 @@ public class CustomerScreen {
         }
 //        }
     }
-    
 
-        
-    
     private void indianMenu() {
-        
-         Scanner s = new Scanner(System.in);
+
+        Scanner s = new Scanner(System.in);
         int foodId = 0;
         int qty;
         do {
-        System.out.println("|------------------------------------------------|");
-        System.out.println("| Svaadisht Menu                                 |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("|5. Tose                       | RM 3.00         |");
-        System.out.println("|6. Roti telur                 | RM 4.00         |");
-        System.out.println("|7. Cheese Naan                | RM 6.00         |");
-        System.out.println("|8. Banana Leaf Rice           | RM 15.00        |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("");
-        System.out.println("Please choose your food.\n"
-                + "Your choice: ");
-        
+            System.out.println("|------------------------------------------------|");
+            System.out.println("| Svaadisht Menu                                 |");
+            System.out.println("|------------------------------------------------|");
+            System.out.println("|5. Tose                       | RM 3.00         |");
+            System.out.println("|6. Roti telur                 | RM 4.00         |");
+            System.out.println("|7. Cheese Naan                | RM 6.00         |");
+            System.out.println("|8. Banana Leaf Rice           | RM 15.00        |");
+            System.out.println("|------------------------------------------------|");
+            System.out.println("");
+            System.out.println("Please choose your food.\n"
+                    + "Your choice: ");
+
             while (!s.hasNextInt()) { //hasNextInt() check int
                 System.out.println("\nInvalid option, please try again!");
                 System.out.println("\nPlease choose 1-4!");
                 System.out.println("|------------------------------------------------|");
-        System.out.println("| Svaadisht Menu                                 |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("|5. Tose                       | RM 3.00         |");
-        System.out.println("|6. Roti telur                 | RM 4.00         |");
-        System.out.println("|7. Cheese Naan                | RM 6.00         |");
-        System.out.println("|8. Banana Leaf Rice           | RM 15.00        |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("");
-        System.out.println("Please choose your food.\n"+ "Your choice: ");
+                System.out.println("| Svaadisht Menu                                 |");
+                System.out.println("|------------------------------------------------|");
+                System.out.println("|5. Tose                       | RM 3.00         |");
+                System.out.println("|6. Roti telur                 | RM 4.00         |");
+                System.out.println("|7. Cheese Naan                | RM 6.00         |");
+                System.out.println("|8. Banana Leaf Rice           | RM 15.00        |");
+                System.out.println("|------------------------------------------------|");
+                System.out.println("");
+                System.out.println("Please choose your food.\n" + "Your choice: ");
                 s.next();
             }
             foodId = s.nextInt();
@@ -284,19 +277,18 @@ public class CustomerScreen {
                 System.out.println("\nPlease choose 5-8!");
                 System.out.println("\nEnter food quantity: ");
                 s.next();
-               
-                
+
             }
             qty = s.nextInt();
-            
-            subTotal(qty,foodPrice);
+
+            subTotal(qty, foodPrice);
         } while (qty <= 0);
         OrderDetails newOrder = new OrderDetails(foodId, qty);
         orderFoodList.addNewOrder(newOrder);
         orderDetails = new OrderDetails(foodId, qty);
 //        if (FastDelivery.orderDetail.add(orderDetails)) {
-            System.out.printf("\n");
-            System.out.println("\nNew food added!\n");
+        System.out.printf("\n");
+        System.out.println("\nNew food added!\n");
         System.out.println("---------------------------------------------");
         System.out.println("             Order Details List");
         System.out.println("----------------------------------------------");
@@ -371,37 +363,37 @@ public class CustomerScreen {
 //            System.exit(0);
 //        }
 //        }
-    
+
     private void malayMenu() {
-Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         int foodId = 0;
         int qty;
         do {
-        System.out.println("|------------------------------------------------|");
-        System.out.println("| Maju maju Menu                                 |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("|9. Nasi Lemak                  | RM 5.00        |");
-        System.out.println("|10. Asam Laksa                 | RM 8.00        |");
-        System.out.println("|11. Ayam Penyet                | RM 15.00       |");
-        System.out.println("|12. Murtabak                   | RM 4.00        |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("");
-        System.out.println("Please choose your food.\n"
-                + "Your choice: ");
-        
+            System.out.println("|------------------------------------------------|");
+            System.out.println("| Maju maju Menu                                 |");
+            System.out.println("|------------------------------------------------|");
+            System.out.println("|9. Nasi Lemak                  | RM 5.00        |");
+            System.out.println("|10. Asam Laksa                 | RM 8.00        |");
+            System.out.println("|11. Ayam Penyet                | RM 15.00       |");
+            System.out.println("|12. Murtabak                   | RM 4.00        |");
+            System.out.println("|------------------------------------------------|");
+            System.out.println("");
+            System.out.println("Please choose your food.\n"
+                    + "Your choice: ");
+
             while (!s.hasNextInt()) { //hasNextInt() check int
                 System.out.println("\nInvalid option, please try again!");
                 System.out.println("\nPlease choose 1-4!");
                 System.out.println("|------------------------------------------------|");
-        System.out.println("| Maju maju Menu                                 |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("|9. Nasi Lemak                  | RM 5.00        |");
-        System.out.println("|10. Asam Laksa                 | RM 8.00        |");
-        System.out.println("|11. Ayam Penyet                | RM 15.00       |");
-        System.out.println("|12. Murtabak                   | RM 4.00        |");
-        System.out.println("|------------------------------------------------|");
-        System.out.println("");
-        System.out.println("Please choose your food.\n"+ "Your choice: ");
+                System.out.println("| Maju maju Menu                                 |");
+                System.out.println("|------------------------------------------------|");
+                System.out.println("|9. Nasi Lemak                  | RM 5.00        |");
+                System.out.println("|10. Asam Laksa                 | RM 8.00        |");
+                System.out.println("|11. Ayam Penyet                | RM 15.00       |");
+                System.out.println("|12. Murtabak                   | RM 4.00        |");
+                System.out.println("|------------------------------------------------|");
+                System.out.println("");
+                System.out.println("Please choose your food.\n" + "Your choice: ");
                 s.next();
             }
             foodId = s.nextInt();
@@ -415,19 +407,18 @@ Scanner s = new Scanner(System.in);
                 System.out.println("\nPlease choose 9-12!");
                 System.out.println("\nEnter food quantity: ");
                 s.next();
-               
-                
+
             }
             qty = s.nextInt();
-            
-            subTotal(qty,foodPrice);
+
+            subTotal(qty, foodPrice);
         } while (qty <= 0);
         OrderDetails newOrder = new OrderDetails(foodId, qty);
         orderFoodList.addNewOrder(newOrder);
         orderDetails = new OrderDetails(foodId, qty);
 //        if (FastDelivery.orderDetail.add(orderDetails)) {
-            System.out.printf("\n");
-            System.out.println("\nNew food added!\n");
+        System.out.printf("\n");
+        System.out.println("\nNew food added!\n");
         System.out.println("---------------------------------------------");
         System.out.println("             Order Details List");
         System.out.println("----------------------------------------------");
@@ -445,70 +436,70 @@ Scanner s = new Scanner(System.in);
         }
     }
 
-public double foodPrice(int foodId) {
-    if (foodId == 1) {
-        //Char Kuey Teow = RM5.00
-        System.out.println("Ordered - Char Kuey Teow");
-        foodPrice = 5.00;
-    }
-    if (foodId == 2) {
-        //Chicken Rice = RM8.00
-        System.out.println("Ordered - Chicken Rice");
-        foodPrice = 8.00;
-    }
-    if (foodId == 3) {
-        //Fish head noodles = RM15.00
-        System.out.println("Ordered - Fish head noodles");
-        foodPrice = 15.00;
-    }
-    if (foodId == 4) {
-        //Fried Rice = RM4.50
-        System.out.println("Ordered - Fried Rice");
-        foodPrice = 4.50;
-    }
-    if (foodId == 5) {
-        //Tose = RM3.00
-        System.out.println("Ordered - Tose");
-        foodPrice = 3.00;
-    }
-    if (foodId == 6) {
-        //Roti Telur = RM4.00
-        System.out.println("Ordered - Roti Telur");
-        foodPrice = 4.00;
-    }
-    if (foodId == 7) {
-        //Cheese naan = RM6.00
-        System.out.println("Ordered - Cheese naan");
-        foodPrice = 6.00;
-    }
-    if (foodId == 8) {
-        //Banana Leaf Rice = RM15.00
-        System.out.println("Ordered - Banana Leaf Rice");
-        foodPrice = 15.00;
-    }
-    if (foodId == 9) {
-        //Nasi Lemak = RM5.00
-        System.out.println("Ordered - Nasi Lemak");
-        foodPrice = 5.00;
-    }
-    if (foodId == 10) {
-        //Asam Laksa = RM8.00
-        System.out.println("Ordered - Asam Laksa");
-        foodPrice = 8.00;
-    }
-    if (foodId == 11) {
-        //Ayam Penyet = RM15.00
-        System.out.println("Ordered - Ayam Penyet");
-        foodPrice = 15.00;
-    }
-    if (foodId == 12) {
-        //Murtabak = RM4.00
-        System.out.println("Ordered - Murtabak");
-        foodPrice = 4.00;
-    }
+    public double foodPrice(int foodId) {
+        if (foodId == 1) {
+            //Char Kuey Teow = RM5.00
+            System.out.println("Ordered - Char Kuey Teow");
+            foodPrice = 5.00;
+        }
+        if (foodId == 2) {
+            //Chicken Rice = RM8.00
+            System.out.println("Ordered - Chicken Rice");
+            foodPrice = 8.00;
+        }
+        if (foodId == 3) {
+            //Fish head noodles = RM15.00
+            System.out.println("Ordered - Fish head noodles");
+            foodPrice = 15.00;
+        }
+        if (foodId == 4) {
+            //Fried Rice = RM4.50
+            System.out.println("Ordered - Fried Rice");
+            foodPrice = 4.50;
+        }
+        if (foodId == 5) {
+            //Tose = RM3.00
+            System.out.println("Ordered - Tose");
+            foodPrice = 3.00;
+        }
+        if (foodId == 6) {
+            //Roti Telur = RM4.00
+            System.out.println("Ordered - Roti Telur");
+            foodPrice = 4.00;
+        }
+        if (foodId == 7) {
+            //Cheese naan = RM6.00
+            System.out.println("Ordered - Cheese naan");
+            foodPrice = 6.00;
+        }
+        if (foodId == 8) {
+            //Banana Leaf Rice = RM15.00
+            System.out.println("Ordered - Banana Leaf Rice");
+            foodPrice = 15.00;
+        }
+        if (foodId == 9) {
+            //Nasi Lemak = RM5.00
+            System.out.println("Ordered - Nasi Lemak");
+            foodPrice = 5.00;
+        }
+        if (foodId == 10) {
+            //Asam Laksa = RM8.00
+            System.out.println("Ordered - Asam Laksa");
+            foodPrice = 8.00;
+        }
+        if (foodId == 11) {
+            //Ayam Penyet = RM15.00
+            System.out.println("Ordered - Ayam Penyet");
+            foodPrice = 15.00;
+        }
+        if (foodId == 12) {
+            //Murtabak = RM4.00
+            System.out.println("Ordered - Murtabak");
+            foodPrice = 4.00;
+        }
 //    quantity();
-    return foodPrice;
-}
+        return foodPrice;
+    }
 //public int quantity() {
 //    Scanner s = new Scanner(System.in);
 //    Scanner con = new Scanner(System.in);
@@ -528,13 +519,14 @@ public double foodPrice(int foodId) {
 //        
 //    return quantity;
 // }
-public double subTotal(double quantity, double foodPrice) {
-    
-    double subTotal = quantity*foodPrice;
-    System.out.println("Subtotal: RM"+ subTotal);
-    totalPrice += subTotal;
-    return subTotal;
-}
+
+    public double subTotal(double quantity, double foodPrice) {
+
+        double subTotal = quantity * foodPrice;
+        System.out.println("Subtotal: RM" + subTotal);
+        totalPrice += subTotal;
+        return subTotal;
+    }
 //public void assignJob(){
 //    for (DeliveryMan dm : FastDelivery.deliveryMen) {
 //            if (dm.getWorkingStatus() == Constants.AVAILABLE) {
@@ -544,19 +536,21 @@ public double subTotal(double quantity, double foodPrice) {
 //        }
 //    done();
 //}
-public void done(){
-    ordering = false;   
-    System.out.println("|-------------------------------|");
-    System.out.println("|Total price: RM"+ totalPrice +"            "+          "|");
-    System.out.println("|-------------------------------|");
-    System.out.println("|Thank you for your order !     |");
-    System.out.println("|-------------------------------|");
-    payment();
 
-}
-public void payment(){
-    System.out.println("\nPlease make payment to the deliveryman. We accept **CASH ONLY!**");
-    Orders newOrders = new Orders(id, status, totalPrice);
+    public void done() {
+        ordering = false;
+        System.out.println("|-------------------------------|");
+        System.out.println("|Total price: RM" + totalPrice + "            " + "|");
+        System.out.println("|-------------------------------|");
+        System.out.println("|Thank you for your order !     |");
+        System.out.println("|-------------------------------|");
+        payment();
+
+    }
+
+    public void payment() {
+        System.out.println("\nPlease make payment to the deliveryman. We accept **CASH ONLY!**");
+        Orders newOrders = new Orders(id, status, totalPrice);
         id++;
         orderList.addNewOrder(newOrders);
         System.out.println("------------------------------------------------------------------------");
@@ -565,5 +559,5 @@ public void payment(){
         System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
         System.out.println("------------------------------------------------------------------------");
         System.out.println(orderList);
-}
+    }
 }

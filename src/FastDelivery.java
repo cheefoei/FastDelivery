@@ -1,6 +1,7 @@
 
 import entity.Customer;
 import entity.DeliveryMan;
+import entity.Food;
 import entity.HumanResource;
 import entity.RestaurantOwner;
 import entity.OrderDetails;
@@ -21,6 +22,7 @@ public class FastDelivery {
     public static List<HumanResource> humanResources = new ArrayList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
+    public static List<Food> foods = new ArrayList<>();
     public static List<Customer> customerArray = new ArrayList<>();
     public static List<OrderDetails> orderDetail = new ArrayList<>();
     public static List<PunchedCard> punchedCards = new ArrayList<>();
