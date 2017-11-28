@@ -150,8 +150,10 @@ public class RestaurantOwnerScreen {
                 removeFood();
                 return;
             case "3":
+                updateFood();
                 return;
             case "4":
+                System.exit(0);
                 break;
             default:
                 System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
@@ -317,7 +319,7 @@ public class RestaurantOwnerScreen {
             restaurantOwnerMenu();
         } else {
 
-            System.out.println("Which do you willing to remove?");
+            System.out.println("Which do you willing to Update?");
             System.out.println("Else will go back to menu.");
             System.out.print("Food Number >");
 
@@ -330,9 +332,48 @@ public class RestaurantOwnerScreen {
                 if (foodNumber > 0 && foodNumber < count) {
 
                     Food food = FastDelivery.foods.get(foodNumber - 1);
-                    
-                    
-                    
+
+                        System.out.println("(Enter to bypass)");
+                    System.out.print("New Food Name >");
+                    String foodname = scanner.nextLine();
+
+                    double foodprice = Double.NaN;
+                    boolean valid;
+                    do {
+                        valid = true;
+                        System.out.println("(Enter to bypass)");
+                        System.out.print("New Food Price >");
+                        String input = scanner.nextLine();
+
+                        if (!input.equals("")) {
+                            try {
+                                foodprice = Double.parseDouble(input);
+                            } catch (NumberFormatException ex) {
+                                System.out.printf(Constants.ERROR_INVALID_INPUT);
+                                valid = false;
+                            }
+                        }
+                    } while (!valid);
+
+                        System.out.println("(Enter to bypass)");
+                    System.out.print("New Food Description >");
+                    String fooddesc = scanner.nextLine();
+
+                    if (!foodname.equals("")) {
+                        food.setFoodName(foodname);
+                    }
+                    if (!fooddesc.equals("")) {
+                        food.setFoodDesc(fooddesc);
+                    }
+                    if (foodprice != Double.NaN) {
+                        food.setFoodPrice(foodprice);
+                    }
+
+                    FastDelivery.foods.set(foodNumber - 1, food);
+                    System.out.printf("\n");
+                    System.out.println("Your food already updated successfully.");
+                    restaurantOwnerMenu();
+
                 } else {
                     System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
                     updateFood();
