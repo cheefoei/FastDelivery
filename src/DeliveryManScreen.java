@@ -1,4 +1,5 @@
 
+import adt.OrderList;
 import entity.DeliveryMan;
 import entity.PunchedCard;
 import java.util.Calendar;
@@ -166,6 +167,61 @@ public class DeliveryManScreen {
     }
 
     private void deliveryManMenu() {
+         System.out.printf("\nWelcome back, " +deliveryman.username+ "\n");
 
+        boolean valid = true;
+        do {
+
+            
+
+            System.out.println("Deliveryman Menu");
+            System.out.println("===================");
+            System.out.println("1) View order assigned");
+            System.out.println("2) Break/End Break");
+            System.out.println("3) go back");
+            System.out.print("Option >");
+
+            int opt = -1;
+            try {
+                opt = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException ex) {
+                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                valid = false;
+            }
+
+            switch (opt) {
+                case 1:
+                    viewJob();
+                    break;
+                case 2:
+                    breakTime();
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    valid = false;
+                    break;
+            }
+        } while (!valid);
+    }
+    private void viewJob(){
+        
+       
+        
+    }
+    private void breakTime(){
+        Calendar now = Calendar.getInstance();
+        if(deliveryman.getWorkingStatus() !=Constants.BREAKTIME){
+            deliveryman.setWorkingStatus(Constants.BREAKTIME);
+            System.out.println("You are now break at " + now.getTime());
+            deliveryManMenu();
+            
+        }else{
+            deliveryman.setWorkingStatus(Constants.AVAILABLE);
+            System.out.println("You had end your break at " + now.getTime());
+            deliveryManMenu();
+        }
     }
 }
+

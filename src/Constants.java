@@ -3,6 +3,10 @@ public class Constants {
     
     public static final String ON_DUTY = "On-Duty";
     public static final String OFF_DUTY = "Off-Duty";
+    public static final String BREAKTIME = "Break";
+    public static final String AVAILABLE = "Available";
+    public static final String DELIVERING = "Delivering";
+    public static final String NOT_AVAILABLE = "Not Available";
 
     public static final String ERROR_LOG_IN = "ERROR! Incorrect username or password.";
     public static final String ERROR_ACC_NOT_EXIST = "ERROR! No account found.";

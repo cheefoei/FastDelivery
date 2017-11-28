@@ -20,12 +20,12 @@ public class CustomerScreen {
     private OrderDetails orderDetails;
     public static int id = 0001;
     public static String status = "Pending";
-    
+
     
     public double subTotal;
-public double totalPrice;
-private double foodPrice;
-static boolean ordering = true;
+    public double totalPrice;
+    private double foodPrice;
+    static boolean ordering = true;
     
     private int failedCount = 0;
 
@@ -535,8 +535,17 @@ public double subTotal(double quantity, double foodPrice) {
     totalPrice += subTotal;
     return subTotal;
 }
+//public void assignJob(){
+//    for (DeliveryMan dm : FastDelivery.deliveryMen) {
+//            if (dm.getWorkingStatus() == Constants.AVAILABLE) {
+//                
+//               inCharge = dm.username;
+//            }else inCharge = "";
+//        }
+//    done();
+//}
 public void done(){
-    ordering = false;
+    ordering = false;   
     System.out.println("|-------------------------------|");
     System.out.println("|Total price: RM"+ totalPrice +"            "+          "|");
     System.out.println("|-------------------------------|");

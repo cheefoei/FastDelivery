@@ -153,6 +153,7 @@ public class HumanResourceScreen {
                 System.out.printf("Home address \t\t: " + dm.address + "\n");
                 System.out.printf("Email address \t\t: " + dm.email + "\n");
                 System.out.printf("Phone number \t\t: " + dm.phoneNumber + "\n");
+                System.out.printf("Current Working Status \t: " + dm.getWorkingStatus() + "\n");
 
                 System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
                 scanner.nextLine();

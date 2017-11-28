@@ -16,13 +16,23 @@ public class Orders implements Comparable<Orders> {
     private int orderId;
     private String status;
     private double totalPrice;
+//    private String inCharge;
     
     public Orders(int orderId, String status, double totalPrice) {
         this.orderId = orderId;
         this.status = status;
         this.totalPrice = totalPrice;
+//        this.inCharge = inCharge;
         
     }
+
+//    public String getInCharge() {
+//        return inCharge;
+//    }
+//
+//    public void setInCharge(String inCharge) {
+//        this.inCharge = inCharge;
+//    }
 
     public int getOrderId() {
         return orderId;

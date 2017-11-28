@@ -8,6 +8,7 @@ public class DeliveryMan extends Staff implements Serializable {
     private boolean isResigned;
     private boolean isDeliveryAvailable;
     private int deliveryNumber;
+    private String workingStatus;
 
     public DeliveryMan() {
     }
@@ -24,6 +25,7 @@ public class DeliveryMan extends Staff implements Serializable {
             String password) {
 
         super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
+        this.workingStatus = "Available";
         this.isLeave = false;
         this.isResigned = false;
         this.isDeliveryAvailable = true;
@@ -39,14 +41,24 @@ public class DeliveryMan extends Staff implements Serializable {
             String phoneNumber,
             String username,
             String password,
+            String workingStatus,
             boolean isLeave,
             boolean isResigned,
             boolean isDeliveryAvailable) {
 
         super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
+        this.workingStatus = workingStatus;
         this.isLeave = isLeave;
         this.isResigned = isResigned;
         this.isDeliveryAvailable = isDeliveryAvailable;
+    }
+
+    public String getWorkingStatus() {
+        return workingStatus;
+    }
+
+    public void setWorkingStatus(String workingStatus) {
+        this.workingStatus = workingStatus;
     }
 
     public boolean isIsLeave() {
