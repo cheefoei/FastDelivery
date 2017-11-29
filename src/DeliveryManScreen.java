@@ -56,24 +56,29 @@ public class DeliveryManScreen {
                 + "3:Not now" + "\n");
         System.out.print("Option >");
 
-        int input = scanner.nextInt();
+        int input = -1;
+        try {
+            input = scanner.nextInt();
 
-        switch (input) {
-            case 1:
-                clock_in();
-                break;
-            case 2:
-                clock_out();
-                break;
-            case 3:
-                deliveryManMenu();
-                break;
-            default:
-                System.out.println("Invalid option, please try again!\n");
-                punchedCard();
-                break;
+            switch (input) {
+                case 1:
+                    clock_in();
+                    break;
+                case 2:
+                    clock_out();
+                    break;
+                case 3:
+                    deliveryManMenu();
+                    break;
+                default:
+                    System.out.println("Invalid option, please try again!\n");
+                    punchedCard();
+                    break;
+            }
+
+        } catch (Exception ex) {
+            System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
         }
-
     }
 
     private void clock_in() {
@@ -167,12 +172,13 @@ public class DeliveryManScreen {
     }
 
     private void deliveryManMenu() {
-         System.out.printf("\nWelcome back, " +deliveryman.username+ "\n");
 
-        boolean valid = true;
+        System.out.printf("\nWelcome back, " + deliveryman.username + "\n");
+
+        boolean valid;
         do {
 
-            
+            valid = true;
 
             System.out.println("Deliveryman Menu");
             System.out.println("===================");
@@ -183,8 +189,8 @@ public class DeliveryManScreen {
 
             int opt = -1;
             try {
-                opt = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException ex) {
+                opt = scanner.nextInt();
+            } catch (Exception ex) {
                 System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
                 valid = false;
             }
@@ -205,23 +211,22 @@ public class DeliveryManScreen {
             }
         } while (!valid);
     }
-    private void viewJob(){
-        
-       
-        
+
+    private void viewJob() {
+
     }
-    private void breakTime(){
+
+    private void breakTime() {
         Calendar now = Calendar.getInstance();
-        if(deliveryman.getWorkingStatus() !=Constants.BREAKTIME){
+        if (deliveryman.getWorkingStatus() != Constants.BREAKTIME) {
             deliveryman.setWorkingStatus(Constants.BREAKTIME);
             System.out.println("You are now break at " + now.getTime());
             deliveryManMenu();
-            
-        }else{
+
+        } else {
             deliveryman.setWorkingStatus(Constants.AVAILABLE);
             System.out.println("You had end your break at " + now.getTime());
             deliveryManMenu();
         }
     }
 }
-
