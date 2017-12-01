@@ -3,11 +3,18 @@ import adt.OrderFoodInterface;
 import adt.OrderFoodList;
 import adt.OrderInterface;
 import adt.OrderList;
+import adt.ScheduledOrderInterface;
+import adt.ScheduledOrderList;
 import java.util.Scanner;
 import entity.Customer;
 import entity.OrderDetails;
 import entity.Orders;
+import entity.ScheduledOrder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CustomerScreen {
@@ -16,6 +23,9 @@ public class CustomerScreen {
     public static List<Customer> customerArray = new ArrayList<>();
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
     public static OrderInterface<Orders> orderList = new OrderList<>();
+    //#
+    public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
+    //#
     private Customer currentUser;
     private OrderDetails orderDetails;
     public static int id = 0001;
@@ -26,6 +36,11 @@ public class CustomerScreen {
     private double foodPrice;
     static boolean ordering = true;
 
+    //#
+    private String type;
+    private Date scheduleDate = new Date();
+    private Date scheduleTime = new Date();
+    //#
     private int failedCount = 0;
 
     public CustomerScreen() {
@@ -38,8 +53,15 @@ public class CustomerScreen {
 
         orderFoodList.addNewOrder(orderdetails1);
         Orders order1 = new Orders(id, status, totalPrice);
+        //#
+        ScheduledOrder sOrder1 = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime);
+        //#
         id++;
         orderList.addNewOrder(order1);
+        //#
+        scheduledOrder.add(sOrder1);
+        //#
+
     }
 
     private void checkAutho() {
@@ -58,7 +80,8 @@ public class CustomerScreen {
 
         if (currentUser != null) {
             if (cusPassword.equals(currentUser.cusPw)) {
-                customerMenu();
+                //customerMenu();
+                customerMainMenu();
             } else {
                 System.out.println(Constants.ERROR_LOG_IN);
                 failedCount++;
@@ -69,7 +92,39 @@ public class CustomerScreen {
             failedCount++;
             checkAutho();
         }
+    }
 
+    private void customerMainMenu() {
+        System.out.println("|--------------------------------|");
+        System.out.println("|       Customer Main Menu       |");
+        System.out.println("|--------------------------------|");
+        System.out.println("|                                |");
+        System.out.println("|1. Place Order (ad-hoc)         |");
+        System.out.println("|2. Schedule Order               |");
+        System.out.println("|0. Back to Main Menu            |");
+        System.out.println("|                                |");
+        System.out.println("|--------------------------------|");
+        System.out.println("");
+        System.out.println("Your choice: ");
+
+        int input = scanner.nextInt();
+
+        switch (input) {
+            case 1:
+                type = "ad-hoc";
+                customerMenu();
+                break;
+            case 2:
+                type = "schedule";
+                customerMenu();
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("Invalid option, please try again!\n");
+                customerMenu();
+                break;
+        }
     }
 
     private void customerMenu() {
@@ -98,7 +153,7 @@ public class CustomerScreen {
                 malayMenu();
                 break;
             case 4:
-                customerMenu();
+                customerMainMenu();
                 break;
             default:
                 System.out.println("Invalid option, please try again!\n");
@@ -228,7 +283,11 @@ public class CustomerScreen {
         if (yesno == 1) {
             chineseMenu();
         } else {
-            done();
+            if (type.equals("ad-hoc")) {
+                done();
+            } else {
+                makeSchedule();
+            }
         }
 //        }
     }
@@ -302,7 +361,11 @@ public class CustomerScreen {
         if (yesno == 1) {
             indianMenu();
         } else {
-            done();
+            if (type.equals("ad-hoc")) {
+                done();
+            } else {
+                makeSchedule();
+            }
         }
 //        }
     }
@@ -432,7 +495,11 @@ public class CustomerScreen {
         if (yesno == 1) {
             malayMenu();
         } else {
-            done();
+            if (type.equals("ad-hoc")) {
+                done();
+            } else {
+                makeSchedule();
+            }
         }
     }
 
@@ -537,6 +604,26 @@ public class CustomerScreen {
 //    done();
 //}
 
+    private void makeSchedule() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Set the date for delivering order > ");
+        String date = s.nextLine();
+        System.out.println("Set the time for delivering order > ");
+        String time = s.nextLine();
+
+        Date currentDate = new Date();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            scheduleDate = dateFormat.parse(date);
+
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            scheduleTime = timeFormat.parse(time);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        done();
+    }
+
     public void done() {
         ordering = false;
         System.out.println("|-------------------------------|");
@@ -550,14 +637,29 @@ public class CustomerScreen {
 
     public void payment() {
         System.out.println("\nPlease make payment to the deliveryman. We accept **CASH ONLY!**");
-        Orders newOrders = new Orders(id, status, totalPrice);
-        id++;
-        orderList.addNewOrder(newOrders);
-        System.out.println("------------------------------------------------------------------------");
-        System.out.println("                              Order List");
-        System.out.println("------------------------------------------------------------------------");
-        System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
-        System.out.println("------------------------------------------------------------------------");
-        System.out.println(orderList);
+        if (type.equals("ad-hoc")) {
+            Orders newOrders = new Orders(id, status, totalPrice);
+            id++;
+            orderList.addNewOrder(newOrders);
+
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("                              Order List");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println(orderList);
+        } else {
+            ScheduledOrder newScheduledOrder = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime);
+            id++;
+            scheduledOrder.add(newScheduledOrder);
+
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                 Order List");
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-20s %-20s %-20s %20s\n", "No.", "Order ID", "Status", "Total Price(RM)", "Deliver Date", "Deliver Time");
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println(scheduledOrder);
+        }
     }
+
 }
