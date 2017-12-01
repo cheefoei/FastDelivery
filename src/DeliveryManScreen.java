@@ -1,22 +1,42 @@
 
 import adt.OrderList;
+import adt.ScheduledOrderInterface;
+import adt.ScheduledOrderList;
 import entity.DeliveryMan;
+import entity.Orders;
 import entity.PunchedCard;
+import entity.ScheduledOrder;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class DeliveryManScreen {
+    
+    public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
 
     private Scanner scanner = new Scanner(System.in);
     private DeliveryMan deliveryman;
+    private String type;
 
     public DeliveryManScreen() {
 
         System.out.printf("\nDelivery Man Login\n");
         System.out.println("==============");
-
+        
+        Calendar cal = new GregorianCalendar();
+        
+       cal.set(Calendar.DAY_OF_MONTH, 11);
+       cal.set(Calendar.MONTH, 11);
+       cal.set(Calendar.YEAR, 2017);
+       cal.set(Calendar.HOUR, 1);
+       cal.set(Calendar.MINUTE, 30);
+       cal.set(Calendar.AM_PM, Calendar.PM);
+        
+        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime());
+        scheduledOrder.add(sOrder1);
+        
         checkAutho();
     }
 
@@ -203,7 +223,7 @@ public class DeliveryManScreen {
                     breakTime();
                     break;
                 case 3:
-                    return;
+                    break;
                 default:
                     System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
                     valid = false;
@@ -213,7 +233,30 @@ public class DeliveryManScreen {
     }
 
     private void viewJob() {
+        System.out.println("Job Assigned");
+        System.out.println("===================");
+        System.out.println("1) Place Order (ad-hoc)");
+        System.out.println("2) Schedule Order");
+        System.out.println("3) go back");
+        System.out.print("Option >");
 
+        int opt = scanner.nextInt();
+
+        switch (opt) {
+            case 1:
+                type = "ad-hoc";
+                displayOrder();
+                break;
+            case 2:
+                type = "schedule";
+                displayOrder();
+                break;
+            case 3:
+                return;
+            default:
+                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                break;
+        }
     }
 
     private void breakTime() {
@@ -227,6 +270,26 @@ public class DeliveryManScreen {
             deliveryman.setWorkingStatus(Constants.AVAILABLE);
             System.out.println("You had end your break at " + now.getTime());
             deliveryManMenu();
+        }
+    }
+
+    private void displayOrder() {
+        if (type.equals("ad-hoc")) {
+//            Orders newOrders = new Orders(id, status, totalPrice);
+//
+//            System.out.println("------------------------------------------------------------------------");
+//            System.out.println("                              Order List");
+//            System.out.println("------------------------------------------------------------------------");
+//            System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
+//            System.out.println("------------------------------------------------------------------------");
+//            System.out.println(orderList);
+        } else {
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println("                                                 Order List");
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-20s %-20s %-20s %20s\n", "No.", "Order ID", "Status", "Total Price(RM)", "Deliver Date", "Deliver Time");
+            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println(scheduledOrder);
         }
     }
 }
