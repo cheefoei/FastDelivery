@@ -2,6 +2,7 @@
 import adt.OrderList;
 import adt.ScheduledOrderInterface;
 import adt.ScheduledOrderList;
+import entity.Customer;
 import entity.DeliveryMan;
 import entity.Orders;
 import entity.PunchedCard;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class DeliveryManScreen {
-    
+
     public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
 
     private Scanner scanner = new Scanner(System.in);
@@ -24,19 +25,30 @@ public class DeliveryManScreen {
 
         System.out.printf("\nDelivery Man Login\n");
         System.out.println("==============");
-        
+
+        Customer cus1 = new Customer(
+                "Allan",
+                "950103-14-7777",
+                "Male",
+                "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
+                "0101234567",
+                "allan0103@gmail.com",
+                "allan",
+                "allan0103"
+        );
+
         Calendar cal = new GregorianCalendar();
-        
-       cal.set(Calendar.DAY_OF_MONTH, 11);
-       cal.set(Calendar.MONTH, 11);
-       cal.set(Calendar.YEAR, 2017);
-       cal.set(Calendar.HOUR, 1);
-       cal.set(Calendar.MINUTE, 30);
-       cal.set(Calendar.AM_PM, Calendar.PM);
-        
-        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime());
+
+        cal.set(Calendar.DAY_OF_MONTH, 2);
+        cal.set(Calendar.MONTH, 11);
+        cal.set(Calendar.YEAR, 2017);
+        cal.set(Calendar.HOUR, 1);
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.AM_PM, Calendar.PM);
+
+        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime(), cus1);
         scheduledOrder.add(sOrder1);
-        
+
         checkAutho();
     }
 
@@ -284,12 +296,17 @@ public class DeliveryManScreen {
 //            System.out.println("------------------------------------------------------------------------");
 //            System.out.println(orderList);
         } else {
-            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("                                                 Order List");
-            System.out.println("-----------------------------------------------------------------------------------------------------------");
-            System.out.printf("%-10s %-20s %-20s %-20s %-20s %20s\n", "No.", "Order ID", "Status", "Total Price(RM)", "Deliver Date", "Deliver Time");
-            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)", "Customer Name", "Customer Contact", "Deliver Date", "Deliver Time");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
+//            for (int i = 0; i < scheduledOrder.size(); i++) {
+//                if (new Date().compareTo(scheduledOrder.show(i).getScheduleDate()) > 0) {
+//                    System.out.println(scheduledOrder.show(i).toString());
             System.out.println(scheduledOrder);
+//                }
+//            }
         }
     }
 }

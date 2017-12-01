@@ -20,13 +20,15 @@ public class ScheduledOrder implements Comparable<ScheduledOrder> {
     private double totalPrice;
     private Date scheduleDate;
     private Date scheduleTime;
+    private Customer customer;
 
-    public ScheduledOrder(int orderId, String status, double totalPrice, Date scheduleDate, Date scheduleTime) {
+    public ScheduledOrder(int orderId, String status, double totalPrice, Date scheduleDate, Date scheduleTime, Customer customer) {
         this.orderId = orderId;
         this.status = status;
         this.totalPrice = totalPrice;
         this.scheduleDate = scheduleDate;
         this.scheduleTime = scheduleTime;
+        this.customer = customer;
     }
 
     public int getOrderId() {
@@ -69,6 +71,14 @@ public class ScheduledOrder implements Comparable<ScheduledOrder> {
         this.scheduleTime = scheduleTime;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         String orderID = "";
@@ -85,7 +95,7 @@ public class ScheduledOrder implements Comparable<ScheduledOrder> {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
 
-        return String.format("%-10s %-20s %-20s %-20s %-20s %-20s", "", orderID, status, totalPrice, dateFormat.format(scheduleDate), timeFormat.format(scheduleTime));
+        return String.format("%-10s %-20s %-20s %-20s %-20s %-20s %-20s %-20s", "", orderID, status, totalPrice, customer.getCusName(), customer.getCusContactNo(), dateFormat.format(scheduleDate), timeFormat.format(scheduleTime));
     }
 
     @Override

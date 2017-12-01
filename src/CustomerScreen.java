@@ -54,7 +54,7 @@ public class CustomerScreen {
         orderFoodList.addNewOrder(orderdetails1);
         Orders order1 = new Orders(id, status, totalPrice);
         //#
-        ScheduledOrder sOrder1 = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime);
+        ScheduledOrder sOrder1 = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime, currentUser);
         //#
         id++;
         orderList.addNewOrder(order1);
@@ -649,16 +649,21 @@ public class CustomerScreen {
             System.out.println("------------------------------------------------------------------------");
             System.out.println(orderList);
         } else {
-            ScheduledOrder newScheduledOrder = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime);
+            ScheduledOrder newScheduledOrder = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime, currentUser);
             id++;
             scheduledOrder.add(newScheduledOrder);
 
-            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("                                                 Order List");
-            System.out.println("-----------------------------------------------------------------------------------------------------------");
-            System.out.printf("%-10s %-20s %-20s %-20s %-20s %20s\n", "No.", "Order ID", "Status", "Total Price(RM)", "Deliver Date", "Deliver Time");
-            System.out.println("-----------------------------------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)", "Customer Name", "Customer Contact", "Deliver Date", "Deliver Time");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
+//            for (int i = 0; i < scheduledOrder.size(); i++) {
+//                if (new Date().compareTo(scheduledOrder.show(i).getScheduleDate()) > 0) {
+//                    System.out.println(scheduledOrder.show(i).toString());
             System.out.println(scheduledOrder);
+//                }
+//            }
         }
     }
 
