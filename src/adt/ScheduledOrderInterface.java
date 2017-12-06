@@ -8,6 +8,7 @@ package adt;
 /**
  *
  * @author Lee Zi Xiang
+ * @param <T>
  */
 public interface ScheduledOrderInterface<T extends Comparable<? super T>> {
 

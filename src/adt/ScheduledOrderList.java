@@ -5,13 +5,12 @@
  */
 package adt;
 
-import entity.ScheduledOrder;
-
 /**
  *
  * @author Lee Zi Xiang
+ * @param <T>
  */
-public class ScheduledOrderList <T extends Comparable<? super T>> implements ScheduledOrderInterface<T> {
+public class ScheduledOrderList<T extends Comparable<? super T>> implements ScheduledOrderInterface<T> {
 
     private Node firstNode;
     private int length;

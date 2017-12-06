@@ -8,11 +8,13 @@ package adt;
 /**
  *
  * @author Clarity
+ * @param <T>
  */
 public class OrderFoodList<T extends Comparable<? super T>> implements OrderFoodInterface<T> {
+
     private Node firstNode;
     private int length;
-    
+
     public boolean addNewOrder(T newEntry) {
         Node newNode = new Node(newEntry);
 
@@ -33,17 +35,17 @@ public class OrderFoodList<T extends Comparable<? super T>> implements OrderFood
         length++;
         return true;
     }
-    
+
     public final void clear() {
         firstNode = null;
         length = 0;
     }
-    
+
     @Override
     public boolean isEmpty() {
         return (length == 0);
     }
-    
+
     public String toString() {
         int number = 1;
         String outputStr = "";
@@ -55,6 +57,7 @@ public class OrderFoodList<T extends Comparable<? super T>> implements OrderFood
         }
         return outputStr;
     }
+
     private class Node {
 
         private T data;

@@ -1,4 +1,6 @@
 
+import adt.DeliveryManIteratorInterface;
+import adt.DeliveryManList;
 import entity.Customer;
 import entity.DeliveryMan;
 import entity.Food;
@@ -21,6 +23,9 @@ public class FastDelivery {
 
     public static List<HumanResource> humanResources = new ArrayList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
+
+    public static DeliveryManIteratorInterface<DeliveryMan> t_deliveryMen = new DeliveryManList<>();
+
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Food> foods = new ArrayList<>();
     public static List<Customer> customerArray = new ArrayList<>();
@@ -114,6 +119,7 @@ public class FastDelivery {
         );
 
         deliveryMen.add(dm1);
+        t_deliveryMen.addDeliveryMan(dm1);
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",

@@ -1,6 +1,7 @@
 
 import entity.DeliveryMan;
 import entity.HumanResource;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class HumanResourceScreen {
@@ -119,9 +120,13 @@ public class HumanResourceScreen {
         System.out.println("================");
 
         int count = 1;
-        for (DeliveryMan dm : FastDelivery.deliveryMen) {
+        Iterator<DeliveryMan> dmList = FastDelivery.t_deliveryMen.getIterator();
 
+        while (dmList.hasNext()) {
+
+            DeliveryMan dm = dmList.next();
             String status = "";
+            
             if (dm.isIsLeave()) {
                 status = "LEAVE";
             } else if (dm.isIsResigned()) {
