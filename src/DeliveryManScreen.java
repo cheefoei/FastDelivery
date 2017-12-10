@@ -283,7 +283,7 @@ public class DeliveryManScreen {
     }
     private void viewCusDetails(){
         
-        System.out.println("\n View customer's details");
+        System.out.println("\n     View customer's details");
         System.out.println("=============================");
         System.out.print("Enter customer's phone number >");
         String cusContactNo = scanner.nextLine();
