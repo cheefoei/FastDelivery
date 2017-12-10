@@ -1,6 +1,6 @@
 
 public class Constants {
-    
+
     public static final String ON_DUTY = "On-Duty";
     public static final String OFF_DUTY = "Off-Duty";
     public static final String BREAKTIME = "Break";
