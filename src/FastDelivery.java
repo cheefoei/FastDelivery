@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class FastDelivery {
 
     private static Scanner scanner = new Scanner(System.in);
-    private static final DateFormat df = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
+    private static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
     public static List<HumanResource> humanResources = new ArrayList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
@@ -168,7 +168,7 @@ public class FastDelivery {
         try {
             PunchedCard pc1 = new PunchedCard(
                     "ON-DUTY",
-                    df.parse("Wed 17-Nov-2017 23:40:26"),
+                    DF.parse("Wed 17-Nov-2017 23:40:26"),
                     null,
                     dm1
             );

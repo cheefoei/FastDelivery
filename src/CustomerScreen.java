@@ -12,15 +12,12 @@ import entity.Orders;
 import entity.ScheduledOrder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 public class CustomerScreen {
 
     private Scanner scanner = new Scanner(System.in);
-    public static List<Customer> customerArray = new ArrayList<>();
+
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
     public static OrderInterface<Orders> orderList = new OrderList<>();
     //#
@@ -49,6 +46,7 @@ public class CustomerScreen {
         System.out.println("==============");
 
         checkAutho();
+
         OrderDetails orderdetails1 = new OrderDetails(1, 10);
 
         orderFoodList.addNewOrder(orderdetails1);
@@ -61,7 +59,6 @@ public class CustomerScreen {
         //#
         scheduledOrder.add(sOrder1);
         //#
-
     }
 
     private void checkAutho() {
@@ -95,6 +92,7 @@ public class CustomerScreen {
     }
 
     private void customerMainMenu() {
+
         System.out.println("|--------------------------------|");
         System.out.println("|       Customer Main Menu       |");
         System.out.println("|--------------------------------|");
@@ -594,6 +592,7 @@ public class CustomerScreen {
         totalPrice += subTotal;
         return subTotal;
     }
+    
 //public void assignJob(){
 //    for (DeliveryMan dm : FastDelivery.deliveryMen) {
 //            if (dm.getWorkingStatus() == Constants.AVAILABLE) {
@@ -605,6 +604,7 @@ public class CustomerScreen {
 //}
 
     private void makeSchedule() {
+        
         Scanner s = new Scanner(System.in);
         System.out.println("Set the date for delivering order > ");
         String date = s.nextLine();
@@ -625,6 +625,7 @@ public class CustomerScreen {
     }
 
     public void done() {
+        
         ordering = false;
         System.out.println("|-------------------------------|");
         System.out.println("|Total price: RM" + totalPrice + "            " + "|");
@@ -632,10 +633,10 @@ public class CustomerScreen {
         System.out.println("|Thank you for your order !     |");
         System.out.println("|-------------------------------|");
         payment();
-
     }
 
     public void payment() {
+
         System.out.println("\nPlease make payment to the deliveryman. We accept **CASH ONLY!**");
         if (type.equals("ad-hoc")) {
             Orders newOrders = new Orders(id, status, totalPrice);

@@ -5,32 +5,31 @@
  */
 package entity;
 
+import java.util.Date;
+
 /**
  *
- * @author Clarity
+ * @author cheefoei's
  */
-public class Orders implements Comparable<Orders> {
+public class Order22 implements Comparable<Orders> {
 
     private int orderId;
     private String status;
     private double totalPrice;
-//    private String inCharge;
+    private Date doneOrderDate;
+    private Customer customer;
 
-    public Orders(int orderId, String status, double totalPrice) {
+    public Order22() {
+    }
+
+    public Order22(int orderId, String status, double totalPrice, Date doneOrderDate, Customer customer) {
         this.orderId = orderId;
         this.status = status;
         this.totalPrice = totalPrice;
-//        this.inCharge = inCharge;
-
+        this.doneOrderDate = doneOrderDate;
+        this.customer = customer;
     }
 
-//    public String getInCharge() {
-//        return inCharge;
-//    }
-//
-//    public void setInCharge(String inCharge) {
-//        this.inCharge = inCharge;
-//    }
     public int getOrderId() {
         return orderId;
     }
@@ -53,6 +52,22 @@ public class Orders implements Comparable<Orders> {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Date getDoneOrderDate() {
+        return doneOrderDate;
+    }
+
+    public void setDoneOrderDate(Date doneOrderDate) {
+        this.doneOrderDate = doneOrderDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
