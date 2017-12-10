@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author cheefoei's
  */
-public class DeliverJob implements Serializable {
+public class DeliveryJob implements Serializable {
 
     private Order22 order;
     private DeliveryMan deliveryMan;
@@ -21,10 +21,10 @@ public class DeliverJob implements Serializable {
     private double distance;
     private Date deliveryDate;
 
-    public DeliverJob() {
+    public DeliveryJob() {
     }
 
-    public DeliverJob(Order22 order, DeliveryMan deliveryMan, double distance) {
+    public DeliveryJob(Order22 order, DeliveryMan deliveryMan, double distance) {
 
         Calendar now = Calendar.getInstance();
 

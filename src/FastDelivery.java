@@ -3,7 +3,7 @@ import adt.DeliveryManIteratorInterface;
 import adt.DeliveryManList;
 import entity.Contact;
 import entity.Customer;
-import entity.DeliverJob;
+import entity.DeliveryJob;
 import entity.DeliveryMan;
 import entity.Food;
 import entity.HumanResource;
@@ -28,7 +28,7 @@ public class FastDelivery {
 
     public static List<HumanResource> humanResources = new ArrayList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
-    public static List<DeliverJob> deliverJobs = new ArrayList<>();
+    public static List<DeliveryJob> deliverJobs = new ArrayList<>();
 
     public static DeliveryManIteratorInterface<DeliveryMan> t_deliveryMen = new DeliveryManList<>();
 
@@ -203,7 +203,7 @@ public class FastDelivery {
 
             cf_orderDetails.add(new OrderDetail22(order1, food1, 2, "Add spicy pls"));
 
-            DeliverJob dj1 = new DeliverJob(order1, dm1, 1.5);
+            DeliveryJob dj1 = new DeliveryJob(order1, dm1, 1.5);
             deliverJobs.add(dj1);
 
         } catch (ParseException ex) {

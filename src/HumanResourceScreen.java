@@ -1,6 +1,6 @@
 
 import entity.Contact;
-import entity.DeliverJob;
+import entity.DeliveryJob;
 import entity.DeliveryMan;
 import entity.HumanResource;
 import java.text.SimpleDateFormat;
@@ -610,7 +610,7 @@ public class HumanResourceScreen {
                     System.out.printf("%-5s %-20s %-20s %-20s\n", "No.", "Order ID", "Time", "Distances(km)");
                     System.out.printf("%-5s %-20s %-20s %-20s\n", "---", "--------", "-----", "------------");
 
-                    for (DeliverJob dj : FastDelivery.deliverJobs) {
+                    for (DeliveryJob dj : FastDelivery.deliverJobs) {
 
                         if (dj.getDeliveryMan() == dm) {
 
