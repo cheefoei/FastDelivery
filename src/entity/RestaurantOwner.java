@@ -16,9 +16,7 @@ public class RestaurantOwner implements Serializable {
     private String fname;
     private String lname;
     private String nric;
-    private String address;
-    private String email;
-    private String phoneNumber;
+    private Contact contact;
     private String username;
     private String password;
     private String restaurantName;
@@ -28,13 +26,11 @@ public class RestaurantOwner implements Serializable {
     public RestaurantOwner() {
     }
 
-    public RestaurantOwner(String fname, String lname, String nric, String address, String email, String phoneNumber, String username, String password, String restaurantName, String restaurantAddress, String restaurantPhoneNumber) {
+    public RestaurantOwner(String fname, String lname, String nric, Contact contact, String username, String password, String restaurantName, String restaurantAddress, String restaurantPhoneNumber) {
         this.fname = fname;
         this.lname = lname;
         this.nric = nric;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.contact = contact;
         this.username = username;
         this.password = password;
         this.restaurantName = restaurantName;
@@ -66,28 +62,12 @@ public class RestaurantOwner implements Serializable {
         this.nric = nric;
     }
 
-    public String getAddress() {
-        return address;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     public String getUsername() {
@@ -129,5 +109,4 @@ public class RestaurantOwner implements Serializable {
     public void setRestaurantPhoneNumber(String restaurantPhoneNumber) {
         this.restaurantPhoneNumber = restaurantPhoneNumber;
     }
-
 }

@@ -1,4 +1,5 @@
 
+import entity.Contact;
 import entity.DeliveryMan;
 import entity.HumanResource;
 import java.util.Iterator;
@@ -126,7 +127,7 @@ public class HumanResourceScreen {
 
             DeliveryMan dm = dmList.next();
             String status = "";
-            
+
             if (dm.isIsLeave()) {
                 status = "LEAVE";
             } else if (dm.isIsResigned()) {
@@ -150,14 +151,17 @@ public class HumanResourceScreen {
             if (opt > 0 && opt < count) {
 
                 DeliveryMan dm = FastDelivery.deliveryMen.get(opt - 1);
+                Contact contact = dm.contact;
 
                 System.out.printf("First name \t\t: " + dm.fname + "\n");
                 System.out.printf("Last name \t\t: " + dm.lname + "\n");;
                 System.out.printf("Gender \t\t\t: " + dm.gender + "\n");
                 System.out.printf("NRIC \t\t\t: " + dm.nric + "\n");
-                System.out.printf("Home address \t\t: " + dm.address + "\n");
-                System.out.printf("Email address \t\t: " + dm.email + "\n");
-                System.out.printf("Phone number \t\t: " + dm.phoneNumber + "\n");
+                System.out.printf("Home address \t\t: " + contact.getAddress() + ","
+                        + contact.getPostcode() + " " + contact.getCity() + ","
+                        + contact.getState() + ".\n");
+                System.out.printf("Email address \t\t: " + contact.getEmail() + "\n");
+                System.out.printf("Phone number \t\t: " + contact.getPhoneNumber() + "\n");
                 System.out.printf("Current Working Status \t: " + dm.getWorkingStatus() + "\n");
 
                 System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
@@ -178,6 +182,7 @@ public class HumanResourceScreen {
 
         boolean v = true;
         DeliveryMan dm = new DeliveryMan();
+        Contact contact = new Contact();
 
         System.out.println("< Adding Delivery Man >");
 
@@ -218,14 +223,35 @@ public class HumanResourceScreen {
 
         System.out.println("Q: What's his/her home address ?");
         System.out.print("Home address > ");
-        dm.address = scanner.nextLine();
+        contact.setAddress(scanner.nextLine());
+
+        System.out.println("Q: What's his/her home city ?");
+        System.out.print("City > ");
+        contact.setCity(scanner.nextLine());
+
+        do {
+            v = true;
+            System.out.println("Q: What's his/her home postcode ?");
+            System.out.print("Postcode > ");
+
+            try {
+                contact.setPostcode(Long.parseLong(scanner.nextLine()));
+            } catch (Exception ex) {
+                System.out.println(Constants.ERROR_INVALID_INPUT);
+                v = false;
+            }
+        } while (!v);
+
+        System.out.println("Q: What's his/her home state ?");
+        System.out.print("State > ");
+        contact.setState(scanner.nextLine());
 
         do {
             System.out.println("Q: What's his/her email address ?");
             System.out.print("Email address > ");
-            dm.email = scanner.nextLine();
+            contact.setEmail(scanner.nextLine());
 
-            v = dm.email.matches("\\S+@\\S+\\.\\S+");
+            v = contact.getEmail().matches("\\S+@\\S+\\.\\S+");
             if (!v) {
                 System.out.println(Constants.ERROR_INVALID_INPUT);
             }
@@ -234,9 +260,9 @@ public class HumanResourceScreen {
         do {
             System.out.println("Q: What's his/her phone number (Exclude '-') ?");
             System.out.print("Phone number > ");
-            dm.phoneNumber = scanner.nextLine();
+            contact.setPhoneNumber(scanner.nextLine());
 
-            v = dm.phoneNumber.matches("\\d{10,12}");
+            v = contact.getPhoneNumber().matches("\\d{10,12}");
             if (!v) {
                 System.out.println(Constants.ERROR_INVALID_INPUT);
             }
@@ -299,7 +325,29 @@ public class HumanResourceScreen {
 
                     System.out.println("Q: What's his/her new home address ?");
                     System.out.print("New Home address > ");
-                    dm.address = scanner.nextLine();
+                    dm.contact.setAddress(scanner.nextLine());
+
+                    System.out.println("Q: What's his/her new home city ?");
+                    System.out.print("New City > ");
+                    dm.contact.setCity(scanner.nextLine());
+
+                    boolean v;
+                    do {
+                        v = true;
+                        System.out.println("Q: What's his/her new home postcode ?");
+                        System.out.print("New Postcode > ");
+
+                        try {
+                            dm.contact.setPostcode(Long.parseLong(scanner.nextLine()));
+                        } catch (Exception ex) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                            v = false;
+                        }
+                    } while (!v);
+
+                    System.out.println("Q: What's his/her new home state ?");
+                    System.out.print("New State > ");
+                    dm.contact.setState(scanner.nextLine());
 
                     FastDelivery.deliveryMen.set(deliveryManOption - 1, dm);
                     System.out.println("His/her home address is updated successfully.");
@@ -310,9 +358,9 @@ public class HumanResourceScreen {
                     do {
                         System.out.println("Q: What's his/her new email address ?");
                         System.out.print("New Email address > ");
-                        dm.email = scanner.nextLine();
+                        dm.contact.setEmail(scanner.nextLine());
 
-                        valid = dm.email.matches("\\S+@\\S+\\.\\S+");
+                        valid = dm.contact.getEmail().matches("\\S+@\\S+\\.\\S+");
                         if (!valid) {
                             System.out.println(Constants.ERROR_INVALID_INPUT);
                         }
@@ -327,9 +375,9 @@ public class HumanResourceScreen {
                     do {
                         System.out.println("Q: What's his/her new phone number (Exclude '-') ?");
                         System.out.print("New Phone number > ");
-                        dm.phoneNumber = scanner.nextLine();
+                        dm.contact.setPhoneNumber(scanner.nextLine());
 
-                        valid = dm.phoneNumber.matches("\\d{10,12}");
+                        valid = dm.contact.getPhoneNumber().matches("\\d{10,12}");
                         if (!valid) {
                             System.out.println(Constants.ERROR_INVALID_INPUT);
                         }
