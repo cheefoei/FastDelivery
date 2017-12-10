@@ -5,8 +5,6 @@
  */
 package entity;
 
-import java.io.Serializable;
-
 /**
  *
  * @author Clarity

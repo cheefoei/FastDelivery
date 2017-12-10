@@ -13,21 +13,19 @@ import java.util.Date;
  * @author Clarity
  */
 public class Payment implements Serializable {
-    
+
     private int paymentId;
-    private String paymentType;
     private Date paymentDate;
-    private int orderId;
+    private Orders order;
     private int totalPrice;
-    
-    public Payment(int paymentId, String paymentType,Date paymentDate,int orderId,int totalPrice) {
-        
+
+    public Payment(int paymentId, Date paymentDate, Orders order, int totalPrice) {
+
         this.paymentId = paymentId;
-        this.paymentType = paymentType;
         this.paymentDate = paymentDate;
-        this.orderId = orderId;
+        this.order = order;
         this.totalPrice = totalPrice;
-        
+
     }
 
     public int getPaymentId() {
@@ -38,14 +36,6 @@ public class Payment implements Serializable {
         this.paymentId = paymentId;
     }
 
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
     public Date getPaymentDate() {
         return paymentDate;
     }
@@ -54,12 +44,12 @@ public class Payment implements Serializable {
         this.paymentDate = paymentDate;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public Orders getOrder() {
+        return order;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrderId(Orders order) {
+        this.order = order;
     }
 
     public int getTotalPrice() {
