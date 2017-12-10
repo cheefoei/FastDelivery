@@ -290,13 +290,13 @@ public class DeliveryManScreen {
         
         for (Customer cus : FastDelivery.customerArray) {
             if (cusContactNo.equals(cus.getCusContactNo())) {
-
-                System.out.printf("Customer name \t\t: " + cus.getCusName() + "\n");
-                System.out.printf("Last name \t\t: " + cus.getCusIc() + "\n");;
-                System.out.printf("Gender \t\t\t: " + cus.getCusGender() + "\n");
-                System.out.printf("NRIC \t\t\t: " + cus.getCusAddress() + "\n");
-                System.out.printf("Home address \t\t: " + cus.getCusContactNo() + "\n");
-                System.out.printf("Email address \t\t: " + cus.getCusEmail() + "\n");
+//
+//                System.out.printf("Customer name \t\t: " + cus.getCusName() + "\n");
+//                System.out.printf("Last name \t\t: " + cus.getCusIc() + "\n");;
+//                System.out.printf("Gender \t\t\t: " + cus.getCusGender() + "\n");
+//                System.out.printf("NRIC \t\t\t: " + cus.getCusAddress() + "\n");
+//                System.out.printf("Home address \t\t: " + cus.getCusContactNo() + "\n");
+//                System.out.printf("Email address \t\t: " + cus.getCusEmail() + "\n");
                 
         } else {
                 clearScreen();
