@@ -5,7 +5,6 @@
  */
 package entity;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -100,6 +99,7 @@ public class ScheduledOrder implements Comparable<ScheduledOrder> {
 
     @Override
     public int compareTo(ScheduledOrder o) {
+        
         if (orderId > o.getOrderId()) {
             return 1;
         } else if (orderId == o.getOrderId()) {

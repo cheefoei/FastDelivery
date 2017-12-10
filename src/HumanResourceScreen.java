@@ -79,7 +79,7 @@ public class HumanResourceScreen {
             System.out.println("2) Add delivery man");
             System.out.println("3) Update delivery man");
             System.out.println("4) Assign delivery man");
-            System.out.println("5) Report");
+            System.out.println("5) Delivery Men daily report");
             System.out.println("6) go back");
             System.out.print("Option >");
 
