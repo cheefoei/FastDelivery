@@ -3,9 +3,12 @@ import adt.DeliveryManIteratorInterface;
 import adt.DeliveryManList;
 import entity.Contact;
 import entity.Customer;
+import entity.DeliverJob;
 import entity.DeliveryMan;
 import entity.Food;
 import entity.HumanResource;
+import entity.Order22;
+import entity.OrderDetail22;
 import entity.RestaurantOwner;
 import entity.OrderDetails;
 import entity.PunchedCard;
@@ -13,6 +16,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -24,6 +28,7 @@ public class FastDelivery {
 
     public static List<HumanResource> humanResources = new ArrayList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
+    public static List<DeliverJob> deliverJobs = new ArrayList<>();
 
     public static DeliveryManIteratorInterface<DeliveryMan> t_deliveryMen = new DeliveryManList<>();
 
@@ -32,6 +37,9 @@ public class FastDelivery {
     public static List<Customer> customerArray = new ArrayList<>();
     public static List<OrderDetails> orderDetail = new ArrayList<>();
     public static List<PunchedCard> punchedCards = new ArrayList<>();
+
+    public static List<Order22> cf_orders = new ArrayList<>();
+    public static List<OrderDetail22> cf_orderDetails = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -153,6 +161,14 @@ public class FastDelivery {
 
         restaurantOwners.add(rol);
 
+        Food food1 = new Food(
+                "Mee Goreng",
+                6.99,
+                "Super spicy!!!",
+                rol);
+
+        foods.add(food1);
+
         Customer cus1 = new Customer(
                 "Allan",
                 "950103-14-7777",
@@ -176,5 +192,21 @@ public class FastDelivery {
         } catch (ParseException ex) {
         }
 
+        try {
+            Order22 order1 = new Order22(
+                    "Pending",
+                    13.98,
+                    DF.parse("Mon 11-Dec-2017 20:33:40"),
+                    cus1
+            );
+            cf_orders.add(order1);
+
+            cf_orderDetails.add(new OrderDetail22(order1, food1, 2, "Add spicy pls"));
+
+            DeliverJob dj1 = new DeliverJob(order1, dm1, 1.5);
+            deliverJobs.add(dj1);
+
+        } catch (ParseException ex) {
+        }
     }
 }
