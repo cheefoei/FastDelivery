@@ -12,13 +12,11 @@ public class HumanResource extends Staff implements Serializable {
             String lname,
             char gender,
             String nric,
-            String address,
-            String email,
-            String phoneNumber,
+            Contact contact,
             String username,
             String password) {
 
-        super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
+        super(fname, lname, gender, nric, contact, username, password);
     }
 
 }

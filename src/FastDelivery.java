@@ -1,6 +1,7 @@
 
 import adt.DeliveryManIteratorInterface;
 import adt.DeliveryManList;
+import entity.Contact;
 import entity.Customer;
 import entity.DeliveryMan;
 import entity.Food;
@@ -97,9 +98,14 @@ public class FastDelivery {
                 "Gadot",
                 'F',
                 "890921-10-5486",
-                "No 56 Pengkalan Tldm Teluk Muruk 43000 Kajang Selangor",
-                "galgadot@email.com",
-                "0125683786",
+                new Contact(
+                        "No 56 Pengkalan Tldm Teluk Muruk",
+                        "Kajang",
+                        43000,
+                        "Selangor",
+                        "galgadot@email.com",
+                        "0125683786"
+                ),
                 "gal",
                 "wonder"
         );
@@ -111,9 +117,14 @@ public class FastDelivery {
                 "Mohd",
                 'M',
                 "880512-14-5881",
-                "Blok A34 Pengkalan Tldm Teluk Muruk 32100 Lumut Lumut Perak",
-                "ali@email.com",
-                "0182546897",
+                new Contact(
+                        "Blok A34 Pengkalan Taman Teluk Muruk",
+                        "Lumut",
+                        32100,
+                        "Perak",
+                        "ali@email.com",
+                        "0182546897"
+                ),
                 "ali",
                 "ali123"
         );
@@ -125,9 +136,14 @@ public class FastDelivery {
                 "Melvin",
                 "Tan",
                 "990512-14-8877",
-                "Blok A14 Pengkalan Tldm Teluk Muruk 43100 mohan Perak",
-                "ali@email.com",
-                "0182546897",
+                new Contact(
+                        "Blok A14 Pengkalan Tldm Teluk Muruk",
+                        "mohan",
+                        43100,
+                        "Perak",
+                        "melvin@email.com",
+                        "01111445879"
+                ),
                 "melvin",
                 "mmmm1234",
                 "Ultra Melvin",

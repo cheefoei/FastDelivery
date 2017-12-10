@@ -1,4 +1,5 @@
 
+import entity.Contact;
 import entity.Food;
 import entity.RestaurantOwner;
 import java.util.Scanner;
@@ -79,10 +80,30 @@ public class RestaurantOwnerScreen {
         System.out.print("Restaurant Address >");
         String restaurantAddress = scanner.nextLine();
 
+        System.out.print("Restaurant City >");
+        String restaurantCity = scanner.nextLine();
+
+        System.out.print("Restaurant Postcode >");
+        long restaurantPostcode = scanner.nextLong();
+
+        System.out.print("Restaurant State >");
+        String restaurantState = scanner.nextLine();
+
         System.out.print("Restaurant Phone Number >");
         String restaurantPhoneNumber = scanner.nextLine();
 
-        restaurantOwner = new RestaurantOwner(fname, lname, nric, address, email, phoneNumber, username, password, restaurantName, restaurantAddress, restaurantPhoneNumber);
+        restaurantOwner = new RestaurantOwner(
+                fname, lname, nric,
+                new Contact(
+                        restaurantAddress,
+                        restaurantCity,
+                        restaurantPostcode,
+                        restaurantState,
+                        email,
+                        restaurantPhoneNumber
+                ),
+                username, password, restaurantName, restaurantAddress, restaurantPhoneNumber);
+
         if (FastDelivery.restaurantOwners.add(restaurantOwner)) {
             System.out.printf("\n");
             System.out.println(Constants.MSG_REG_SUCCESS);
@@ -333,7 +354,7 @@ public class RestaurantOwnerScreen {
 
                     Food food = FastDelivery.foods.get(foodNumber - 1);
 
-                        System.out.println("(Enter to bypass)");
+                    System.out.println("(Enter to bypass)");
                     System.out.print("New Food Name >");
                     String foodname = scanner.nextLine();
 
@@ -355,7 +376,7 @@ public class RestaurantOwnerScreen {
                         }
                     } while (!valid);
 
-                        System.out.println("(Enter to bypass)");
+                    System.out.println("(Enter to bypass)");
                     System.out.print("New Food Description >");
                     String fooddesc = scanner.nextLine();
 

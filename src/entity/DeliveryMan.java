@@ -18,39 +18,15 @@ public class DeliveryMan extends Staff implements Serializable {
             String lname,
             char gender,
             String nric,
-            String address,
-            String email,
-            String phoneNumber,
+            Contact contact,
             String username,
             String password) {
 
-        super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
+        super(fname, lname, gender, nric, contact, username, password);
         this.workingStatus = "Available";
         this.isLeave = false;
         this.isResigned = false;
         this.isDeliveryAvailable = true;
-    }
-
-    public DeliveryMan(
-            String fname,
-            String lname,
-            char gender,
-            String nric,
-            String address,
-            String email,
-            String phoneNumber,
-            String username,
-            String password,
-            String workingStatus,
-            boolean isLeave,
-            boolean isResigned,
-            boolean isDeliveryAvailable) {
-
-        super(fname, lname, gender, nric, address, email, phoneNumber, username, password);
-        this.workingStatus = workingStatus;
-        this.isLeave = isLeave;
-        this.isResigned = isResigned;
-        this.isDeliveryAvailable = isDeliveryAvailable;
     }
 
     public String getWorkingStatus() {
