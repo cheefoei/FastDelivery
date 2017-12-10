@@ -12,10 +12,16 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import entity.Customer;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DeliveryManScreen {
 
     public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
+    public static List<Customer> customerArray = new ArrayList<>();
+    
 
     private Scanner scanner = new Scanner(System.in);
     private DeliveryMan deliveryman;
@@ -211,12 +217,14 @@ public class DeliveryManScreen {
         do {
 
             valid = true;
+            
 
             System.out.println("Deliveryman Menu");
             System.out.println("===================");
             System.out.println("1) View order assigned");
             System.out.println("2) Break/End Break");
-            System.out.println("3) go back");
+            System.out.println("3) View customer's details");//Fastest Deliveryman would also like to retrieve a customer’s details based on his phone number.
+            System.out.println("4) go back");
             System.out.print("Option >");
 
             int opt = -1;
@@ -235,6 +243,9 @@ public class DeliveryManScreen {
                     breakTime();
                     break;
                 case 3:
+                    viewCusDetails();
+                    break;
+                case 4:
                     break;
                 default:
                     System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
@@ -270,7 +281,35 @@ public class DeliveryManScreen {
                 break;
         }
     }
+    private void viewCusDetails(){
+        
+        System.out.println("\n View customer's details");
+        System.out.println("=============================");
+        System.out.print("Enter customer's phone number >");
+        String cusContactNo = scanner.nextLine();
+        
+        for (Customer cus : FastDelivery.customerArray) {
+            if (cusContactNo.equals(cus.getCusContactNo())) {
 
+                System.out.printf("Customer name \t\t: " + cus.getCusName() + "\n");
+                System.out.printf("Last name \t\t: " + cus.getCusIc() + "\n");;
+                System.out.printf("Gender \t\t\t: " + cus.getCusGender() + "\n");
+                System.out.printf("NRIC \t\t\t: " + cus.getCusAddress() + "\n");
+                System.out.printf("Home address \t\t: " + cus.getCusContactNo() + "\n");
+                System.out.printf("Email address \t\t: " + cus.getCusEmail() + "\n");
+                
+        } else {
+                clearScreen();
+            viewCusDetails();
+        }
+        }
+    }
+    private static void clearScreen() {
+        for (int clear = 0; clear < 40; clear++) {
+            System.out.println("\b");
+        }
+    }
+        
     private void breakTime() {
         Calendar now = Calendar.getInstance();
         if (deliveryman.getWorkingStatus() != Constants.BREAKTIME) {
