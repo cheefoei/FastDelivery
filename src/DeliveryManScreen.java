@@ -12,12 +12,10 @@ import entity.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class DeliveryManScreen {
 
     public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
     public static List<Customer> customerArray = new ArrayList<>();
-    
 
     private Scanner scanner = new Scanner(System.in);
     private DeliveryMan deliveryman;
@@ -28,29 +26,28 @@ public class DeliveryManScreen {
         System.out.printf("\nDelivery Man Login\n");
         System.out.println("==============");
 
-        Customer cus1 = new Customer(
-                "Allan",
-                "950103-14-7777",
-                "Male",
-                "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
-                "0101234567",
-                "allan0103@gmail.com",
-                "allan",
-                "allan0103"
-        );
-
-        Calendar cal = new GregorianCalendar();
-
-        cal.set(Calendar.DAY_OF_MONTH, 2);
-        cal.set(Calendar.MONTH, 11);
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.HOUR, 1);
-        cal.set(Calendar.MINUTE, 30);
-        cal.set(Calendar.AM_PM, Calendar.PM);
-
-        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime(), cus1);
-        scheduledOrder.add(sOrder1);
-
+//        Customer cus1 = new Customer(
+//                "Allan",
+//                "950103-14-7777",
+//                "Male",
+//                "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
+//                "0101234567",
+//                "allan0103@gmail.com",
+//                "allan",
+//                "allan0103"
+//        );
+//
+//        Calendar cal = new GregorianCalendar();
+//
+//        cal.set(Calendar.DAY_OF_MONTH, 2);
+//        cal.set(Calendar.MONTH, 11);
+//        cal.set(Calendar.YEAR, 2017);
+//        cal.set(Calendar.HOUR, 1);
+//        cal.set(Calendar.MINUTE, 30);
+//        cal.set(Calendar.AM_PM, Calendar.PM);
+//
+//        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime(), cus1);
+//        scheduledOrder.add(sOrder1);
         checkAutho();
     }
 
@@ -149,9 +146,44 @@ public class DeliveryManScreen {
                 System.out.println("Clock In Successful!\n"
                         + "Date & Time:   " + clock_in + "\n"
                         + "Employee Name: " + deliveryman.username + "\n");
+
+                Customer cus2 = new Customer(
+                        "Anna",
+                        "801108-08-2424",
+                        "Female",
+                        "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
+                        "01123456789",
+                        "anna1234@gmail.com",
+                        "anna1234",
+                        "anna5678"
+                );
+
+                Calendar cal = new GregorianCalendar();
+
+                cal.set(Calendar.DAY_OF_MONTH, 13);
+                cal.set(Calendar.MONTH, 11);
+                cal.set(Calendar.YEAR, 2017);
+                cal.set(Calendar.HOUR, 1);
+                cal.set(Calendar.MINUTE, 30);
+                cal.set(Calendar.AM_PM, Calendar.PM);
+
+                ScheduledOrder newSOrder = new ScheduledOrder(0123, "Pending", 60.00, cal.getTime(), cal.getTime(), cus2);
+                scheduledOrder.add(newSOrder);
+                System.out.println("\nNew scheduled Order has been assigned\n");
+                System.out.println("Scheduled Order");
+                System.out.println("--------------------------------------------------------------------");
+                System.out.println("ID: " + String.format("%04d", newSOrder.getOrderId()));
+                System.out.println("Status: " + newSOrder.getStatus());
+                System.out.println("Address: " + newSOrder.getCustomer().getCusAddress());
+                Date scheduleDate = newSOrder.getScheduleDate();
+                Date currentDate = new Date();
+                if (scheduleDate.after(currentDate)) {
+                    long diffTime = scheduleDate.getTime() - currentDate.getTime();
+
+                    System.out.println("Estimated Time: " + getEstimatedTime(diffTime) + "\n");
+                }
             }
         }
-
         punchedCard();
     }
 
@@ -213,7 +245,6 @@ public class DeliveryManScreen {
         do {
 
             valid = true;
-            
 
             System.out.println("Deliveryman Menu");
             System.out.println("===================");
@@ -277,13 +308,14 @@ public class DeliveryManScreen {
                 break;
         }
     }
-    private void viewCusDetails(){
-        
+
+    private void viewCusDetails() {
+
         System.out.println("\n  View customer's details");
         System.out.println("=============================");
         System.out.print("Enter customer's phone number >");
         String cusContactNo = scanner.nextLine();
-        
+
         for (Customer cus : FastDelivery.customerArray) {
             if (cusContactNo.equals(cus.getCusContactNo())) {
 
@@ -293,19 +325,20 @@ public class DeliveryManScreen {
                 System.out.printf("NRIC \t\t\t: " + cus.getCusAddress() + "\n");
                 System.out.printf("Home address \t\t: " + cus.getCusContactNo() + "\n");
                 System.out.printf("Email address \t\t: " + cus.getCusEmail() + "\n");
-                
-        } else {
+
+            } else {
                 clearScreen();
-            viewCusDetails();
-        }
+                viewCusDetails();
+            }
         }
     }
+
     private static void clearScreen() {
         for (int clear = 0; clear < 40; clear++) {
             System.out.println("\b");
         }
     }
-        
+
     private void breakTime() {
         Calendar now = Calendar.getInstance();
         if (deliveryman.getWorkingStatus() != Constants.BREAKTIME) {
@@ -342,6 +375,28 @@ public class DeliveryManScreen {
             System.out.println(scheduledOrder);
 //                }
 //            }
+        }
+    }
+
+    private String getEstimatedTime(long diffTime) {
+        if (diffTime < Constants.MINUTE_MILLIS) {
+            int seconds = (int) diffTime / 1000 % 60;
+            return seconds + " seconds";
+        } else if (diffTime < 50 * Constants.MINUTE_MILLIS) {
+            int seconds = (int) diffTime / 1000 % 60;
+            int minutes = (int) (diffTime / 1000 / 60 % 60);
+            return minutes + " minutes " + seconds + " seconds";
+        } else if (diffTime < 24 * Constants.HOUR_MILLIS) {
+            int seconds = (int) diffTime / 1000 % 60;
+            int minutes = (int) (diffTime / 1000 / 60 % 60);
+            int hours = (int) (diffTime / 1000 / 60 / 60 % 24);
+            return hours + " hours " + minutes + " minutes " + seconds + " seconds";
+        } else {
+            int seconds = (int) diffTime / 1000 % 60;
+            int minutes = (int) (diffTime / 1000 / 60 % 60);
+            int hours = (int) (diffTime / 1000 / 60 / 60 % 24);
+            int days = (int) diffTime / 1000 / 60 / 60 / 24;
+            return days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds";
         }
     }
 }
