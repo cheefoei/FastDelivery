@@ -80,6 +80,7 @@ public class ScheduledOrderList<T extends Comparable<? super T>> implements Sche
         return result;
     }
 
+    @Override
     public boolean replace(int givenPosition, T newEntry) {
         if ((givenPosition >= 1) && (givenPosition <= length)) {
             Node currentNode = firstNode;
@@ -111,6 +112,7 @@ public class ScheduledOrderList<T extends Comparable<? super T>> implements Sche
         return length == 0;
     }
 
+    @Override
     public String toString() {
         int number = 1;
         String outputStr = "";

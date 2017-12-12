@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Order22 implements Comparable<Orders> {
 
-    private int orderId;
+    private long orderId;
     private String status;
     private double totalPrice;
     private Date doneOrderDate;
@@ -22,19 +22,19 @@ public class Order22 implements Comparable<Orders> {
     public Order22() {
     }
 
-    public Order22(int orderId, String status, double totalPrice, Date doneOrderDate, Customer customer) {
-        this.orderId = orderId;
+    public Order22(String status, double totalPrice, Date doneOrderDate, Customer customer) {
+        this.orderId = new Date().getTime();
         this.status = status;
         this.totalPrice = totalPrice;
         this.doneOrderDate = doneOrderDate;
         this.customer = customer;
     }
 
-    public int getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class OrderDetail22 implements Serializable {
 
-    private Orders order;
+    private Order22 order;
     private Food food;
     private int qty;
     private String remark; //Let customer to remark no egg? no spicy?
@@ -16,18 +16,18 @@ public class OrderDetail22 implements Serializable {
     public OrderDetail22() {
     }
 
-    public OrderDetail22(Orders order, Food food, int qty, String remark) {
+    public OrderDetail22(Order22 order, Food food, int qty, String remark) {
         this.order = order;
         this.food = food;
         this.qty = qty;
         this.remark = remark;
     }
 
-    public Orders getOrder() {
+    public Order22 getOrder() {
         return order;
     }
 
-    public void setOrder(Orders order) {
+    public void setOrder(Order22 order) {
         this.order = order;
     }
 
