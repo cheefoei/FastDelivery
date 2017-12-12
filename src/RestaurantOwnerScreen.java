@@ -479,7 +479,7 @@ public class RestaurantOwnerScreen {
                     }
                     if (foodprice != Double.NaN && foodprice > 0) {
                         food.setFoodPrice(foodprice);//
-                    }
+                    } 
 
                     FastDelivery.foods.set(foodNumber - 1, food);
                     System.out.printf("\n");
