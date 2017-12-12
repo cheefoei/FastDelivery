@@ -166,8 +166,38 @@ public class FastDelivery {
                 6.99,
                 "Super spicy!!!",
                 rol);
+        Food food2 = new Food(
+                "Nasi Goreng",
+                8.88,
+                "Spicy!!!",
+                rol);
+        Food food3 = new Food(
+                "Boiled Egg",
+                1.29,
+                "Hard boiled",
+                rol);
+        Food food4 = new Food(
+                "Roti Goreng",
+                10.99,
+                "Non-spicy",
+                rol);
+        Food food5 = new Food(
+                "Mi Sup",
+                7.89,
+                "Got eggs",
+                rol);
+        Food food6 = new Food(
+                "Ayam Goreng",
+                4.99,
+                "Spicy or non spicy",
+                rol);
 
         foods.add(food1);
+        foods.add(food2);
+        foods.add(food3);
+        foods.add(food4);
+        foods.add(food5);
+        foods.add(food6);
 
         Customer cus1 = new Customer(
                 "Allan",
@@ -196,15 +226,65 @@ public class FastDelivery {
             Order22 order1 = new Order22(
                     "Pending",
                     13.98,
-                    DF.parse("Mon 11-Dec-2017 20:33:40"),
+                    DF.parse("Mon 11-Dec-2017 15:33:30"),
                     cus1
             );
-            cf_orders.add(order1);
+            order1.setOrderId(1513099860);
 
-            cf_orderDetails.add(new OrderDetail22(order1, food1, 2, "Add spicy pls"));
+            Order22 order2 = new Order22(
+                    "Pending",
+                    29.88,
+                    DF.parse("Tue 12-Dec-2017 11:55:40"),
+                    cus1
+            );
+            order2.setOrderId(1513099861);
+
+            Order22 order3 = new Order22(
+                    "Pending",
+                    35.66,
+                    DF.parse("Tue 12-Dec-2017 12:56:23"),
+                    cus1
+            );
+            order3.setOrderId(1513099862);
+
+            Order22 order4 = new Order22(
+                    "Pending",
+                    12.33,
+                    DF.parse("Wed 13-Dec-2017 10:25:47"),
+                    cus1
+            );
+            order4.setOrderId(1513099863);
+
+            cf_orders.add(order1);
+            cf_orders.add(order2);
+            cf_orders.add(order3);
+            cf_orders.add(order4);
+
+            OrderDetail22 od1 = new OrderDetail22(order1, food5, 4, "No spicy pls");
+            OrderDetail22 od2 = new OrderDetail22(order2, food2, 4, "More spicy pls");
+            OrderDetail22 od3 = new OrderDetail22(order3, food4, 4, "Less spicy pls");
+
+            cf_orderDetails.add(new OrderDetail22(order4, food1, 2, "Add spicy pls"));
+            cf_orderDetails.add(od1);
+            cf_orderDetails.add(od2);
+            cf_orderDetails.add(od3);
 
             DeliveryJob dj1 = new DeliveryJob(order1, dm1, 1.5);
+            dj1.setDeliveryDate(DF.parse("Mon 11-Dec-2017 15:40:30"));
+
+            DeliveryJob dj2 = new DeliveryJob(order2, dm1, 3.0);
+            dj2.setDeliveryDate(DF.parse("Tue 12-Dec-2017 11:55:40"));
+
+            DeliveryJob dj3 = new DeliveryJob(order3, dm1, 5.0);
+            dj3.setDeliveryDate(DF.parse("Tue 12-Dec-2017 12:56:23"));
+
+            DeliveryJob dj4 = new DeliveryJob(order4, dm1, 0.8);
+            dj4.setDeliveryDate(DF.parse("Wed 13-Dec-2017 10:25:47"));
+
             deliverJobs.add(dj1);
+            deliverJobs.add(dj2);
+            deliverJobs.add(dj3);
+            deliverJobs.add(dj4);
 
         } catch (ParseException ex) {
         }
