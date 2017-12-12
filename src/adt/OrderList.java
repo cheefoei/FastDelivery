@@ -58,20 +58,6 @@ public class OrderList<T extends Comparable<? super T>> implements OrderInterfac
         return outputStr;
     }
 
-    private class Node {
-
-        private T data;
-        private Node next;
-
-        private Node(T dataPortion) {
-            data = dataPortion;
-            next = null;
-        }
-
-        private Node(T dataPortion, Node nextNode) {
-            data = dataPortion;
-            next = nextNode;
-        }
     }
 
 }
