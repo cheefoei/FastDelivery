@@ -340,11 +340,9 @@ public class RestaurantOwnerScreen {
         int count = 1;
         for (Food food : FastDelivery.foods) {
             if (food.getRestaurant() == restaurantOwner) {
-                System.out.printf("%-5s %-30s %-50s %-10s\n",
+                System.out.printf("%-5s %-30s\n",
                         count + ".",
-                        food.getFoodName(),
-                        food.getFoodDesc(),
-                        food.getFoodPrice());
+                        food.getFoodName());
                 count++;
             }
         }

@@ -26,6 +26,8 @@ public class DeliveryManScreen {
     private Scanner scanner = new Scanner(System.in);
     private DeliveryMan deliveryman;
     private String type;
+    private Customer cus2;
+    private ScheduledOrder newSOrder;
 
     public DeliveryManScreen() {
 
@@ -42,18 +44,29 @@ public class DeliveryManScreen {
                 "allan",
                 "allan0103"
         );
+        
+        cus2 = new Customer(
+                        "Anna",
+                        "801108-08-2424",
+                        "Female",
+                        "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
+                        "01123456789",
+                        "anna1234@gmail.com",
+                        "anna1234",
+                        "anna5678"
+                );
 
-        Calendar cal = new GregorianCalendar();
-
-        cal.set(Calendar.DAY_OF_MONTH, 2);
-        cal.set(Calendar.MONTH, 11);
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.HOUR, 1);
-        cal.set(Calendar.MINUTE, 30);
-        cal.set(Calendar.AM_PM, Calendar.PM);
-
-        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime(), cus1);
-        scheduledOrder.add(sOrder1);
+//        Calendar cal = new GregorianCalendar();
+//
+//        cal.set(Calendar.DAY_OF_MONTH, 2);
+//        cal.set(Calendar.MONTH, 11);
+//        cal.set(Calendar.YEAR, 2017);
+//        cal.set(Calendar.HOUR, 1);
+//        cal.set(Calendar.MINUTE, 30);
+//        cal.set(Calendar.AM_PM, Calendar.PM);
+//
+//        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime(), cus1);
+//        scheduledOrder.add(sOrder1);
         checkAutho();
     }
 
@@ -153,16 +166,7 @@ public class DeliveryManScreen {
                         + "Date & Time:   " + clock_in + "\n"
                         + "Employee Name: " + deliveryman.username + "\n");
 
-                Customer cus2 = new Customer(
-                        "Anna",
-                        "801108-08-2424",
-                        "Female",
-                        "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
-                        "01123456789",
-                        "anna1234@gmail.com",
-                        "anna1234",
-                        "anna5678"
-                );
+                
 
                 Calendar cal = new GregorianCalendar();
 
@@ -173,7 +177,7 @@ public class DeliveryManScreen {
                 cal.set(Calendar.MINUTE, 30);
                 cal.set(Calendar.AM_PM, Calendar.PM);
 
-                ScheduledOrder newSOrder = new ScheduledOrder(0123, "Pending", 60.00, cal.getTime(), cal.getTime(), cus2);
+                newSOrder = new ScheduledOrder(0123, "Pending", 60.00, cal.getTime(), cal.getTime(), cus2);
                 scheduledOrder.add(newSOrder);
                 System.out.println("\nNew scheduled Order has been assigned\n");
                 System.out.println("Scheduled Order");
