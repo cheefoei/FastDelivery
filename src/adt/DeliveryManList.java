@@ -3,23 +3,22 @@
  */
 package adt;
 
-import java.util.Iterator;
-
-public class DeliveryManList<T> implements DeliveryManIteratorInterface<T> {
+public class DeliveryManList<T> implements DeliveryManInterface<T> {
 
     private Node firstNode;
     private int size = 0;
+    private int currentPosition = 0;
 
     public DeliveryManList() {
         this.firstNode = null;
     }
 
     @Override
-    public boolean addDeliveryMan(T newData) {
+    public boolean add(T newStaff) {
 
-        Node newNode = new Node(newData);
+        Node newNode = new Node(newStaff);
 
-        if (getDeliveryManSize() == 0) {
+        if (size() == 0) {
             firstNode = newNode;
             size++;
         } else {
@@ -30,41 +29,59 @@ public class DeliveryManList<T> implements DeliveryManIteratorInterface<T> {
             travelNode.nextNode = newNode;
             size++;
         }
-        return false;
+        return true;
     }
 
     @Override
-    public boolean addDeliveryMan(T newData, int position) {
-        return false;
+    public T get(int position) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public T getDeliveryMan(int position) {
-        return null;
+    public T next() {
+
+        T data = null;
+        if (hasNext()) {
+            data = get(currentPosition);
+            currentPosition++;
+        }
+        System.out.println("next");
+
+        return data;
     }
 
     @Override
-    public boolean replace(T newData, int position) {
-        return false;
+    public boolean hasNext() {
+
+        if (currentPosition >= size) {
+            currentPosition = 0;
+        }
+        System.out.println("hasnext");
+        return currentPosition < size;
     }
 
     @Override
-    public void remove(T deliveryMan) {
+    public boolean remove(T staff) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void remove(int position) {
+    public boolean remove(int position) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void removeAll() {
-
-        this.firstNode = null;
-        this.size = 0;
+    public boolean replace(T staff, int position) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int getDeliveryManSize() {
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int size() {
         return size;
     }
 
@@ -76,34 +93,6 @@ public class DeliveryManList<T> implements DeliveryManIteratorInterface<T> {
     @Override
     public DeliveryManInterface getStatusSorted() {
         return null;
-    }
-
-    @Override
-    public Iterator getIterator() {
-        return new DeliveryManIterator();
-    }
-
-    private class DeliveryManIterator implements Iterator<T> {
-
-        private Node currentNode = firstNode;
-
-        @Override
-        public boolean hasNext() {
-            return currentNode != null;
-        }
-
-        @Override
-        public T next() {
-
-            T data = null;
-            if (hasNext()) {
-                data = currentNode.data;
-                currentNode = currentNode.nextNode;
-            }
-
-            return data;
-        }
-
     }
 
     private class Node {

@@ -1,6 +1,8 @@
 
-import adt.DeliveryManIteratorInterface;
+import adt.DeliveryManInterface;
 import adt.DeliveryManList;
+import adt.HumanResourceList;
+import adt.StaffInterface;
 import entity.Contact;
 import entity.Customer;
 import entity.DeliveryJob;
@@ -16,7 +18,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -26,11 +27,11 @@ public class FastDelivery {
     private static Scanner scanner = new Scanner(System.in);
     private static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
-    public static List<HumanResource> humanResources = new ArrayList<>();
+    public static StaffInterface<HumanResource> humanResources = new HumanResourceList<>();
     public static List<DeliveryMan> deliveryMen = new ArrayList<>();
     public static List<DeliveryJob> deliverJobs = new ArrayList<>();
 
-    public static DeliveryManIteratorInterface<DeliveryMan> t_deliveryMen = new DeliveryManList<>();
+    public static DeliveryManInterface<DeliveryMan> t_deliveryMen = new DeliveryManList<>();
 
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Food> foods = new ArrayList<>();
@@ -138,7 +139,7 @@ public class FastDelivery {
         );
 
         deliveryMen.add(dm1);
-        t_deliveryMen.addDeliveryMan(dm1);
+        t_deliveryMen.add(dm1);
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",

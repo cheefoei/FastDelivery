@@ -47,7 +47,12 @@ public class HumanResourceScreen {
         if (!username.isEmpty() && !password.isEmpty()) {
 
             // Check existing HR staffs
-            for (HumanResource hr : FastDelivery.humanResources) {
+                    System.out.println("hasnext");
+
+            while (FastDelivery.humanResources.hasNext()) {
+                        System.out.println("next");
+
+                HumanResource hr = FastDelivery.humanResources.next();
                 if (username.equals(hr.username)) {
                     currentUser = hr;
                 }
@@ -127,11 +132,9 @@ public class HumanResourceScreen {
         System.out.println("================");
 
         int count = 1;
-        Iterator<DeliveryMan> dmList = FastDelivery.t_deliveryMen.getIterator();
+        while (FastDelivery.t_deliveryMen.hasNext()) {
 
-        while (dmList.hasNext()) {
-
-            DeliveryMan dm = dmList.next();
+            DeliveryMan dm = FastDelivery.t_deliveryMen.next();
             String status = "";
 
             if (dm.isIsLeave()) {
