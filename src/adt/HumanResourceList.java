@@ -56,10 +56,12 @@ public class HumanResourceList<T> implements StaffInterface<T> {
         return data;
     }
 
+    @Override
     public T next() {
 
+        T data = get(currentPosition);
         currentPosition++;
-        return get(currentPosition);
+        return data;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class HumanResourceList<T> implements StaffInterface<T> {
             currentPosition = 0;
             return false;
         } else {
-            return currentPosition < size;
+            return true;
         }
     }
 

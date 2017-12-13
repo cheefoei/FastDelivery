@@ -34,19 +34,27 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
 
     @Override
     public T get(int position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        T data = null;
+        if (!isEmpty()) {
+            if (position < size) {
+                Node referNode = firstNode;
+                for (int i = 0; i <= position; i++) {
+                    data = referNode.data;
+                    referNode = referNode.nextNode;
+                }
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        }
+        return data;
     }
 
     @Override
     public T next() {
 
-        T data = null;
-        if (hasNext()) {
-            data = get(currentPosition);
-            currentPosition++;
-        }
-        System.out.println("next");
-
+        T data = get(currentPosition);
+        currentPosition++;
         return data;
     }
 
@@ -55,29 +63,63 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
 
         if (currentPosition >= size) {
             currentPosition = 0;
+            return false;
+        } else {
+            return true;
         }
-        System.out.println("hasnext");
-        return currentPosition < size;
     }
 
     @Override
     public boolean remove(T staff) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        boolean isRemoved = false;
+
+        if (!isEmpty()) {
+            Node referNode = firstNode;
+            for (int i = 0; i < size; i++) {
+                if (referNode.data != staff) {
+
+                }
+                referNode = referNode.nextNode;
+            }
+            size--;
+        }
+        return isRemoved;
     }
 
     @Override
     public boolean remove(int position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 
     @Override
     public boolean replace(T staff, int position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        boolean isReplaced = false;
+        if (!isEmpty()) {
+            if (position < size) {
+                if (position == 0) {
+                    firstNode.data = staff;
+                } else {
+                    Node referNode = firstNode;
+                    for (int i = 0; i <= position; i++) {
+                        if (i == position) {
+                            referNode.data = staff;
+                        }
+                        referNode = referNode.nextNode;
+                    }
+                }
+                isReplaced = true;
+            } else {
+                throw new IndexOutOfBoundsException();
+            }
+        }
+        return isReplaced;
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return size == 0;
     }
 
     @Override

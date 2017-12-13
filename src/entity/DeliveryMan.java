@@ -11,6 +11,11 @@ public class DeliveryMan extends Staff implements Serializable {
     private String workingStatus;
 
     public DeliveryMan() {
+        
+        this.workingStatus = "Available";
+        this.isLeave = false;
+        this.isResigned = false;
+        this.isDeliveryAvailable = true;
     }
 
     public DeliveryMan(
