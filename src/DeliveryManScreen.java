@@ -1,4 +1,8 @@
 
+
+
+import adt.OrderInterface;
+import adt.OrderList;
 import adt.ScheduledOrderInterface;
 import adt.ScheduledOrderList;
 import entity.DeliveryMan;
@@ -9,34 +13,49 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import entity.Customer;
+import entity.Orders;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeliveryManScreen {
 
     public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
+     public static OrderInterface<Orders> orderList = new OrderList<>(); 
     public static List<Customer> customerArray = new ArrayList<>();
 
     private Scanner scanner = new Scanner(System.in);
     private DeliveryMan deliveryman;
     private String type;
+    private Customer cus2;
+    private ScheduledOrder newSOrder;
 
     public DeliveryManScreen() {
 
         System.out.printf("\nDelivery Man Login\n");
         System.out.println("==============");
 
-//        Customer cus1 = new Customer(
-//                "Allan",
-//                "950103-14-7777",
-//                "Male",
-//                "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
-//                "0101234567",
-//                "allan0103@gmail.com",
-//                "allan",
-//                "allan0103"
-//        );
-//
+        Customer cus1 = new Customer(
+                "Allan",
+                "950103-14-7777",
+                "Male",
+                "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
+                "0101234567",
+                "allan0103@gmail.com",
+                "allan",
+                "allan0103"
+        );
+        
+        cus2 = new Customer(
+                        "Anna",
+                        "801108-08-2424",
+                        "Female",
+                        "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
+                        "01123456789",
+                        "anna1234@gmail.com",
+                        "anna1234",
+                        "anna5678"
+                );
+
 //        Calendar cal = new GregorianCalendar();
 //
 //        cal.set(Calendar.DAY_OF_MONTH, 2);
@@ -147,16 +166,7 @@ public class DeliveryManScreen {
                         + "Date & Time:   " + clock_in + "\n"
                         + "Employee Name: " + deliveryman.username + "\n");
 
-                Customer cus2 = new Customer(
-                        "Anna",
-                        "801108-08-2424",
-                        "Female",
-                        "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
-                        "01123456789",
-                        "anna1234@gmail.com",
-                        "anna1234",
-                        "anna5678"
-                );
+                
 
                 Calendar cal = new GregorianCalendar();
 
@@ -167,7 +177,7 @@ public class DeliveryManScreen {
                 cal.set(Calendar.MINUTE, 30);
                 cal.set(Calendar.AM_PM, Calendar.PM);
 
-                ScheduledOrder newSOrder = new ScheduledOrder(0123, "Pending", 60.00, cal.getTime(), cal.getTime(), cus2);
+                newSOrder = new ScheduledOrder(0123, "Pending", 60.00, cal.getTime(), cal.getTime(), cus2);
                 scheduledOrder.add(newSOrder);
                 System.out.println("\nNew scheduled Order has been assigned\n");
                 System.out.println("Scheduled Order");
@@ -355,14 +365,16 @@ public class DeliveryManScreen {
 
     private void displayOrder() {
         if (type.equals("ad-hoc")) {
-//            Orders newOrders = new Orders(id, status, totalPrice);
-//
-//            System.out.println("------------------------------------------------------------------------");
-//            System.out.println("                              Order List");
-//            System.out.println("------------------------------------------------------------------------");
-//            System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
-//            System.out.println("------------------------------------------------------------------------");
-//            System.out.println(orderList);
+            Orders newOrders = new Orders(0001, "Pending", 5.00);
+            
+            orderList.addNewOrder(newOrders);
+
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("                              Order List");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println(orderList);
         } else {
             System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("                                                 Order List");
