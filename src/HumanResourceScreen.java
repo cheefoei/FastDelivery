@@ -7,12 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class HumanResourceScreen {
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private HumanResource currentUser;
 
     private int failedCount = 0;
@@ -47,11 +46,7 @@ public class HumanResourceScreen {
         if (!username.isEmpty() && !password.isEmpty()) {
 
             // Check existing HR staffs
-                    System.out.println("hasnext");
-
             while (FastDelivery.humanResources.hasNext()) {
-                        System.out.println("next");
-
                 HumanResource hr = FastDelivery.humanResources.next();
                 if (username.equals(hr.username)) {
                     currentUser = hr;
@@ -132,9 +127,9 @@ public class HumanResourceScreen {
         System.out.println("================");
 
         int count = 1;
-        while (FastDelivery.t_deliveryMen.hasNext()) {
+        while (FastDelivery.deliveryMen.hasNext()) {
 
-            DeliveryMan dm = FastDelivery.t_deliveryMen.next();
+            DeliveryMan dm = FastDelivery.deliveryMen.next();
             String status = "";
 
             if (dm.isIsLeave()) {
@@ -163,7 +158,7 @@ public class HumanResourceScreen {
                 Contact contact = dm.contact;
 
                 System.out.printf("First name \t\t: " + dm.fname + "\n");
-                System.out.printf("Last name \t\t: " + dm.lname + "\n");;
+                System.out.printf("Last name \t\t: " + dm.lname + "\n");
                 System.out.printf("Gender \t\t\t: " + dm.gender + "\n");
                 System.out.printf("NRIC \t\t\t: " + dm.nric + "\n");
                 System.out.printf("Home address \t\t: " + contact.getAddress() + ","
@@ -282,6 +277,7 @@ public class HumanResourceScreen {
         dm.username = scanner.nextLine();
         System.out.print("Password > ");
         dm.password = scanner.nextLine();
+        dm.contact = contact;
 
         if (FastDelivery.deliveryMen.add(dm)) {
 
@@ -303,7 +299,8 @@ public class HumanResourceScreen {
         System.out.println("================");
 
         int count = 1;
-        for (DeliveryMan dm : FastDelivery.deliveryMen) {
+        while (FastDelivery.deliveryMen.hasNext()) {
+            DeliveryMan dm = FastDelivery.deliveryMen.next();
             System.out.printf(count + ") " + dm.fname + " " + dm.lname + "\n");
             count++;
         }
@@ -358,7 +355,7 @@ public class HumanResourceScreen {
                     System.out.print("New State > ");
                     dm.contact.setState(scanner.nextLine());
 
-                    FastDelivery.deliveryMen.set(deliveryManOption - 1, dm);
+                    FastDelivery.deliveryMen.replace(dm, deliveryManOption - 1);
                     System.out.println("His/her home address is updated successfully.");
                     humanResourceMenu();
 
@@ -375,7 +372,7 @@ public class HumanResourceScreen {
                         }
                     } while (!valid);
 
-                    FastDelivery.deliveryMen.set(deliveryManOption - 1, dm);
+                    FastDelivery.deliveryMen.replace(dm, deliveryManOption - 1);
                     System.out.println("His/her email address is updated successfully.");
                     humanResourceMenu();
 
@@ -392,7 +389,7 @@ public class HumanResourceScreen {
                         }
                     } while (!valid);
 
-                    FastDelivery.deliveryMen.set(deliveryManOption - 1, dm);
+                    FastDelivery.deliveryMen.replace(dm, deliveryManOption - 1);
                     System.out.println("His/her phone number is updated successfully.");
                     humanResourceMenu();
 
@@ -429,7 +426,7 @@ public class HumanResourceScreen {
             if (option.equals("1")) {
 
                 dm.setIsLeave(false);
-                FastDelivery.deliveryMen.set(index, dm);
+                FastDelivery.deliveryMen.replace(dm, index);
                 System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
@@ -438,7 +435,7 @@ public class HumanResourceScreen {
                 dm.setIsLeave(false);
                 dm.setIsResigned(true);
 
-                FastDelivery.deliveryMen.set(index, dm);
+                FastDelivery.deliveryMen.replace(dm, index);
                 System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
                 humanResourceMenu();
 
@@ -458,7 +455,7 @@ public class HumanResourceScreen {
             if (option.equals("1")) {
 
                 dm.setIsResigned(false);
-                FastDelivery.deliveryMen.set(index, dm);
+                FastDelivery.deliveryMen.replace(dm, index);
                 System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
@@ -478,7 +475,7 @@ public class HumanResourceScreen {
             if (option.equals("1")) {
 
                 dm.setIsLeave(true);
-                FastDelivery.deliveryMen.set(index, dm);
+                FastDelivery.deliveryMen.replace(dm, index);
                 System.out.println(dm.fname + " " + dm.lname + " is LEAVE now.");
                 humanResourceMenu();
 
@@ -486,7 +483,7 @@ public class HumanResourceScreen {
 
                 dm.setIsResigned(true);
 
-                FastDelivery.deliveryMen.set(index, dm);
+                FastDelivery.deliveryMen.replace(dm, index);
                 System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
                 humanResourceMenu();
 
@@ -503,7 +500,8 @@ public class HumanResourceScreen {
         System.out.println("============================");
 
         int count = 1;
-        for (DeliveryMan dm : FastDelivery.deliveryMen) {
+        while (FastDelivery.deliveryMen.hasNext()) {
+            DeliveryMan dm = FastDelivery.deliveryMen.next();
             System.out.printf(count + ") " + dm.fname + " " + dm.lname + "\n");
             count++;
         }

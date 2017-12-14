@@ -1,6 +1,4 @@
 
-
-
 import adt.OrderInterface;
 import adt.OrderList;
 import adt.ScheduledOrderInterface;
@@ -20,7 +18,7 @@ import java.util.List;
 public class DeliveryManScreen {
 
     public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
-     public static OrderInterface<Orders> orderList = new OrderList<>(); 
+    public static OrderInterface<Orders> orderList = new OrderList<>();
     public static List<Customer> customerArray = new ArrayList<>();
 
     private Scanner scanner = new Scanner(System.in);
@@ -44,17 +42,17 @@ public class DeliveryManScreen {
                 "allan",
                 "allan0103"
         );
-        
+
         cus2 = new Customer(
-                        "Anna",
-                        "801108-08-2424",
-                        "Female",
-                        "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
-                        "01123456789",
-                        "anna1234@gmail.com",
-                        "anna1234",
-                        "anna5678"
-                );
+                "Anna",
+                "801108-08-2424",
+                "Female",
+                "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
+                "01123456789",
+                "anna1234@gmail.com",
+                "anna1234",
+                "anna5678"
+        );
 
 //        Calendar cal = new GregorianCalendar();
 //
@@ -78,7 +76,8 @@ public class DeliveryManScreen {
         System.out.print("Password >");
         String password = scanner.nextLine();
 
-        for (DeliveryMan dm : FastDelivery.deliveryMen) {
+        while (FastDelivery.deliveryMen.hasNext()) {
+            DeliveryMan dm = FastDelivery.deliveryMen.next();
             if (username.equals(dm.username)) {
                 deliveryman = dm;
             }
@@ -165,8 +164,6 @@ public class DeliveryManScreen {
                 System.out.println("Clock In Successful!\n"
                         + "Date & Time:   " + clock_in + "\n"
                         + "Employee Name: " + deliveryman.username + "\n");
-
-                
 
                 Calendar cal = new GregorianCalendar();
 
@@ -366,7 +363,7 @@ public class DeliveryManScreen {
     private void displayOrder() {
         if (type.equals("ad-hoc")) {
             Orders newOrders = new Orders(0001, "Pending", 5.00);
-            
+
             orderList.addNewOrder(newOrders);
 
             System.out.println("------------------------------------------------------------------------");

@@ -28,10 +28,8 @@ public class FastDelivery {
     private static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
     public static StaffInterface<HumanResource> humanResources = new HumanResourceList<>();
-    public static List<DeliveryMan> deliveryMen = new ArrayList<>();
+    public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
     public static List<DeliveryJob> deliverJobs = new ArrayList<>();
-
-    public static DeliveryManInterface<DeliveryMan> t_deliveryMen = new DeliveryManList<>();
 
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Food> foods = new ArrayList<>();
@@ -118,8 +116,25 @@ public class FastDelivery {
                 "gal",
                 "wonder"
         );
+        HumanResource hr2 = new HumanResource(
+                "Clark",
+                "Ken",
+                'M',
+                "770225-08-4789",
+                new Contact(
+                        "No 87 Jln 123 Taman Oman",
+                        "Titiwangsa",
+                        50000,
+                        "Kuala Lumpur",
+                        "clarkken@email.com",
+                        "0178524678"
+                ),
+                "clark",
+                "ken"
+        );
 
         humanResources.add(hr1);
+        humanResources.add(hr2);
 
         DeliveryMan dm1 = new DeliveryMan(
                 "Ali",
@@ -139,7 +154,7 @@ public class FastDelivery {
         );
 
         deliveryMen.add(dm1);
-        t_deliveryMen.add(dm1);
+        deliveryMen.add(dm1);
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",
