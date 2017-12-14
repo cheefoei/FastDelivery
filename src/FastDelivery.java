@@ -153,8 +153,25 @@ public class FastDelivery {
                 "ali123"
         );
 
+        DeliveryMan dm2 = new DeliveryMan(
+                "Jessica",
+                "Fishman",
+                'F',
+                "910222-10-6334",
+                new Contact(
+                        "No 123 Jalan Pengkalan Taman Muruk",
+                        "Shah Alam",
+                        468000,
+                        "Selangor",
+                        "jess@email.com",
+                        "01111225578"
+                ),
+                "jess",
+                "fish"
+        );
+
         deliveryMen.add(dm1);
-        deliveryMen.add(dm1);
+        deliveryMen.add(dm2);
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",
