@@ -12,15 +12,17 @@ package adt;
  */
 public interface DeliveryJobInterface<T> {
 
-    public boolean enqueueDeliveryJob(T deliveryJob);
+    public void enqueueDeliveryJob(T deliveryJob);
 
     public T dequeueDeliveryJob();
 
     public T getFront();
 
-    public int size();
+    public int length();
 
     public boolean isEmpty();
 
     public boolean isContain(T deliveryJob);
+    
+    public void removeAll();
 }
