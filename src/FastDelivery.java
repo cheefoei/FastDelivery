@@ -1,4 +1,6 @@
 
+import adt.DeliveryJobInterface;
+import adt.DeliveryJobQueue;
 import adt.DeliveryManInterface;
 import adt.DeliveryManList;
 import adt.HumanResourceList;
@@ -29,7 +31,7 @@ public class FastDelivery {
 
     public static StaffInterface<HumanResource> humanResources = new HumanResourceList<>();
     public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
-    public static List<DeliveryJob> deliverJobs = new ArrayList<>();
+    public static DeliveryJobInterface<DeliveryJob> deliverJobs = new DeliveryJobQueue<>();
 
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Food> foods = new ArrayList<>();
@@ -153,8 +155,25 @@ public class FastDelivery {
                 "ali123"
         );
 
+        DeliveryMan dm2 = new DeliveryMan(
+                "Jessica",
+                "Fishman",
+                'F',
+                "910222-10-6334",
+                new Contact(
+                        "No 123 Jalan Pengkalan Taman Muruk",
+                        "Shah Alam",
+                        468000,
+                        "Selangor",
+                        "jess@email.com",
+                        "01111225578"
+                ),
+                "jess",
+                "fish"
+        );
+
         deliveryMen.add(dm1);
-        deliveryMen.add(dm1);
+        deliveryMen.add(dm2);
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",
@@ -297,10 +316,10 @@ public class FastDelivery {
             DeliveryJob dj4 = new DeliveryJob(order4, dm1, 0.8);
             dj4.setDeliveryDate(DF.parse("Wed 13-Dec-2017 10:25:47"));
 
-            deliverJobs.add(dj1);
-            deliverJobs.add(dj2);
-            deliverJobs.add(dj3);
-            deliverJobs.add(dj4);
+            deliverJobs.enqueueDeliveryJob(dj1);
+            deliverJobs.enqueueDeliveryJob(dj2);
+            deliverJobs.enqueueDeliveryJob(dj3);
+            deliverJobs.enqueueDeliveryJob(dj4);
 
         } catch (ParseException ex) {
         }

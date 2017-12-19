@@ -102,12 +102,10 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
                     firstNode.data = staff;
                 } else {
                     Node referNode = firstNode;
-                    for (int i = 0; i <= position; i++) {
-                        if (i == position) {
-                            referNode.data = staff;
-                        }
+                    for (int i = 0; i < position; i++) {
                         referNode = referNode.nextNode;
                     }
+                    referNode.data = staff;
                 }
                 isReplaced = true;
             } else {
