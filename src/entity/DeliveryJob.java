@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class DeliveryJob implements Serializable {
 
-    private Order22 order;
+    private Orders order;
     private DeliveryMan deliveryMan;
     private double deliveryFee;
     private double distance;
@@ -24,7 +24,7 @@ public class DeliveryJob implements Serializable {
     public DeliveryJob() {
     }
 
-    public DeliveryJob(Order22 order, DeliveryMan deliveryMan, double distance) {
+    public DeliveryJob(Orders order, DeliveryMan deliveryMan, double distance) {
 
         Calendar now = Calendar.getInstance();
 
@@ -35,11 +35,11 @@ public class DeliveryJob implements Serializable {
         this.deliveryDate = now.getTime();
     }
 
-    public Order22 getOrder() {
+    public Orders getOrder() {
         return order;
     }
 
-    public void setOrder(Order22 order) {
+    public void setOrder(Orders order) {
         this.order = order;
     }
 

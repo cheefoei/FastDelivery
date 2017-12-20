@@ -5,22 +5,23 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Clarity
  */
-public class Orders implements Comparable<Orders> {
+public class Orders implements Serializable {
 
     private long orderId;
-    private String status;
+    private String status = "Pending";
     private double totalPrice;
     private Date doneOrderDate;
     private Customer customer;
 
-    public Orders(long orderId, String status, double totalPrice, Date doneOrderDate, Customer customer) {
-        this.orderId = orderId;
+    public Orders(String status, double totalPrice, Date doneOrderDate, Customer customer) {
+        this.orderId = new Date().getTime();
         this.status = status;
         this.totalPrice = totalPrice;
         this.doneOrderDate = doneOrderDate;
@@ -69,29 +70,5 @@ public class Orders implements Comparable<Orders> {
 
     
  
-    @Override
-    public String toString() {
-        String orderID = "";
-        if (orderId < 10) {
-            orderID = "000" + orderId;
-        } else if (orderId >= 10 && orderId < 100) {
-            orderID = "00" + orderId;
-        } else if (orderId >= 100 && orderId < 1000) {
-            orderID = "0" + orderId;
-        } else {
-            orderID = "" + orderId;
-        }
-        return String.format("%-10s %-20s %-20s %-20s", "", orderID, status, totalPrice);
-    }
-
-    @Override
-    public int compareTo(Orders orders) {
-        if (orderId > orders.getOrderId()) {
-            return 1;
-        } else if (orderId == orders.getOrderId()) {
-            return 0;
-        } else {
-            return -1;
-        }
-    }
+    
 }

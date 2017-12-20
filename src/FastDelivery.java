@@ -3,16 +3,19 @@ import adt.DeliveryManInterface;
 import adt.DeliveryManList;
 import adt.BasicList;
 import adt.BasicListInterface;
+import adt.OrderFoodInterface;
+import adt.OrderFoodList;
+import adt.OrderInterface;
+import adt.OrderList;
 import entity.Contact;
 import entity.Customer;
 import entity.DeliveryJob;
 import entity.DeliveryMan;
 import entity.Food;
 import entity.HumanResource;
-import entity.Order22;
-import entity.OrderDetail22;
 import entity.RestaurantOwner;
 import entity.OrderDetails;
+import entity.Orders;
 import entity.PunchedCard;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -34,11 +37,12 @@ public class FastDelivery {
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Food> foods = new ArrayList<>();
     public static List<Customer> customerArray = new ArrayList<>();
+    public static List<Orders> orders = new ArrayList<>();
     public static List<OrderDetails> orderDetail = new ArrayList<>();
     public static List<PunchedCard> punchedCards = new ArrayList<>();
+    public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
+    //public static OrderInterface<Orders> orderList = new OrderList<>();
 
-    public static List<Order22> cf_orders = new ArrayList<>();
-    public static List<OrderDetail22> cf_orderDetails = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -170,8 +174,8 @@ public class FastDelivery {
                 "fish"
         );
 
-        deliveryMen.add(dm1);
-        deliveryMen.add(dm2);
+        //deliveryMen.add(dm1);
+        //deliveryMen.add(dm2);
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",
@@ -236,14 +240,53 @@ public class FastDelivery {
                 "Allan",
                 "950103-14-7777",
                 "Male",
-                "No 8, Jalan Timur 8/3,56743 Serdang,Selangor",
-                "0101234567",
-                "allan0103@gmail.com",
+                new Contact(
+                        "No.8 Jalan Dulang,Balakong",
+                        "Seri Kembangan",
+                        43300,
+                        "Selangor",
+                        "allan0103@gmail.com",
+                        "0101234567"
+                ),
                 "allan",
                 "allan0103"
         );
         customerArray.add(cus1);
-
+        
+        Customer cus2 = new Customer(
+                "Ji Yong",
+                "880818-10-8888",
+                "Male",
+                new Contact(
+                        "No.18 Putra Avenue ",
+                        "Subang Jaya",
+                        47100,
+                        "Selangor",
+                        "jiyong0818@gmail.com",
+                        "0102345678"
+                ),
+                "gd",
+                "gd0818"
+        );
+        customerArray.add(cus2);
+        
+        Customer cus3 = new Customer(
+                "Charlotte",
+                "940505-08-5698",
+                "Female",
+                new Contact(
+                        "No.12 Jalan USJ 13/3",
+                        "Subang Jaya",
+                        47610,
+                        "Selangor",
+                        "charlotte@gmail.com",
+                        "0112345678"
+                ),
+                "charlotte",
+                "charlotte0505"
+        );
+        customerArray.add(cus3);
+        
         try {
             PunchedCard pc1 = new PunchedCard(
                     "ON-DUTY",
@@ -256,7 +299,7 @@ public class FastDelivery {
         }
 
         try {
-            Order22 order1 = new Order22(
+            Orders order1 = new Orders(
                     "Pending",
                     13.98,
                     DF.parse("Mon 11-Dec-2017 15:33:30"),
@@ -264,7 +307,7 @@ public class FastDelivery {
             );
             order1.setOrderId(1513099860);
 
-            Order22 order2 = new Order22(
+            Orders order2 = new Orders(
                     "Pending",
                     29.88,
                     DF.parse("Tue 12-Dec-2017 11:55:40"),
@@ -272,7 +315,7 @@ public class FastDelivery {
             );
             order2.setOrderId(1513099861);
 
-            Order22 order3 = new Order22(
+            Orders order3 = new Orders(
                     "Pending",
                     35.66,
                     DF.parse("Tue 12-Dec-2017 12:56:23"),
@@ -280,7 +323,7 @@ public class FastDelivery {
             );
             order3.setOrderId(1513099862);
 
-            Order22 order4 = new Order22(
+            Orders order4 = new Orders(
                     "Pending",
                     12.33,
                     DF.parse("Wed 13-Dec-2017 10:25:47"),
@@ -288,19 +331,19 @@ public class FastDelivery {
             );
             order4.setOrderId(1513099863);
 
-            cf_orders.add(order1);
-            cf_orders.add(order2);
-            cf_orders.add(order3);
-            cf_orders.add(order4);
+            orders.add(order1);
+            orders.add(order2);
+            orders.add(order3);
+            orders.add(order4);
 
-            OrderDetail22 od1 = new OrderDetail22(order1, food5, 4, "No spicy pls");
-            OrderDetail22 od2 = new OrderDetail22(order2, food2, 4, "More spicy pls");
-            OrderDetail22 od3 = new OrderDetail22(order3, food4, 4, "Less spicy pls");
+            OrderDetails od1 = new OrderDetails(order1, food5, 4, "No spicy pls");
+            OrderDetails od2 = new OrderDetails(order2, food2, 4, "More spicy pls");
+            OrderDetails od3 = new OrderDetails(order3, food4, 4, "Less spicy pls");
 
-            cf_orderDetails.add(new OrderDetail22(order4, food1, 2, "Add spicy pls"));
-            cf_orderDetails.add(od1);
-            cf_orderDetails.add(od2);
-            cf_orderDetails.add(od3);
+            orderDetail.add(new OrderDetails(order4, food1, 2, "Add spicy pls"));
+            orderDetail.add(od1);
+            orderDetail.add(od2);
+            orderDetail.add(od3);
 
             DeliveryJob dj1 = new DeliveryJob(order1, dm1, 1.5);
             dj1.setDeliveryDate(DF.parse("Mon 11-Dec-2017 15:40:30"));

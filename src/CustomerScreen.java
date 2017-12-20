@@ -47,15 +47,15 @@ public class CustomerScreen {
 
         checkAutho();
 
-        OrderDetails orderdetails1 = new OrderDetails(1, 10);
+        //OrderDetails orderdetails1 = new OrderDetails(1, 10);
 
-        orderFoodList.addNewOrder(orderdetails1);
-        Orders order1 = new Orders(id, status, totalPrice);
+        //orderFoodList.addNewOrder(orderdetails1);
+       // Orders order1 = new Orders(id, status, totalPrice);
         //#
         ScheduledOrder sOrder1 = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime, currentUser);
         //#
-        id++;
-        orderList.addNewOrder(order1);
+        //id++;
+        //orderList.addNewOrder(order1);
         //#
         scheduledOrder.add(sOrder1);
         //#

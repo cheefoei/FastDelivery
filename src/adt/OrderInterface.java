@@ -8,8 +8,9 @@ package adt;
 /**
  *
  * @author Clarity
+ * @param <T>
  */
-public interface OrderInterface <T extends Comparable<T>>{
+public interface OrderInterface <T>{
     
     public boolean addNewOrder(T newOrder); // Add new order
     

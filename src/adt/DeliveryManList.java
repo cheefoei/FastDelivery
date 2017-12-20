@@ -3,7 +3,7 @@
  */
 package adt;
 
-public class DeliveryManList<T extends Comparable> implements DeliveryManInterface<T> {
+public class DeliveryManList<T> implements DeliveryManInterface<T> {
 
     private Node firstNode;
     private int size = 0;
