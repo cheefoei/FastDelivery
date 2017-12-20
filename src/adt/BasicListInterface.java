@@ -9,21 +9,22 @@ package adt;
  *
  * @author Student
  */
-public interface StaffInterface<T> {
+public interface BasicListInterface<T> {
 
-    public boolean add(T newStaff);
+    public boolean add(T newData);
 
     public T get(int position);
     
+    /* Use for iterating*/
     public T next();
 
     public boolean hasNext();
 
-    public boolean remove(T staff);
+    public boolean remove(T data);
 
     public boolean remove(int position);
 
-    public boolean replace(T staff, int position);
+    public boolean replace(T data, int position);
 
     public boolean isEmpty();
 

@@ -3,7 +3,7 @@
  */
 package adt;
 
-public class DeliveryManList<T> implements DeliveryManInterface<T> {
+public class DeliveryManList<T extends Comparable> implements DeliveryManInterface<T> {
 
     private Node firstNode;
     private int size = 0;
@@ -14,9 +14,9 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
     }
 
     @Override
-    public boolean add(T newStaff) {
+    public boolean add(T newDeliveryMan) {
 
-        Node newNode = new Node(newStaff);
+        Node newNode = new Node(newDeliveryMan);
 
         if (size() == 0) {
             firstNode = newNode;
@@ -26,6 +26,7 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
             while (travelNode.nextNode != null) {
                 travelNode = travelNode.nextNode;
             }
+            newNode.prevNode = travelNode;
             travelNode.nextNode = newNode;
             size++;
         }
@@ -70,14 +71,14 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
     }
 
     @Override
-    public boolean remove(T staff) {
+    public boolean remove(T deliveyMan) {
 
         boolean isRemoved = false;
 
         if (!isEmpty()) {
             Node referNode = firstNode;
             for (int i = 0; i < size; i++) {
-                if (referNode.data != staff) {
+                if (referNode.data != deliveyMan) {
 
                 }
                 referNode = referNode.nextNode;
@@ -93,19 +94,19 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
     }
 
     @Override
-    public boolean replace(T staff, int position) {
+    public boolean replace(T deliveyMan, int position) {
 
         boolean isReplaced = false;
         if (!isEmpty()) {
             if (position < size) {
                 if (position == 0) {
-                    firstNode.data = staff;
+                    firstNode.data = deliveyMan;
                 } else {
                     Node referNode = firstNode;
                     for (int i = 0; i < position; i++) {
                         referNode = referNode.nextNode;
                     }
-                    referNode.data = staff;
+                    referNode.data = deliveyMan;
                 }
                 isReplaced = true;
             } else {
@@ -126,22 +127,34 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
     }
 
     @Override
-    public DeliveryManInterface getNameSorted() {
-        return null;
+    public void sortByNameDesc() {
+
+        Node sortedNode = firstNode;
+        int index = 0;
+        char currentChar;
+
+        for (int i = 0; i < size; i++) {
+            
+            entity.DeliveryMan dm = (entity.DeliveryMan) sortedNode.data;
+            String name = dm.fname + dm.lname;
+            char c = name.charAt(index);
+            
+        }
     }
 
     @Override
-    public DeliveryManInterface getStatusSorted() {
-        return null;
+    public void sortByStatus() {
     }
 
     private class Node {
 
         private T data;
+        private Node prevNode;
         private Node nextNode;
 
         public Node(T data) {
             this.data = data;
+            this.prevNode = null;
             this.nextNode = null;
         }
     }

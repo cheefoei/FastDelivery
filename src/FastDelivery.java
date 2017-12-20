@@ -1,10 +1,8 @@
 
-import adt.DeliveryJobInterface;
-import adt.DeliveryJobQueue;
 import adt.DeliveryManInterface;
 import adt.DeliveryManList;
-import adt.HumanResourceList;
-import adt.StaffInterface;
+import adt.BasicList;
+import adt.BasicListInterface;
 import entity.Contact;
 import entity.Customer;
 import entity.DeliveryJob;
@@ -29,9 +27,9 @@ public class FastDelivery {
     private static Scanner scanner = new Scanner(System.in);
     private static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
-    public static StaffInterface<HumanResource> humanResources = new HumanResourceList<>();
+    public static BasicListInterface<HumanResource> humanResources = new BasicList<>();
     public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
-    public static DeliveryJobInterface<DeliveryJob> deliverJobs = new DeliveryJobQueue<>();
+    public static BasicListInterface<DeliveryJob> deliverJobs = new BasicList<>();
 
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Food> foods = new ArrayList<>();
@@ -316,10 +314,10 @@ public class FastDelivery {
             DeliveryJob dj4 = new DeliveryJob(order4, dm1, 0.8);
             dj4.setDeliveryDate(DF.parse("Wed 13-Dec-2017 10:25:47"));
 
-            deliverJobs.enqueueDeliveryJob(dj1);
-            deliverJobs.enqueueDeliveryJob(dj2);
-            deliverJobs.enqueueDeliveryJob(dj3);
-            deliverJobs.enqueueDeliveryJob(dj4);
+            deliverJobs.add(dj1);
+            deliverJobs.add(dj2);
+            deliverJobs.add(dj3);
+            deliverJobs.add(dj4);
 
         } catch (ParseException ex) {
         }

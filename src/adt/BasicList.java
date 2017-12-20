@@ -8,22 +8,22 @@ package adt;
 /**
  *
  * @author Student
+ * @param <T>
  */
-public class HumanResourceList<T> implements StaffInterface<T> {
+public class BasicList<T> implements BasicListInterface<T> {
 
     private Node firstNode;
     private int size = 0;
     private int currentPosition = 0;
 
-    public HumanResourceList() {
+    public BasicList() {
         this.firstNode = null;
     }
 
     @Override
-    public boolean add(T newStaff) {
+    public boolean add(T newData) {
 
-        Node newNode = new Node(newStaff);
-
+        Node newNode = new Node(newData);
         if (size() == 0) {
             firstNode = newNode;
             size++;
@@ -76,7 +76,7 @@ public class HumanResourceList<T> implements StaffInterface<T> {
     }
 
     @Override
-    public boolean remove(T staff) {
+    public boolean remove(T data) {
         return true;
     }
 
@@ -86,7 +86,7 @@ public class HumanResourceList<T> implements StaffInterface<T> {
     }
 
     @Override
-    public boolean replace(T staff, int position) {
+    public boolean replace(T data, int position) {
         return true;
     }
 
