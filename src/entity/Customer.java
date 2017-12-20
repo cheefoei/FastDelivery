@@ -16,19 +16,15 @@ public class Customer implements Serializable {
     private String cusName;
     private String cusIc;
     private String cusGender;
-    private String cusAddress;
-    private String cusContactNo;
-    private String cusEmail;
+    Contact contact;
     public String cusUsername;
     public String cusPw;
-
-    public Customer(String cusName, String cusIc,String cusGender,String cusAddress,String cusContactNo,String cusEmail,String cusUsername,String cusPw) {
+    
+        public Customer(String cusName, String cusIc, String cusGender, Contact contact, String cusUsername, String cusPw) {
         this.cusName = cusName;
         this.cusIc = cusIc;
         this.cusGender = cusGender;
-        this.cusAddress = cusAddress;
-        this.cusContactNo = cusContactNo;
-        this.cusEmail = cusEmail;
+        this.contact = contact;
         this.cusUsername = cusUsername;
         this.cusPw = cusPw;
     }
@@ -57,20 +53,12 @@ public class Customer implements Serializable {
         this.cusGender = cusGender;
     }
 
-    public String getCusAddress() {
-        return cusAddress;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setCusAddress(String cusAddress) {
-        this.cusAddress = cusAddress;
-    }
-
-    public String getCusContactNo() {
-        return cusContactNo;
-    }
-
-    public void setCusContactNo(String cusContactNo) {
-        this.cusContactNo = cusContactNo;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     public String getCusUsername() {
@@ -88,19 +76,12 @@ public class Customer implements Serializable {
     public void setCusPw(String cusPw) {
         this.cusPw = cusPw;
     }
-    public String getCusEmail() {
-        return cusEmail;
-    }
 
-    public void setCusEmail(String cusEmail) {
-        this.cusEmail = cusEmail;
-    }
+    
 
-//    @Override
+    
+    //    @Override
 //    public String toString() {
 //        return String.format("%-20s %-6s %-18s %-10s %-25s %-20s %-10s",cusName,cusIc,cusGender,cusAddress,cusContactNo,cusEmail); //To change body of generated methods, choose Tools | Templates.
 //    }
-
-    
-    
 }

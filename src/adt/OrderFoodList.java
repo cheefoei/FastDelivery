@@ -10,7 +10,7 @@ package adt;
  * @author Clarity
  * @param <T>
  */
-public class OrderFoodList<T extends Comparable<? super T>> implements OrderFoodInterface<T> {
+public class OrderFoodList<T extends Comparable<T>> implements OrderFoodInterface<T> {
 
     private Node firstNode;
     private int length;

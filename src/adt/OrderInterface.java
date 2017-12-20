@@ -9,7 +9,7 @@ package adt;
  *
  * @author Clarity
  */
-public interface OrderInterface <T extends Comparable<? super T>>{
+public interface OrderInterface <T extends Comparable<T>>{
     
     public boolean addNewOrder(T newOrder); // Add new order
     

@@ -161,58 +161,7 @@ public class CustomerScreen {
     }
 
     private void chineseMenu() {
-//        System.out.println("|------------------------------------------|");
-//        System.out.println("| Ho Ciak Menu                             |");
-//        System.out.println("|------------------------------------------|");
-//        System.out.println("|1. Char Kuey Teow       | RM 5.00         |");
-//        System.out.println("|2. Chicken Rice         | RM 8.00         |");
-//        System.out.println("|3. Fish head noodles    | RM 15.00        |");
-//        System.out.println("|4. Fried Rice           | RM 4.50         |");
-//        System.out.println("|------------------------------------------|");
-//        System.out.println("");
-//        System.out.println("Please choose your food.\n"
-//                + "Your choice: ");
-//        
-//    int menuOption;
-//    int  foodId= 0;
-//    Scanner s = new Scanner(System.in);
-//    do{
-//        double runningTotal=0;
-//        
-//
-//        menuOption = s.nextInt();
-//        switch(menuOption){
-//            case 1:
-//                foodId = 1;
-//                foodPrice(foodId);
-//                break;
-//            case 2:
-//                foodId = 2;
-//                foodPrice(foodId);
-//                break;
-//            case 3:
-//                foodId = 3;
-//                foodPrice(foodId);
-//                break;
-//            case 4:
-//                foodId = 4;
-//                foodPrice(foodId);
-//                break;
-//            default:
-//                System.out.println("Invalid option, please try again!\n");
-//                chineseMenu();
-//        }
-//
-//    } while(ordering);
-//                    OrderDetails newOrderDetails = new OrderDetails(foodId, quantity);
-//        orderFoodList.addNewOrder(newOrderDetails);
-//
-//        System.out.println("Order List");
-//        System.out.printf("%-10s %-20s %-20s\n", "No.", "Food Name", "Quantity");
-//        System.out.println("----------------------------------------------------");
-//        System.out.println(orderFoodList); {
-//
-//    }
+
 
         Scanner s = new Scanner(System.in);
         int foodId = 0;

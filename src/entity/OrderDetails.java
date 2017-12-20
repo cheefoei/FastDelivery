@@ -5,34 +5,47 @@
  */
 package entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Clarity
  */
-public class OrderDetails implements Comparable<OrderDetails> {
+public class OrderDetails implements Serializable {
 
-    public static double subTotal;
-    public static double runningTotal;
-    private static double itemPrice;
-    private String foodName;
-    private double foodPrice;
-    private int orderId;
+    
+    private Orders order;
+    private Food food;
     private int qty;
-    private double totalPrice;
-    private int foodId;
+    private String remark; //Let customer to remark no egg? no spicy?
 
-    public OrderDetails(int foodId, int qty) {
-
-        this.foodId = foodId;
-        //this.foodName = foodName;
-        //this.foodPrice = foodPrice;
-        //this.orderId = orderId;
+    
+    public OrderDetails(Orders order, Food food, int qty, String remark) {
+        this.order = order;
+        this.food = food;
         this.qty = qty;
-        //this.totalPrice = totalPrice;
-
+        this.remark = remark;
     }
 
-    public double getQty() {
+
+
+    public Orders getOrder() {
+        return order;
+    }
+
+    public void setOrder(Orders order) {
+        this.order = order;
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
+    public int getQty() {
         return qty;
     }
 
@@ -40,54 +53,11 @@ public class OrderDetails implements Comparable<OrderDetails> {
         this.qty = qty;
     }
 
-    public int getFoodId() {
-        return foodId;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setFoodId(int foodId) {
-        this.foodId = foodId;
-    }
-
-    public String toString() {
-
-        String s;
-        if (foodId == 1) {
-            s = "Char Kuey Teow";
-        } else if (foodId == 2) {
-            s = "Chicken Rice";
-        } else if (foodId == 3) {
-            s = "Fish head noodles";
-        } else if (foodId == 4) {
-            s = "Fried Rice";
-        } else if (foodId == 5) {
-            s = "Tose";
-        } else if (foodId == 6) {
-            s = "Roti Telur";
-        } else if (foodId == 7) {
-            s = "Cheese Naan";
-        } else if (foodId == 8) {
-            s = "Banana Leaf Rice";
-        } else if (foodId == 9) {
-            s = "Nasi Lemak";
-        } else if (foodId == 10) {
-            s = "Asam Laksa";
-        } else if (foodId == 11) {
-            s = "Ayam Penyet";
-        } else {
-            s = "Murtabak";
-        }
-
-        return String.format("%-10s %-20s %-20s", "", s, qty);
-    }
-
-    @Override
-    public int compareTo(OrderDetails orderdetails) {
-        if (foodId > orderdetails.getFoodId()) {
-            return 1;
-        } else if (foodId == orderdetails.getFoodId()) {
-            return 0;
-        } else {
-            return -1;
-        }
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
