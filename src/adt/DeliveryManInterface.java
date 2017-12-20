@@ -3,9 +3,11 @@
  */
 package adt;
 
-public interface DeliveryManInterface<T> extends StaffInterface<T> {
+import entity.DeliveryMan;
 
-    public DeliveryManInterface getNameSorted();
+public interface DeliveryManInterface<T extends Comparable> extends BasicListInterface<T> {
 
-    public DeliveryManInterface getStatusSorted();
+    public void sortByNameDesc();
+
+    public void sortByStatus();
 }

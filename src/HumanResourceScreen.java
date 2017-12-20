@@ -611,7 +611,9 @@ public class HumanResourceScreen {
                     System.out.printf("%-5s %-20s %-20s %-20s\n", "No.", "Order ID", "Time", "Distances(km)");
                     System.out.printf("%-5s %-20s %-20s %-20s\n", "---", "--------", "-----", "------------");
 
-                    for (DeliveryJob dj : FastDelivery.deliverJobs) {
+                    while (FastDelivery.deliverJobs.hasNext()) {
+
+                        DeliveryJob dj = FastDelivery.deliverJobs.next();
 
                         if (dj.getDeliveryMan() == dm) {
 
