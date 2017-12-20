@@ -127,6 +127,7 @@ public class HumanResourceScreen {
         System.out.println("================");
 
         int count = 1;
+        
         while (FastDelivery.deliveryMen.hasNext()) {
 
             DeliveryMan dm = FastDelivery.deliveryMen.next();

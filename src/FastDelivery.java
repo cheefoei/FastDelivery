@@ -5,8 +5,6 @@ import adt.BasicList;
 import adt.BasicListInterface;
 import adt.OrderFoodInterface;
 import adt.OrderFoodList;
-import adt.OrderInterface;
-import adt.OrderList;
 import entity.Contact;
 import entity.Customer;
 import entity.DeliveryJob;
@@ -140,24 +138,7 @@ public class FastDelivery {
         humanResources.add(hr1);
         humanResources.add(hr2);
 
-        DeliveryMan dm1 = new DeliveryMan(
-                "Ali",
-                "Mohd",
-                'M',
-                "880512-14-5881",
-                new Contact(
-                        "Blok A34 Pengkalan Taman Teluk Muruk",
-                        "Lumut",
-                        32100,
-                        "Perak",
-                        "ali@email.com",
-                        "0182546897"
-                ),
-                "ali",
-                "ali123"
-        );
-
-        DeliveryMan dm2 = new DeliveryMan(
+         DeliveryMan dm1 = new DeliveryMan(
                 "Jessica",
                 "Fishman",
                 'F',
@@ -173,9 +154,42 @@ public class FastDelivery {
                 "jess",
                 "fish"
         );
+        DeliveryMan dm2 = new DeliveryMan(
+                "Ali",
+                "Mohd",
+                'M',
+                "880512-14-5881",
+                new Contact(
+                        "Blok A34 Pengkalan Taman Teluk Muruk",
+                        "Lumut",
+                        32100,
+                        "Perak",
+                        "ali@email.com",
+                        "0182546897"
+                ),
+                "ali",
+                "ali123"
+        );
+        DeliveryMan dm3 = new DeliveryMan(
+                "Ahmad",
+                "Safiq",
+                'M',
+                "910313-14-6849",
+                new Contact(
+                        "145, Jalan Tengku Taman Flora",
+                        "GeorgeTown",
+                        55512,
+                        "Penang",
+                        "ahmad@email.com",
+                        "0132457785"
+                ),
+                "ahmad",
+                "ahmad123"
+        );
 
-        //deliveryMen.add(dm1);
-        //deliveryMen.add(dm2);
+        deliveryMen.add(dm1);
+        deliveryMen.add(dm2);
+        deliveryMen.add(dm3);
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",

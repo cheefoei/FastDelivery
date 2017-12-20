@@ -2,7 +2,7 @@ package entity;
 
 import java.io.Serializable;
 
-public class DeliveryMan extends Staff implements Serializable {
+public class DeliveryMan extends Staff implements Serializable, Comparable<DeliveryMan> {
 
     private boolean isLeave;
     private boolean isResigned;
@@ -11,7 +11,7 @@ public class DeliveryMan extends Staff implements Serializable {
     private String workingStatus;
 
     public DeliveryMan() {
-        
+
         this.workingStatus = "Available";
         this.isLeave = false;
         this.isResigned = false;
@@ -64,6 +64,14 @@ public class DeliveryMan extends Staff implements Serializable {
 
     public void setIsDeliveryAvailable(boolean isDeliveryAvailable) {
         this.isDeliveryAvailable = isDeliveryAvailable;
+    }
+
+    @Override
+    public int compareTo(DeliveryMan o) {
+
+        String name1 = this.fname.toUpperCase() + this.lname.toUpperCase();
+        String name2 = o.fname.toUpperCase() + o.lname.toUpperCase();
+        return name1.compareTo(name2);
     }
 
 }

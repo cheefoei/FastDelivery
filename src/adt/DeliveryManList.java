@@ -3,7 +3,7 @@
  */
 package adt;
 
-public class DeliveryManList<T> implements DeliveryManInterface<T> {
+public class DeliveryManList<T extends Comparable> implements DeliveryManInterface<T> {
 
     private Node firstNode;
     private int size = 0;
@@ -26,10 +26,11 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
             while (travelNode.nextNode != null) {
                 travelNode = travelNode.nextNode;
             }
-            newNode.prevNode = travelNode;
             travelNode.nextNode = newNode;
             size++;
         }
+        sortByName("");
+
         return true;
     }
 
@@ -127,18 +128,25 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
     }
 
     @Override
-    public void sortByNameDesc() {
+    public void sortByName(String mode) {
 
-        Node sortedNode = firstNode;
-        int index = 0;
-        char currentChar;
+        Node tempNode = firstNode;
+        while (tempNode.nextNode != null) {
 
-        for (int i = 0; i < size; i++) {
-            
-            entity.DeliveryMan dm = (entity.DeliveryMan) sortedNode.data;
-            String name = dm.fname + dm.lname;
-            char c = name.charAt(index);
-            
+            T data1 = tempNode.data;
+            T data2 = tempNode.nextNode.data;
+            if (mode.equals("asc")) {
+                if (data1.compareTo(data2) <= 0) { //J < A
+                    tempNode.data = data2;
+                    tempNode.nextNode.data = data1;
+                }
+            } else {
+                if (data1.compareTo(data2) >= 0) {
+                    tempNode.data = data2;
+                    tempNode.nextNode.data = data1;
+                }
+            }
+            tempNode = tempNode.nextNode;
         }
     }
 
@@ -149,13 +157,16 @@ public class DeliveryManList<T> implements DeliveryManInterface<T> {
     private class Node {
 
         private T data;
-        private Node prevNode;
         private Node nextNode;
 
-        public Node(T data) {
+        private Node(T data) {
             this.data = data;
-            this.prevNode = null;
             this.nextNode = null;
+        }
+
+        private Node(T data, Node nextNode) {
+            this.data = data;
+            this.nextNode = nextNode;
         }
     }
 

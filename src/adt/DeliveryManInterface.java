@@ -3,11 +3,9 @@
  */
 package adt;
 
-import entity.DeliveryMan;
+public interface DeliveryManInterface<T extends Comparable> extends BasicListInterface<T> {
 
-public interface DeliveryManInterface<T> extends BasicListInterface<T> {
-
-    public void sortByNameDesc();
+    public void sortByName(String mode);
 
     public void sortByStatus();
 }
