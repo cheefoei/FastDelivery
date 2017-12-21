@@ -20,6 +20,7 @@ public class DeliveryJob implements Serializable {
     private double deliveryFee;
     private double distance;
     private Date deliveryDate;
+    private boolean isDone;
 
     public DeliveryJob() {
     }
@@ -33,6 +34,7 @@ public class DeliveryJob implements Serializable {
         this.deliveryFee = calculateDeliveryFee();
         this.distance = distance;
         this.deliveryDate = now.getTime();
+        this.isDone = false;
     }
 
     public Orders getOrder() {
@@ -73,6 +75,14 @@ public class DeliveryJob implements Serializable {
 
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public boolean isIsDone() {
+        return isDone;
+    }
+
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     private double calculateDeliveryFee() {

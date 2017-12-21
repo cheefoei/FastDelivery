@@ -15,6 +15,7 @@ import entity.RestaurantOwner;
 import entity.OrderDetails;
 import entity.Orders;
 import entity.PunchedCard;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FastDelivery {
 
@@ -40,7 +43,6 @@ public class FastDelivery {
     public static List<PunchedCard> punchedCards = new ArrayList<>();
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
     //public static OrderInterface<Orders> orderList = new OrderList<>();
-
 
     public static void main(String[] args) {
 
@@ -79,15 +81,16 @@ public class FastDelivery {
 
         switch (roleNum) {
             case 1:
-                new CustomerScreen();
+//                new CustomerScreen();
                 return;
             case 2:
                 new RestaurantOwnerScreen();
                 return;
             case 3:
-                new DeliveryManScreen();
+//                new DeliveryManScreen();
                 return;
             case 4:
+                clearScreen();
                 new HumanResourceScreen();
                 return;
             case 5:
@@ -97,6 +100,21 @@ public class FastDelivery {
                 System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
                 promptRole();
                 break;
+        }
+    }
+
+    public static void clearScreen() {
+
+        try {
+            if (System.getProperty("os.name").startsWith("Window")) {
+                Runtime.getRuntime().exec("cls");
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (IOException e) {
+            for (int i = 0; i < 1000; i++) {
+                System.out.println();
+            }
         }
     }
 
@@ -138,7 +156,7 @@ public class FastDelivery {
         humanResources.add(hr1);
         humanResources.add(hr2);
 
-         DeliveryMan dm1 = new DeliveryMan(
+        DeliveryMan dm1 = new DeliveryMan(
                 "Jessica",
                 "Fishman",
                 'F',
@@ -266,7 +284,7 @@ public class FastDelivery {
                 "allan0103"
         );
         customerArray.add(cus1);
-        
+
         Customer cus2 = new Customer(
                 "Ji Yong",
                 "880818-10-8888",
@@ -283,7 +301,7 @@ public class FastDelivery {
                 "gd0818"
         );
         customerArray.add(cus2);
-        
+
         Customer cus3 = new Customer(
                 "Charlotte",
                 "940505-08-5698",
@@ -300,7 +318,7 @@ public class FastDelivery {
                 "charlotte0505"
         );
         customerArray.add(cus3);
-        
+
         try {
             PunchedCard pc1 = new PunchedCard(
                     "ON-DUTY",

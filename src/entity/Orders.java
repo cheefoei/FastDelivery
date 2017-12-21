@@ -15,14 +15,18 @@ import java.util.Date;
 public class Orders implements Serializable {
 
     private long orderId;
-    private String status = "Pending";
+    private String status;
     private double totalPrice;
     private Date doneOrderDate;
     private Customer customer;
 
+    public Orders() {
+    }
+
     public Orders(String status, double totalPrice, Date doneOrderDate, Customer customer) {
+
         this.orderId = new Date().getTime();
-        this.status = status;
+        this.status = "Pending";
         this.totalPrice = totalPrice;
         this.doneOrderDate = doneOrderDate;
         this.customer = customer;
@@ -68,7 +72,4 @@ public class Orders implements Serializable {
         this.customer = customer;
     }
 
-    
- 
-    
 }
