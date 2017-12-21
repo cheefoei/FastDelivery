@@ -1,5 +1,5 @@
 
-import adt.DeliveryManInterface;
+import adt.BasicListInterface;
 import adt.DeliveryManList;
 import entity.Contact;
 import entity.DeliveryJob;
@@ -508,7 +508,7 @@ public class HumanResourceScreen {
         System.out.printf("%-5s %-35s %-15s\n", "No.", "Delivery Man", "Total Pending Delivery");
         System.out.printf("%-5s %-35s %-15s\n", "---", "------------", "----------------------");
 
-        DeliveryManInterface<DeliveryMan> pendingDeliveryMan = new DeliveryManList<>();
+        BasicListInterface<DeliveryMan> pendingDeliveryMan = new DeliveryManList<>();
         int count = 1;
 
         while (FastDelivery.deliveryMen.hasNext()) {

@@ -3,7 +3,7 @@
  */
 package adt;
 
-public class DeliveryManList<T extends Comparable> implements DeliveryManInterface<T> {
+public class DeliveryManList<T extends Comparable> implements BasicListInterface<T> {
 
     private Node firstNode;
     private int size = 0;
@@ -130,27 +130,6 @@ public class DeliveryManList<T extends Comparable> implements DeliveryManInterfa
         return size;
     }
 
-//    private void sortByName(String mode) {
-//
-//        Node tempNode = firstNode;
-//        while (tempNode.nextNode != null) {
-//
-//            T data1 = tempNode.data;
-//            T data2 = tempNode.nextNode.data;
-//            if (mode.equals("asc")) {
-//                if (data1.compareTo(data2) <= 0) { //J < A
-//                    tempNode.data = data2;
-//                    tempNode.nextNode.data = data1;
-//                }
-//            } else {
-//                if (data1.compareTo(data2) >= 0) {
-//                    tempNode.data = data2;
-//                    tempNode.nextNode.data = data1;
-//                }
-//            }
-//            tempNode = tempNode.nextNode;
-//        }
-//    }
     private class Node {
 
         private T data;

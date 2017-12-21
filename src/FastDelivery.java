@@ -1,5 +1,4 @@
 
-import adt.DeliveryManInterface;
 import adt.DeliveryManList;
 import adt.BasicList;
 import adt.BasicListInterface;
@@ -30,7 +29,7 @@ public class FastDelivery {
     private static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
     public static BasicListInterface<HumanResource> humanResources = new BasicList<>();
-    public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
+    public static BasicListInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
     public static BasicListInterface<DeliveryJob> deliverJobs = new BasicList<>();
 
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();

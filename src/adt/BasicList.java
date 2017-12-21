@@ -105,7 +105,7 @@ public class BasicList<T> implements BasicListInterface<T> {
         private T data;
         private Node nextNode;
 
-        public Node(T data) {
+        private Node(T data) {
             this.data = data;
             this.nextNode = null;
         }
