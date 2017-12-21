@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FastDelivery {
 
@@ -204,17 +202,10 @@ public class FastDelivery {
                 "ahmad",
                 "ahmad123"
         );
-//        dm1.setIsLeave(true);
-
-        if (deliveryMen.add(dm1)) {
-            System.out.println("true");
-        }
-        if (deliveryMen.add(dm2)) {
-            System.out.println("true");
-        }
-        if (deliveryMen.add(dm3)) {
-            System.out.println("true");
-        }
+        
+        deliveryMen.add(dm1);
+        deliveryMen.add(dm2);
+        deliveryMen.add(dm3);        
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",

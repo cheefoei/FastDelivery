@@ -73,6 +73,10 @@ public class DeliveryMan extends Staff implements Serializable, Comparable<Deliv
 
     @Override
     public int compareTo(DeliveryMan o) {
+//         return Comparator.comparing(DeliveryMan::getFullName)
+//                .thenComparing(DeliveryMan::isIsLeave)
+//                .thenComparing(DeliveryMan::isIsResigned)
+//                .compare(this, o);  
         return getFullName().compareTo(o.getFullName());
     }
 
