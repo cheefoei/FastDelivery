@@ -133,7 +133,6 @@ public class HumanResourceScreen {
         System.out.printf("%-5s %-35s %-15s\n", "---", "-----------------", "--------------");
 
         int count = 1;
-
         while (FastDelivery.deliveryMen.hasNext()) {
 
             DeliveryMan dm = FastDelivery.deliveryMen.next();
@@ -146,7 +145,7 @@ public class HumanResourceScreen {
             } else {
                 status = "WORKING";
             }
-            System.out.printf("%-5s %-35s %-15s\n", count + ") ", dm.fname + " " + dm.lname, status);
+            System.out.printf("%-5s %-35s %-15s\n", count + ") ", dm.getFullName(), status);
             count++;
         }
 
@@ -310,7 +309,7 @@ public class HumanResourceScreen {
         int count = 1;
         while (FastDelivery.deliveryMen.hasNext()) {
             DeliveryMan dm = FastDelivery.deliveryMen.next();
-            System.out.printf("%-5s %-35s\n", count + ") ", dm.fname + " " + dm.lname);
+            System.out.printf("%-5s %-35s\n", count + ") ", dm.getFullName());
             count++;
         }
         System.out.println("Enter the number to select delivery man and update. .");
@@ -325,7 +324,7 @@ public class HumanResourceScreen {
 
                 DeliveryMan dm = FastDelivery.deliveryMen.get(deliveryManOption - 1);
 
-                System.out.println("\nUpdate " + dm.fname + " " + dm.lname + "'s information");
+                System.out.println("\nUpdate " + dm.getFullName() + "'s information");
                 System.out.println("=====================================");
                 System.out.println("1) Home aadress");
                 System.out.println("2) Email address");
@@ -424,7 +423,7 @@ public class HumanResourceScreen {
 
         if (dm.isIsLeave()) {
 
-            System.out.println(dm.fname + " " + dm.lname + " is LEAVE ");
+            System.out.println(dm.getFullName() + " is LEAVE ");
             System.out.println("Which status need to change to?");
             System.out.println("1) AVAILABLE TO WORK");
             System.out.println("2) RESIGNED");
@@ -436,7 +435,7 @@ public class HumanResourceScreen {
 
                 dm.setIsLeave(false);
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
+                System.out.println(dm.getFullName() + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
             } else if (option.equals("2")) {
@@ -445,7 +444,7 @@ public class HumanResourceScreen {
                 dm.setIsResigned(true);
 
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
+                System.out.println(dm.getFullName() + " is RESIGNED now.");
                 humanResourceMenu();
 
             } else {
@@ -454,7 +453,7 @@ public class HumanResourceScreen {
 
         } else if (dm.isIsResigned()) {
 
-            System.out.println(dm.fname + " " + dm.lname + " is RESIGNED ");
+            System.out.println(dm.getFullName() + " is RESIGNED ");
             System.out.println("Which status need to change to?");
             System.out.println("1) AVAILABLE TO WORK");
             System.out.println("Else will go back to menu.");
@@ -465,7 +464,7 @@ public class HumanResourceScreen {
 
                 dm.setIsResigned(false);
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
+                System.out.println(dm.getFullName() + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
             } else {
@@ -473,7 +472,7 @@ public class HumanResourceScreen {
             }
         } else {
 
-            System.out.println(dm.fname + " " + dm.lname + " is WORKING ");
+            System.out.println(dm.getFullName() + " is WORKING ");
             System.out.println("Which status need to change to?");
             System.out.println("1) LEAVE");
             System.out.println("2) RESIGNED");
@@ -485,7 +484,7 @@ public class HumanResourceScreen {
 
                 dm.setIsLeave(true);
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is LEAVE now.");
+                System.out.println(dm.getFullName() + " is LEAVE now.");
                 humanResourceMenu();
 
             } else if (option.equals("2")) {
@@ -493,7 +492,7 @@ public class HumanResourceScreen {
                 dm.setIsResigned(true);
 
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
+                System.out.println(dm.getFullName() + " is RESIGNED now.");
                 humanResourceMenu();
 
             } else {
@@ -525,7 +524,7 @@ public class HumanResourceScreen {
             }
 
             if (numOfDelivery > 0) {
-                System.out.printf("%-5s %-35s %-15s\n", count, dm.fname + " " + dm.lname, numOfDelivery + "\n");
+                System.out.printf("%-5s %-35s %-15s\n", count, dm.getFullName(), numOfDelivery + "\n");
                 pendingDeliveryMan.add(dm);
                 count++;
             }
@@ -546,7 +545,7 @@ public class HumanResourceScreen {
 
                     DeliveryMan dm = pendingDeliveryMan.get(deliveryManOption - 1);
 
-                    System.out.println("\n" + dm.fname + " " + dm.lname + "'s Pending Deliveries");
+                    System.out.println("\n" + dm.getFullName() + "'s Pending Deliveries");
                     System.out.println("==================================");
                     System.out.printf("%-5s %-20s %-35s %-15s\n", "No.", "Order ID", "Customer Name", "Time");
                     System.out.printf("%-5s %-20s %-35s %-15s\n", "---", "--------", "-------------", "----");
@@ -695,7 +694,7 @@ public class HumanResourceScreen {
                 }
 
                 System.out.printf("%-5s %-20s %-20s %-20s\n",
-                        count, dm.fname + " " + dm.lname, numberOfDelivery, totalDistances);
+                        count, dm.getFullName(), numberOfDelivery, totalDistances);
                 count++;
             }
 
@@ -727,7 +726,7 @@ public class HumanResourceScreen {
 
     private void deliveryManDetailReport(DeliveryMan dm, Calendar selectedCal) {
 
-        System.out.printf("\nDelivery Man: " + dm.fname + " " + dm.lname + "\n");
+        System.out.printf("\nDelivery Man: " + dm.getFullName() + "\n");
         System.out.printf("Date        : "
                 + new SimpleDateFormat("dd-MMM-yyyy").format(selectedCal.getTime())
                 + "\n");

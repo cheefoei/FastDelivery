@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class DeliveryMan extends Staff implements Serializable, Comparable<DeliveryMan> {
 
@@ -66,12 +67,13 @@ public class DeliveryMan extends Staff implements Serializable, Comparable<Deliv
         this.isDeliveryAvailable = isDeliveryAvailable;
     }
 
+    public String getFullName() {
+        return fname + " " + lname;
+    }
+
     @Override
     public int compareTo(DeliveryMan o) {
-
-        String name1 = this.fname.toUpperCase() + this.lname.toUpperCase();
-        String name2 = o.fname.toUpperCase() + o.lname.toUpperCase();
-        return name1.compareTo(name2);
+        return getFullName().compareTo(o.getFullName());
     }
 
 }

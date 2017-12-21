@@ -17,19 +17,22 @@ public class DeliveryManList<T extends Comparable> implements DeliveryManInterfa
     public boolean add(T newDeliveryMan) {
 
         Node newNode = new Node(newDeliveryMan);
+        Node currentNode = firstNode;
+        Node beforeNode = null;
 
-        if (size() == 0) {
-            firstNode = newNode;
-            size++;
-        } else {
-            Node travelNode = firstNode;
-            while (travelNode.nextNode != null) {
-                travelNode = travelNode.nextNode;
-            }
-            travelNode.nextNode = newNode;
-            size++;
+        while (currentNode != null && newDeliveryMan.compareTo(currentNode.data) > 0) {
+            beforeNode = currentNode;
+            currentNode = currentNode.nextNode;
         }
-        sortByName("");
+
+        if (isEmpty() || beforeNode == null) {
+            newNode.nextNode = firstNode;
+            this.firstNode = newNode;
+        } else {
+            newNode.nextNode = currentNode;
+            beforeNode.nextNode = newNode;
+        }
+        size++;
 
         return true;
     }
@@ -127,33 +130,27 @@ public class DeliveryManList<T extends Comparable> implements DeliveryManInterfa
         return size;
     }
 
-    @Override
-    public void sortByName(String mode) {
-
-        Node tempNode = firstNode;
-        while (tempNode.nextNode != null) {
-
-            T data1 = tempNode.data;
-            T data2 = tempNode.nextNode.data;
-            if (mode.equals("asc")) {
-                if (data1.compareTo(data2) <= 0) { //J < A
-                    tempNode.data = data2;
-                    tempNode.nextNode.data = data1;
-                }
-            } else {
-                if (data1.compareTo(data2) >= 0) {
-                    tempNode.data = data2;
-                    tempNode.nextNode.data = data1;
-                }
-            }
-            tempNode = tempNode.nextNode;
-        }
-    }
-
-    @Override
-    public void sortByStatus() {
-    }
-
+//    private void sortByName(String mode) {
+//
+//        Node tempNode = firstNode;
+//        while (tempNode.nextNode != null) {
+//
+//            T data1 = tempNode.data;
+//            T data2 = tempNode.nextNode.data;
+//            if (mode.equals("asc")) {
+//                if (data1.compareTo(data2) <= 0) { //J < A
+//                    tempNode.data = data2;
+//                    tempNode.nextNode.data = data1;
+//                }
+//            } else {
+//                if (data1.compareTo(data2) >= 0) {
+//                    tempNode.data = data2;
+//                    tempNode.nextNode.data = data1;
+//                }
+//            }
+//            tempNode = tempNode.nextNode;
+//        }
+//    }
     private class Node {
 
         private T data;

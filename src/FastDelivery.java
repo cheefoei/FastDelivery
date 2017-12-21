@@ -204,10 +204,17 @@ public class FastDelivery {
                 "ahmad",
                 "ahmad123"
         );
+//        dm1.setIsLeave(true);
 
-        deliveryMen.add(dm1);
-        deliveryMen.add(dm2);
-        deliveryMen.add(dm3);
+        if (deliveryMen.add(dm1)) {
+            System.out.println("true");
+        }
+        if (deliveryMen.add(dm2)) {
+            System.out.println("true");
+        }
+        if (deliveryMen.add(dm3)) {
+            System.out.println("true");
+        }
 
         RestaurantOwner rol = new RestaurantOwner(
                 "Melvin",
