@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 public class DeliveryMan extends Staff implements Serializable, Comparable<DeliveryMan> {
 
