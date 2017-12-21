@@ -115,6 +115,7 @@ public class HumanResourceScreen {
                     deliveryManDailyReport();
                     break;
                 case 6:
+                    FastDelivery.clearScreen();
                     return;
                 default:
                     System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
@@ -128,6 +129,8 @@ public class HumanResourceScreen {
 
         System.out.printf("\nDelivery Men\n");
         System.out.println("================");
+        System.out.printf("%-5s %-35s %-15s\n", "No.", "Delivery Man Name", "Working Status");
+        System.out.printf("%-5s %-35s %-15s\n", "---", "-----------------", "--------------");
 
         int count = 1;
 
@@ -143,7 +146,7 @@ public class HumanResourceScreen {
             } else {
                 status = "WORKING";
             }
-            System.out.printf(count + ") " + dm.fname + " " + dm.lname + " (" + status + ")\n");
+            System.out.printf("%-5s %-35s %-15s\n", count + ") ", dm.fname + " " + dm.lname, status);
             count++;
         }
 
@@ -161,16 +164,16 @@ public class HumanResourceScreen {
                 DeliveryMan dm = FastDelivery.deliveryMen.get(opt - 1);
                 Contact contact = dm.contact;
 
-                System.out.printf("First name \t\t: " + dm.fname + "\n");
-                System.out.printf("Last name \t\t: " + dm.lname + "\n");
-                System.out.printf("Gender \t\t\t: " + dm.gender + "\n");
-                System.out.printf("NRIC \t\t\t: " + dm.nric + "\n");
-                System.out.printf("Home address \t\t: " + contact.getAddress() + ","
+                System.out.printf("%-20s %-5s %-50s\n", "First name", ":", dm.fname);
+                System.out.printf("%-20s %-5s %-50s\n", "Last name", ":", dm.lname);
+                System.out.printf("%-20s %-5s %-50s\n", "Gender", ":", dm.gender);
+                System.out.printf("%-20s %-5s %-50s\n", "NRIC", ":", dm.nric);
+                System.out.printf("%-20s %-5s %-50s\n", "Home address", ":", contact.getAddress() + ","
                         + contact.getPostcode() + " " + contact.getCity() + ","
-                        + contact.getState() + ".\n");
-                System.out.printf("Email address \t\t: " + contact.getEmail() + "\n");
-                System.out.printf("Phone number \t\t: " + contact.getPhoneNumber() + "\n");
-                System.out.printf("Current Working Status \t: " + dm.getWorkingStatus() + "\n");
+                        + contact.getState());
+                System.out.printf("%-20s %-5s %-50s\n", "Email address", ":", contact.getEmail());
+                System.out.printf("%-20s %-5s %-50s\n", "Phone number", ":", contact.getPhoneNumber());
+                System.out.printf("%-20s %-5s %-50s\n", "Working Status", ":", dm.getWorkingStatus());
 
                 System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
                 scanner.nextLine();
@@ -301,11 +304,13 @@ public class HumanResourceScreen {
 
         System.out.printf("\nUpdate Delivery Man\n");
         System.out.println("================");
+        System.out.printf("%-5s %-35s\n", "No.", "Delivery Man Name");
+        System.out.printf("%-5s %-35s\n", "---", "-----------------");
 
         int count = 1;
         while (FastDelivery.deliveryMen.hasNext()) {
             DeliveryMan dm = FastDelivery.deliveryMen.next();
-            System.out.printf(count + ") " + dm.fname + " " + dm.lname + "\n");
+            System.out.printf("%-5s %-35s\n", count + ") ", dm.fname + " " + dm.lname);
             count++;
         }
         System.out.println("Enter the number to select delivery man and update. .");

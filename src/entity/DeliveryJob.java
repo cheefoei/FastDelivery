@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author cheefoei's
  */
-public class DeliveryJob implements Serializable {
+public class DeliveryJob implements Serializable, Comparable<DeliveryJob> {
 
     private Orders order;
     private DeliveryMan deliveryMan;
@@ -93,5 +93,10 @@ public class DeliveryJob implements Serializable {
         } else {
             return 5;
         }
+    }
+
+    @Override
+    public int compareTo(DeliveryJob o) {
+        return 0;
     }
 }
