@@ -2,7 +2,7 @@ package entity;
 
 import java.io.Serializable;
 
-public class HumanResource extends Staff implements Serializable {
+public class HumanResource extends Staff implements Serializable, Comparable<HumanResource> {
 
     public HumanResource() {
     }
@@ -19,4 +19,8 @@ public class HumanResource extends Staff implements Serializable {
         super(fname, lname, gender, nric, contact, username, password);
     }
 
+    @Override
+    public int compareTo(HumanResource o) {
+        return getFullName().compareTo(o.getFullName());
+    }
 }

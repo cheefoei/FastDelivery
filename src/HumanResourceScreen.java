@@ -1,9 +1,11 @@
 
+import adt.BasicList;
 import adt.BasicListInterface;
 import adt.DeliveryManList;
 import entity.Contact;
 import entity.DeliveryJob;
 import entity.DeliveryMan;
+import entity.DeliveryOrder;
 import entity.HumanResource;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -516,15 +518,15 @@ public class HumanResourceScreen {
             DeliveryMan dm = FastDelivery.deliveryMen.next();
 
             int numOfDelivery = 0;
-            while (FastDelivery.deliverJobs.hasNext()) {
-                DeliveryJob dj = FastDelivery.deliverJobs.next();
-                if (dj.getDeliveryMan() == dm && !dj.isIsDone()) {
+            while (FastDelivery.deliverOrders.hasNext()) {
+                DeliveryOrder deorder = FastDelivery.deliverOrders.next();
+                if (deorder.getDeliveryJob().getDeliveryMan() == dm && !deorder.isIsDone()) {
                     numOfDelivery++;
                 }
             }
 
             if (numOfDelivery > 0) {
-                System.out.printf("%-5s %-35s %-15s\n", count, dm.getFullName(), numOfDelivery + "\n");
+                System.out.printf("%-5s %-35s %-15s\n", count, dm.getFullName(), numOfDelivery);
                 pendingDeliveryMan.add(dm);
                 count++;
             }
@@ -551,13 +553,13 @@ public class HumanResourceScreen {
                     System.out.printf("%-5s %-20s %-35s %-15s\n", "---", "--------", "-------------", "----");
 
                     int numOfDelivery = 1;
-                    while (FastDelivery.deliverJobs.hasNext()) {
-                        DeliveryJob dj = FastDelivery.deliverJobs.next();
-                        if (dj.getDeliveryMan() == dm && !dj.isIsDone()) {
+                    while (FastDelivery.deliverOrders.hasNext()) {
+                        DeliveryOrder deorder = FastDelivery.deliverOrders.next();
+                        if (deorder.getDeliveryJob().getDeliveryMan() == dm && !deorder.isIsDone()) {
                             System.out.printf("%-5s %-20s %-35s %-15s\n",
-                                    numOfDelivery, dj.getOrder().getOrderId(),
-                                    dj.getOrder().getCustomer().getCusName(),
-                                    new SimpleDateFormat("HH:mm:ss").format(dj.getOrder().getDoneOrderDate()));
+                                    numOfDelivery, deorder.getOrder().getOrderId(),
+                                    deorder.getOrder().getCustomer().getCusName(),
+                                    new SimpleDateFormat("HH:mm:ss").format(deorder.getOrder().getDoneOrderDate()));
                             numOfDelivery++;
                         }
                     }
@@ -670,32 +672,19 @@ public class HumanResourceScreen {
                     "---", "------------", "----------------", "-------------------");
 
             int count = 1;
-            while (FastDelivery.deliveryMen.hasNext()) {
+            while (FastDelivery.deliverJobs.hasNext()) {
 
-                DeliveryMan dm = FastDelivery.deliveryMen.next();
-                int numberOfDelivery = 0;
-                double totalDistances = 0;
+                DeliveryJob dj = FastDelivery.deliverJobs.next();
 
-                while (FastDelivery.deliverJobs.hasNext()) {
+                calendar.setTime(dj.getDeliveryJobDate());
+                boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
+                        && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
 
-                    DeliveryJob dj = FastDelivery.deliverJobs.next();
-
-                    if (dj.getDeliveryMan() == dm) {
-
-                        calendar.setTime(dj.getDeliveryDate());
-                        boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
-                                && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
-
-                        if (isSameDay) {
-                            numberOfDelivery++;
-                            totalDistances += dj.getDistance();
-                        }
-                    }
+                if (isSameDay) {
+                    System.out.printf("%-5s %-20s %-20s %-20s\n",
+                            count, dj.getDeliveryMan().getFullName(), dj.getTotalDelivery(), dj.getTotalDistance());
+                    count++;
                 }
-
-                System.out.printf("%-5s %-20s %-20s %-20s\n",
-                        count, dm.getFullName(), numberOfDelivery, totalDistances);
-                count++;
             }
 
             System.out.println("Select a delivery man to see detail.");
@@ -735,22 +724,25 @@ public class HumanResourceScreen {
 
         Calendar calendar = Calendar.getInstance();
         int numberOfDelivery = 0;
+
         while (FastDelivery.deliverJobs.hasNext()) {
 
             DeliveryJob dj = FastDelivery.deliverJobs.next();
 
-            if (dj.getDeliveryMan() == dm) {
+            calendar.setTime(dj.getDeliveryJobDate());
+            boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
+                    && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
 
-                calendar.setTime(dj.getDeliveryDate());
-                boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
-                        && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
-
-                if (isSameDay) {
-                    numberOfDelivery++;
-                    System.out.printf("%-5s %-20s %-20s %-20s\n",
-                            numberOfDelivery, dj.getOrder().getOrderId(),
-                            new SimpleDateFormat("HH:mm:ss").format(dj.getDeliveryDate()),
-                            dj.getDistance());
+            if (isSameDay && dj.getDeliveryMan() == dm) {
+                while (FastDelivery.deliverOrders.hasNext()) {
+                    DeliveryOrder deorder = FastDelivery.deliverOrders.next();
+                    if (deorder.getDeliveryJob() == dj) {
+                        numberOfDelivery++;
+                        System.out.printf("%-5s %-20s %-20s %-20s\n",
+                                numberOfDelivery, deorder.getOrder().getOrderId(),
+                                new SimpleDateFormat("HH:mm:ss").format(deorder.getDeliveryDate()),
+                                deorder.getDistance());
+                    }
                 }
             }
         }

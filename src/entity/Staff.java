@@ -30,4 +30,8 @@ public class Staff {
         this.username = username;
         this.password = password;
     }
+
+    public String getFullName() {
+        return fname + " " + lname;
+    }
 }

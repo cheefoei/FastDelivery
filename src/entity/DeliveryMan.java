@@ -66,10 +66,6 @@ public class DeliveryMan extends Staff implements Serializable, Comparable<Deliv
         this.isDeliveryAvailable = isDeliveryAvailable;
     }
 
-    public String getFullName() {
-        return fname + " " + lname;
-    }
-
     @Override
     public int compareTo(DeliveryMan o) {
 //         return Comparator.comparing(DeliveryMan::getFullName)

@@ -6,7 +6,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -15,34 +15,19 @@ import java.util.Date;
  */
 public class DeliveryJob implements Serializable, Comparable<DeliveryJob> {
 
-    private Orders order;
     private DeliveryMan deliveryMan;
-    private double deliveryFee;
-    private double distance;
-    private Date deliveryDate;
-    private boolean isDone;
+    private Date deliveryJobDate;
+    private double totalDistance;
+    private int totalDelivery;
 
     public DeliveryJob() {
     }
 
-    public DeliveryJob(Orders order, DeliveryMan deliveryMan, double distance) {
-
-        Calendar now = Calendar.getInstance();
-
-        this.order = order;
+    public DeliveryJob(DeliveryMan deliveryMan, Date deliveryJobDate, double totalDistance, int totalDelivery) {
         this.deliveryMan = deliveryMan;
-        this.deliveryFee = calculateDeliveryFee();
-        this.distance = distance;
-        this.deliveryDate = now.getTime();
-        this.isDone = false;
-    }
-
-    public Orders getOrder() {
-        return order;
-    }
-
-    public void setOrder(Orders order) {
-        this.order = order;
+        this.deliveryJobDate = deliveryJobDate;
+        this.totalDistance = totalDistance;
+        this.totalDelivery = totalDelivery;
     }
 
     public DeliveryMan getDeliveryMan() {
@@ -53,50 +38,44 @@ public class DeliveryJob implements Serializable, Comparable<DeliveryJob> {
         this.deliveryMan = deliveryMan;
     }
 
-    public double getDeliveryFee() {
-        return deliveryFee;
+    public Date getDeliveryJobDate() {
+        return deliveryJobDate;
     }
 
-    public void setDeliveryFee(double deliveryFee) {
-        this.deliveryFee = deliveryFee;
+    public void setDeliveryJobDate(Date deliveryJobDate) {
+        this.deliveryJobDate = deliveryJobDate;
     }
 
-    public double getDistance() {
-        return distance;
+    public double getTotalDistance() {
+        return totalDistance;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setTotalDistance(double totalDistance) {
+        this.totalDistance = totalDistance;
     }
 
-    public Date getDeliveryDate() {
-        return deliveryDate;
+    public int getTotalDelivery() {
+        return totalDelivery;
     }
 
-    public void setDeliveryDate(Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
+    public void setTotalDelivery(int totalDelivery) {
+        this.totalDelivery = totalDelivery;
     }
 
-    public boolean isIsDone() {
-        return isDone;
+    public void addToDistance(double distance) {
+        this.totalDistance += distance;
     }
 
-    public void setIsDone(boolean isDone) {
-        this.isDone = isDone;
-    }
-
-    private double calculateDeliveryFee() {
-
-        // If purchase order more than RM20 then no delivery fee
-        if (order.getTotalPrice() > 20) {
-            return 0;
-        } else {
-            return 5;
-        }
+    public void increaseDelivery() {
+        this.totalDelivery++;
     }
 
     @Override
     public int compareTo(DeliveryJob o) {
-        return 0;
+
+        return Comparator.comparing(DeliveryJob::getTotalDelivery)
+                .thenComparing(DeliveryJob::getTotalDistance)
+                .compare(o, this);
+
     }
 }
