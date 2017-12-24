@@ -37,19 +37,23 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
     }
 
     
+    @Override
     public int getLength() {
         return length;
     }
     
+    @Override
     public final void clear() {
         firstNode = null;
         length = 0;
     }
     
+    @Override
     public boolean isEmpty() {
         return (length == 0);
     }
 
+    @Override
     public String toString() {
         int number = 1;
         String outputStr = "";
