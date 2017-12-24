@@ -235,17 +235,17 @@ public class CustomerScreen {
         System.out.println("|--------------------------------------|");
         System.out.println("| Please choose an Order to update.    |");
         System.out.println("|--------------------------------------|");
-        System.out.println("Order List");
-        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Status", "Total Price(RM)", "Order Date", "Customer");
-        System.out.println("--------------------------------------------------------------------------------------------");
-        System.out.println(orderList);
-        System.out.printf("Enter required number to update order: ");
+        System.out.println("Order Details List");
+        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
+        System.out.println("-------------------------------------------------------------------------------");
+        //System.out.println(orderDetailList);
+        System.out.printf("Enter required order to update : ");
         int num = scanner.nextInt();
         
-        System.out.println("\nUpdated Order List:");
-        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Status", "Total Price(RM)", "Order Date", "Customer");
-        System.out.println("--------------------------------------------------------------------------------------------");
-        System.out.println(orderList);
+        System.out.println("\nUpdated Order Details List:");
+        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
+        System.out.println("-------------------------------------------------------------------------------");
+        //System.out.println(orderDetailList);
         
         Scanner s = new Scanner(System.in);
 
