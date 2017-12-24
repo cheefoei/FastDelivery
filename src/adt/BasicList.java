@@ -10,7 +10,7 @@ package adt;
  * @author Student
  * @param <T>
  */
-public class BasicList<T> implements BasicListInterface<T> {
+public class BasicList<T extends Comparable> implements BasicListInterface<T> {
 
     private Node firstNode;
     private int size = 0;
@@ -23,18 +23,36 @@ public class BasicList<T> implements BasicListInterface<T> {
     @Override
     public boolean add(T newData) {
 
+//        Node newNode = new Node(newData);
+//        if (size() == 0) {
+//            firstNode = newNode;
+//            size++;
+//        } else {
+//            Node referNode = firstNode;
+//            while (referNode.nextNode != null) {
+//                referNode = referNode.nextNode;
+//            }
+//            referNode.nextNode = newNode;
+//            size++;
+//        }
         Node newNode = new Node(newData);
-        if (size() == 0) {
-            firstNode = newNode;
-            size++;
-        } else {
-            Node referNode = firstNode;
-            while (referNode.nextNode != null) {
-                referNode = referNode.nextNode;
-            }
-            referNode.nextNode = newNode;
-            size++;
+        Node currentNode = firstNode;
+        Node beforeNode = null;
+
+        while (currentNode != null && newData.compareTo(currentNode.data) > 0) {
+            beforeNode = currentNode;
+            currentNode = currentNode.nextNode;
         }
+
+        if (isEmpty() || beforeNode == null) {
+            newNode.nextNode = firstNode;
+            this.firstNode = newNode;
+        } else {
+            newNode.nextNode = currentNode;
+            beforeNode.nextNode = newNode;
+        }
+        size++;
+
         return true;
     }
 
@@ -112,7 +130,7 @@ public class BasicList<T> implements BasicListInterface<T> {
         private T data;
         private Node nextNode;
 
-        public Node(T data) {
+        private Node(T data) {
             this.data = data;
             this.nextNode = null;
         }

@@ -68,10 +68,11 @@ public class DeliveryMan extends Staff implements Serializable, Comparable<Deliv
 
     @Override
     public int compareTo(DeliveryMan o) {
-
-        String name1 = this.fname.toUpperCase() + this.lname.toUpperCase();
-        String name2 = o.fname.toUpperCase() + o.lname.toUpperCase();
-        return name1.compareTo(name2);
+//         return Comparator.comparing(DeliveryMan::getFullName)
+//                .thenComparing(DeliveryMan::isIsLeave)
+//                .thenComparing(DeliveryMan::isIsResigned)
+//                .compare(this, o);  
+        return getFullName().compareTo(o.getFullName());
     }
 
 }

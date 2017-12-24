@@ -1,8 +1,8 @@
 
-import adt.DeliveryManInterface;
 import adt.DeliveryManList;
 import adt.BasicList;
 import adt.BasicListInterface;
+import adt.DeliveryManInterface;
 import adt.OrderFoodInterface;
 import adt.OrderFoodList;
 import adt.OrderInterface;
@@ -13,12 +13,14 @@ import entity.Contact;
 import entity.Customer;
 import entity.DeliveryJob;
 import entity.DeliveryMan;
+import entity.DeliveryOrder;
 import entity.Food;
 import entity.HumanResource;
 import entity.RestaurantOwner;
 import entity.OrderDetails;
 import entity.Orders;
 import entity.PunchedCard;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +36,7 @@ public class FastDelivery {
 
     public static BasicListInterface<HumanResource> humanResources = new BasicList<>();
     public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
+    public static BasicListInterface<DeliveryOrder> deliverOrders = new BasicList<>();
     public static BasicListInterface<DeliveryJob> deliverJobs = new BasicList<>();
     //public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
     public static OrderInterface<Orders> orderList = new OrderList<>();
@@ -46,7 +49,8 @@ public class FastDelivery {
     public static List<Orders> orders = new ArrayList<>();
     public static List<OrderDetails> orderDetail = new ArrayList<>();
     public static List<PunchedCard> punchedCards = new ArrayList<>();
-    
+
+
 
 
     public static void main(String[] args) {
@@ -92,9 +96,14 @@ public class FastDelivery {
                 new RestaurantOwnerScreen();
                 return;
             case 3:
+
                 //new DeliveryManScreen();
+
+//                new DeliveryManScreen();
+
                 return;
             case 4:
+                clearScreen();
                 new HumanResourceScreen();
                 return;
             case 5:
@@ -104,6 +113,21 @@ public class FastDelivery {
                 System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
                 promptRole();
                 break;
+        }
+    }
+
+    public static void clearScreen() {
+
+        try {
+            if (System.getProperty("os.name").startsWith("Window")) {
+                Runtime.getRuntime().exec("cls");
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (IOException e) {
+            for (int i = 0; i < 1000; i++) {
+                System.out.println();
+            }
         }
     }
 
@@ -145,7 +169,7 @@ public class FastDelivery {
         humanResources.add(hr1);
         humanResources.add(hr2);
 
-         DeliveryMan dm1 = new DeliveryMan(
+        DeliveryMan dm1 = new DeliveryMan(
                 "Jessica",
                 "Fishman",
                 'F',
@@ -315,7 +339,7 @@ public class FastDelivery {
                 "allan0103"
         );
         customerArray.add(cus1);
-        
+
         Customer cus2 = new Customer(
                 "Ji Yong",
                 "880818-10-8888",
@@ -332,7 +356,7 @@ public class FastDelivery {
                 "gd0818"
         );
         customerArray.add(cus2);
-        
+
         Customer cus3 = new Customer(
                 "Charlotte",
                 "940505-08-5698",
@@ -349,7 +373,7 @@ public class FastDelivery {
                 "charlotte0505"
         );
         customerArray.add(cus3);
-        
+
         try {
             PunchedCard pc1 = new PunchedCard(
                     "ON-DUTY",
@@ -408,22 +432,32 @@ public class FastDelivery {
             orderDetail.add(od2);
             orderDetail.add(od3);
 
-            DeliveryJob dj1 = new DeliveryJob(order1, dm1, 1.5);
-            dj1.setDeliveryDate(DF.parse("Mon 11-Dec-2017 15:40:30"));
+            DeliveryJob dj1 = new DeliveryJob(dm1, DF.parse("Fri 22-Dec-2017 11:39:30"), 8.0, 1);
 
-            DeliveryJob dj2 = new DeliveryJob(order2, dm1, 3.0);
-            dj2.setDeliveryDate(DF.parse("Tue 12-Dec-2017 11:55:40"));
+            DeliveryOrder do1 = new DeliveryOrder(dj1, order1, 8.0);
+            do1.setDeliveryDate(DF.parse("Fri 22-Dec-2017 11:40:30"));
 
-            DeliveryJob dj3 = new DeliveryJob(order3, dm1, 5.0);
-            dj3.setDeliveryDate(DF.parse("Tue 12-Dec-2017 12:56:23"));
+            DeliveryJob dj2 = new DeliveryJob(dm2, DF.parse("Fri 22-Dec-2017 13:40:34"), 7.5, 2);
 
-            DeliveryJob dj4 = new DeliveryJob(order4, dm1, 0.8);
-            dj4.setDeliveryDate(DF.parse("Wed 13-Dec-2017 10:25:47"));
+            DeliveryOrder do2 = new DeliveryOrder(dj2, order2, 2.5);
+            do2.setDeliveryDate(DF.parse("Fri 22-Dec-2017 12:55:40"));
+
+            DeliveryOrder do3 = new DeliveryOrder(dj2, order3, 5.0);
+            do3.setDeliveryDate(DF.parse("Fri 22-Dec-2017 13:40:41"));
+
+            DeliveryJob dj3 = new DeliveryJob(dm3, DF.parse("Sat 23-Dec-2017 15:17:50"), 0.8, 1);
+
+            DeliveryOrder do4 = new DeliveryOrder(dj3, order4, 0.8);
+            do4.setDeliveryDate(DF.parse("Sat 23-Dec-2017 15:17:55"));
+
+            deliverOrders.add(do1);
+            deliverOrders.add(do2);
+            deliverOrders.add(do3);
+            deliverOrders.add(do4);
 
             deliverJobs.add(dj1);
             deliverJobs.add(dj2);
             deliverJobs.add(dj3);
-            deliverJobs.add(dj4);
 
         } catch (ParseException ex) {
         }

@@ -13,22 +13,21 @@ import java.io.Serializable;
  */
 public class OrderDetails implements Serializable {
 
-    
     private Orders order;
     private Food food;
     private int qty;
     private String remark; //Let customer to remark no egg? no spicy?
 
-    
+    public OrderDetails() {
+    }
+
     public OrderDetails(Orders order, Food food, int qty, String remark) {
         this.order = order;
         this.food = food;
         this.qty = qty;
         this.remark = remark;
     }
-
-
-
+    
     public Orders getOrder() {
         return order;
     }

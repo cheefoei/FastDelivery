@@ -18,7 +18,11 @@
 //public class DeliveryManScreen {
 //
 //    public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
+
 //    //public static OrderInterface<Orders> orderList = new OrderList<>();
+
+//    public static OrderInterface<Orders> orderList = new OrderList<>();
+
 //    public static List<Customer> customerArray = new ArrayList<>();
 //
 //    private Scanner scanner = new Scanner(System.in);

@@ -1,7 +1,11 @@
 
+import adt.BasicList;
+import adt.BasicListInterface;
+import adt.DeliveryManList;
 import entity.Contact;
 import entity.DeliveryJob;
 import entity.DeliveryMan;
+import entity.DeliveryOrder;
 import entity.HumanResource;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -83,7 +87,7 @@ public class HumanResourceScreen {
             System.out.println("1) View delivery men");
             System.out.println("2) Add delivery man");
             System.out.println("3) Update delivery man");
-            System.out.println("4) Assign delivery man");
+            System.out.println("4) Retrieve pending deliveries");
             System.out.println("5) Delivery men daily report");
             System.out.println("6) go back");
             System.out.print("Option >");
@@ -107,11 +111,13 @@ public class HumanResourceScreen {
                     updateDeliveryMan();
                     break;
                 case 4:
+                    retrievePendingDeliveries();
                     break;
                 case 5:
                     deliveryManDailyReport();
                     break;
                 case 6:
+                    FastDelivery.clearScreen();
                     return;
                 default:
                     System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
@@ -125,9 +131,10 @@ public class HumanResourceScreen {
 
         System.out.printf("\nDelivery Men\n");
         System.out.println("================");
+        System.out.printf("%-5s %-35s %-15s\n", "No.", "Delivery Man Name", "Working Status");
+        System.out.printf("%-5s %-35s %-15s\n", "---", "-----------------", "--------------");
 
         int count = 1;
-        
         while (FastDelivery.deliveryMen.hasNext()) {
 
             DeliveryMan dm = FastDelivery.deliveryMen.next();
@@ -140,7 +147,7 @@ public class HumanResourceScreen {
             } else {
                 status = "WORKING";
             }
-            System.out.printf(count + ") " + dm.fname + " " + dm.lname + " (" + status + ")\n");
+            System.out.printf("%-5s %-35s %-15s\n", count + ") ", dm.getFullName(), status);
             count++;
         }
 
@@ -158,16 +165,16 @@ public class HumanResourceScreen {
                 DeliveryMan dm = FastDelivery.deliveryMen.get(opt - 1);
                 Contact contact = dm.contact;
 
-                System.out.printf("First name \t\t: " + dm.fname + "\n");
-                System.out.printf("Last name \t\t: " + dm.lname + "\n");
-                System.out.printf("Gender \t\t\t: " + dm.gender + "\n");
-                System.out.printf("NRIC \t\t\t: " + dm.nric + "\n");
-                System.out.printf("Home address \t\t: " + contact.getAddress() + ","
+                System.out.printf("%-20s %-5s %-50s\n", "First name", ":", dm.fname);
+                System.out.printf("%-20s %-5s %-50s\n", "Last name", ":", dm.lname);
+                System.out.printf("%-20s %-5s %-50s\n", "Gender", ":", dm.gender);
+                System.out.printf("%-20s %-5s %-50s\n", "NRIC", ":", dm.nric);
+                System.out.printf("%-20s %-5s %-50s\n", "Home address", ":", contact.getAddress() + ","
                         + contact.getPostcode() + " " + contact.getCity() + ","
-                        + contact.getState() + ".\n");
-                System.out.printf("Email address \t\t: " + contact.getEmail() + "\n");
-                System.out.printf("Phone number \t\t: " + contact.getPhoneNumber() + "\n");
-                System.out.printf("Current Working Status \t: " + dm.getWorkingStatus() + "\n");
+                        + contact.getState());
+                System.out.printf("%-20s %-5s %-50s\n", "Email address", ":", contact.getEmail());
+                System.out.printf("%-20s %-5s %-50s\n", "Phone number", ":", contact.getPhoneNumber());
+                System.out.printf("%-20s %-5s %-50s\n", "Working Status", ":", dm.getWorkingStatus());
 
                 System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
                 scanner.nextLine();
@@ -298,11 +305,13 @@ public class HumanResourceScreen {
 
         System.out.printf("\nUpdate Delivery Man\n");
         System.out.println("================");
+        System.out.printf("%-5s %-35s\n", "No.", "Delivery Man Name");
+        System.out.printf("%-5s %-35s\n", "---", "-----------------");
 
         int count = 1;
         while (FastDelivery.deliveryMen.hasNext()) {
             DeliveryMan dm = FastDelivery.deliveryMen.next();
-            System.out.printf(count + ") " + dm.fname + " " + dm.lname + "\n");
+            System.out.printf("%-5s %-35s\n", count + ") ", dm.getFullName());
             count++;
         }
         System.out.println("Enter the number to select delivery man and update. .");
@@ -317,7 +326,7 @@ public class HumanResourceScreen {
 
                 DeliveryMan dm = FastDelivery.deliveryMen.get(deliveryManOption - 1);
 
-                System.out.println("\nUpdate " + dm.fname + " " + dm.lname + "'s information");
+                System.out.println("\nUpdate " + dm.getFullName() + "'s information");
                 System.out.println("=====================================");
                 System.out.println("1) Home aadress");
                 System.out.println("2) Email address");
@@ -416,7 +425,7 @@ public class HumanResourceScreen {
 
         if (dm.isIsLeave()) {
 
-            System.out.println(dm.fname + " " + dm.lname + " is LEAVE ");
+            System.out.println(dm.getFullName() + " is LEAVE ");
             System.out.println("Which status need to change to?");
             System.out.println("1) AVAILABLE TO WORK");
             System.out.println("2) RESIGNED");
@@ -428,7 +437,7 @@ public class HumanResourceScreen {
 
                 dm.setIsLeave(false);
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
+                System.out.println(dm.getFullName() + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
             } else if (option.equals("2")) {
@@ -437,7 +446,7 @@ public class HumanResourceScreen {
                 dm.setIsResigned(true);
 
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
+                System.out.println(dm.getFullName() + " is RESIGNED now.");
                 humanResourceMenu();
 
             } else {
@@ -446,7 +455,7 @@ public class HumanResourceScreen {
 
         } else if (dm.isIsResigned()) {
 
-            System.out.println(dm.fname + " " + dm.lname + " is RESIGNED ");
+            System.out.println(dm.getFullName() + " is RESIGNED ");
             System.out.println("Which status need to change to?");
             System.out.println("1) AVAILABLE TO WORK");
             System.out.println("Else will go back to menu.");
@@ -457,7 +466,7 @@ public class HumanResourceScreen {
 
                 dm.setIsResigned(false);
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is AVAILABLE TO WORK now.");
+                System.out.println(dm.getFullName() + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
             } else {
@@ -465,7 +474,7 @@ public class HumanResourceScreen {
             }
         } else {
 
-            System.out.println(dm.fname + " " + dm.lname + " is WORKING ");
+            System.out.println(dm.getFullName() + " is WORKING ");
             System.out.println("Which status need to change to?");
             System.out.println("1) LEAVE");
             System.out.println("2) RESIGNED");
@@ -477,7 +486,7 @@ public class HumanResourceScreen {
 
                 dm.setIsLeave(true);
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is LEAVE now.");
+                System.out.println(dm.getFullName() + " is LEAVE now.");
                 humanResourceMenu();
 
             } else if (option.equals("2")) {
@@ -485,171 +494,262 @@ public class HumanResourceScreen {
                 dm.setIsResigned(true);
 
                 FastDelivery.deliveryMen.replace(dm, index);
-                System.out.println(dm.fname + " " + dm.lname + " is RESIGNED now.");
+                System.out.println(dm.getFullName() + " is RESIGNED now.");
                 humanResourceMenu();
 
             } else {
                 updateDeliveryMan();
             }
         }
+    }
 
+    private void retrievePendingDeliveries() {
+
+        System.out.printf("\nPending Deliveries\n");
+        System.out.println("============================");
+        System.out.printf("%-5s %-35s %-15s\n", "No.", "Delivery Man", "Total Pending Delivery");
+        System.out.printf("%-5s %-35s %-15s\n", "---", "------------", "----------------------");
+
+        BasicListInterface<DeliveryMan> pendingDeliveryMan = new DeliveryManList<>();
+        int count = 1;
+
+        while (FastDelivery.deliveryMen.hasNext()) {
+
+            DeliveryMan dm = FastDelivery.deliveryMen.next();
+
+            int numOfDelivery = 0;
+            while (FastDelivery.deliverOrders.hasNext()) {
+                DeliveryOrder deorder = FastDelivery.deliverOrders.next();
+                if (deorder.getDeliveryJob().getDeliveryMan() == dm && !deorder.isIsDone()) {
+                    numOfDelivery++;
+                }
+            }
+
+            if (numOfDelivery > 0) {
+                System.out.printf("%-5s %-35s %-15s\n", count, dm.getFullName(), numOfDelivery);
+                pendingDeliveryMan.add(dm);
+                count++;
+            }
+        }
+
+        if (pendingDeliveryMan.isEmpty()) {
+            System.out.println("No record.");
+        } else {
+
+            System.out.println("Select a delivery man to see delivery details.");
+            System.out.println("Else will go back to menu.");
+            System.out.print(">");
+
+            try {
+
+                int deliveryManOption = Integer.parseInt(scanner.nextLine());
+                if (deliveryManOption > 0 && deliveryManOption <= pendingDeliveryMan.size()) {
+
+                    DeliveryMan dm = pendingDeliveryMan.get(deliveryManOption - 1);
+
+                    System.out.println("\n" + dm.getFullName() + "'s Pending Deliveries");
+                    System.out.println("==================================");
+                    System.out.printf("%-5s %-20s %-35s %-15s\n", "No.", "Order ID", "Customer Name", "Time");
+                    System.out.printf("%-5s %-20s %-35s %-15s\n", "---", "--------", "-------------", "----");
+
+                    int numOfDelivery = 1;
+                    while (FastDelivery.deliverOrders.hasNext()) {
+                        DeliveryOrder deorder = FastDelivery.deliverOrders.next();
+                        if (deorder.getDeliveryJob().getDeliveryMan() == dm && !deorder.isIsDone()) {
+                            System.out.printf("%-5s %-20s %-35s %-15s\n",
+                                    numOfDelivery, deorder.getOrder().getOrderId(),
+                                    deorder.getOrder().getCustomer().getCusName(),
+                                    new SimpleDateFormat("HH:mm:ss").format(deorder.getOrder().getDoneOrderDate()));
+                            numOfDelivery++;
+                        }
+                    }
+                    System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+                    scanner.nextLine();
+                    humanResourceMenu();
+
+                } else {
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    retrievePendingDeliveries();
+                }
+            } catch (NumberFormatException ex) {
+                humanResourceMenu();
+            }
+        }
     }
 
     private void deliveryManDailyReport() {
 
         System.out.printf("\nDelivery Man Daily Report\n");
         System.out.println("============================");
+        System.out.println("1) Today");
+        System.out.println("2) Yesterday");
+        System.out.println("3) Select a date");
+        System.out.print("Option >");
+        String option = scanner.nextLine();
 
-        int count = 1;
-        while (FastDelivery.deliveryMen.hasNext()) {
-            DeliveryMan dm = FastDelivery.deliveryMen.next();
-            System.out.printf(count + ") " + dm.fname + " " + dm.lname + "\n");
-            count++;
-        }
-        System.out.println("Select a delivery man and see daily report.");
-        System.out.println("Else will go back to menu.");
-        System.out.print(">");
+        if (!option.equals("1") && !option.equals("2") && !option.equals("3")) {
 
-        try {
+            System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+            deliveryManDailyReport();
+        } else {
 
-            int deliveryManOption = Integer.parseInt(scanner.nextLine());
+            Calendar calendar = Calendar.getInstance();
+            Calendar selectedCal = Calendar.getInstance();
 
-            if (deliveryManOption > 0 && deliveryManOption < count) {
+            if (option.equals("1")) {
+                selectedCal.setTime(new Date());
+            } else if (option.equals("2")) {
+                selectedCal.add(Calendar.DATE, -1);
+            } else if (option.equals("3")) {
 
-                DeliveryMan dm = FastDelivery.deliveryMen.get(deliveryManOption - 1);
+                int year = 0;
+                int month = 0;
+                int day = 0;
+                boolean v;
 
-                System.out.println("\n" + dm.fname + " " + dm.lname + "'s Daily Report");
-                System.out.println("=====================================");
-                System.out.println("1) Today");
-                System.out.println("2) Yesterday");
-                System.out.println("3) Select a date");
-                System.out.print("Option >");
-                String option = scanner.nextLine();
+                do {
+                    v = true;
+                    System.out.print("Year   > ");
+                    String y = scanner.nextLine();
 
-                if (!option.equals("1") && !option.equals("2") && !option.equals("3")) {
-
-                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                    deliveryManDailyReport();
-                } else {
-
-                    Calendar calendar = Calendar.getInstance();
-                    Calendar selectedCal = Calendar.getInstance();
-
-                    int numberOfDelivery = 0;
-                    double totalDistances = 0;
-
-                    if (option.equals("1")) {
-                        selectedCal.setTime(new Date());
-                    } else if (option.equals("2")) {
-                        selectedCal.add(Calendar.DATE, -1);
-                    } else if (option.equals("3")) {
-
-                        int year = 0;
-                        int month = 0;
-                        int day = 0;
-                        boolean v;
-
-                        do {
-                            v = true;
-                            System.out.print("Year   > ");
-                            String y = scanner.nextLine();
-
-                            if (y.matches("\\d{4}")) {
-                                try {
-                                    year = Integer.parseInt(y);
-                                } catch (Exception ex) {
-                                    System.out.println(Constants.ERROR_INVALID_INPUT);
-                                    v = false;
-                                }
-                            } else {
-                                System.out.println(Constants.ERROR_INVALID_INPUT);
-                                v = false;
-                            }
-                        } while (!v);
-
-                        do {
-                            v = true;
-                            System.out.print("Month  > ");
-                            try {
-                                month = Integer.parseInt(scanner.nextLine()) - 1;
-                                if (month < 0 || month > 11) {
-                                    System.out.println(Constants.ERROR_INVALID_INPUT);
-                                    v = false;
-                                }
-                            } catch (Exception ex) {
-                                System.out.println(Constants.ERROR_INVALID_INPUT);
-                                v = false;
-                            }
-                        } while (!v);
-
-                        Calendar cal = new GregorianCalendar(year, month, day);
-                        int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-                        do {
-                            v = true;
-                            System.out.print("Day    > ");
-                            try {
-                                day = Integer.parseInt(scanner.nextLine());
-                                if (day < 1 || day > daysInMonth) {
-                                    System.out.println(Constants.ERROR_INVALID_INPUT);
-                                    v = false;
-                                }
-                            } catch (Exception ex) {
-                                System.out.println(Constants.ERROR_INVALID_INPUT);
-                                v = false;
-                            }
-                        } while (!v);
-
-                        selectedCal.set(Calendar.YEAR, year);
-                        selectedCal.set(Calendar.MONTH, month);
-                        selectedCal.set(Calendar.DATE, day);
-                    }
-
-                    System.out.printf("\nDelivery Man: " + dm.fname + " " + dm.lname + "\n");
-                    System.out.printf("Date        : "
-                            + new SimpleDateFormat("dd-MMM-yyyy").format(selectedCal.getTime())
-                            + "\n");
-                    System.out.printf("%-5s %-20s %-20s %-20s\n", "No.", "Order ID", "Time", "Distances(km)");
-                    System.out.printf("%-5s %-20s %-20s %-20s\n", "---", "--------", "-----", "------------");
-
-                    while (FastDelivery.deliverJobs.hasNext()) {
-
-                        DeliveryJob dj = FastDelivery.deliverJobs.next();
-
-                        if (dj.getDeliveryMan() == dm) {
-
-                            calendar.setTime(dj.getDeliveryDate());
-                            boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
-                                    && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
-
-                            if (isSameDay) {
-                                numberOfDelivery++;
-                                totalDistances += dj.getDistance();
-                                System.out.printf("%-5s %-20s %-20s %-20s\n",
-                                        numberOfDelivery, dj.getOrder().getOrderId(),
-                                        new SimpleDateFormat("HH:mm:ss").format(dj.getDeliveryDate()),
-                                        dj.getDistance());
-                            }
+                    if (y.matches("\\d{4}")) {
+                        try {
+                            year = Integer.parseInt(y);
+                        } catch (Exception ex) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                            v = false;
                         }
-                    }
-
-                    if (numberOfDelivery > 0 && totalDistances > 0) {
-                        System.out.println("\nTotal Deliveries: " + numberOfDelivery);
-                        System.out.println("Total Distances : " + totalDistances + " km\n");
                     } else {
-                        System.out.println("No record\n");
+                        System.out.println(Constants.ERROR_INVALID_INPUT);
+                        v = false;
                     }
+                } while (!v);
+
+                do {
+                    v = true;
+                    System.out.print("Month  > ");
+                    try {
+                        month = Integer.parseInt(scanner.nextLine()) - 1;
+                        if (month < 0 || month > 11) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                            v = false;
+                        }
+                    } catch (Exception ex) {
+                        System.out.println(Constants.ERROR_INVALID_INPUT);
+                        v = false;
+                    }
+                } while (!v);
+
+                Calendar cal = new GregorianCalendar(year, month, day);
+                int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                do {
+                    v = true;
+                    System.out.print("Day    > ");
+                    try {
+                        day = Integer.parseInt(scanner.nextLine());
+                        if (day < 1 || day > daysInMonth) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                            v = false;
+                        }
+                    } catch (Exception ex) {
+                        System.out.println(Constants.ERROR_INVALID_INPUT);
+                        v = false;
+                    }
+                } while (!v);
+
+                selectedCal.set(Calendar.YEAR, year);
+                selectedCal.set(Calendar.MONTH, month);
+                selectedCal.set(Calendar.DATE, day);
+            }
+
+            System.out.printf("\nDate        : "
+                    + new SimpleDateFormat("dd-MMM-yyyy").format(selectedCal.getTime())
+                    + "\n");
+            System.out.printf("%-5s %-20s %-20s %-20s\n",
+                    "No.", "Delivery Man", "Total Deliveries", "Total Distances(km)");
+            System.out.printf("%-5s %-20s %-20s %-20s\n",
+                    "---", "------------", "----------------", "-------------------");
+
+            int count = 1;
+            while (FastDelivery.deliverJobs.hasNext()) {
+
+                DeliveryJob dj = FastDelivery.deliverJobs.next();
+
+                calendar.setTime(dj.getDeliveryJobDate());
+                boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
+                        && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
+
+                if (isSameDay) {
+                    System.out.printf("%-5s %-20s %-20s %-20s\n",
+                            count, dj.getDeliveryMan().getFullName(), dj.getTotalDelivery(), dj.getTotalDistance());
+                    count++;
+                }
+            }
+
+            System.out.println("Select a delivery man to see detail.");
+            System.out.println("Else will go back to menu.");
+            System.out.print(">");
+
+            try {
+                int deliveryManOption = Integer.parseInt(scanner.nextLine());
+
+                if (deliveryManOption > 0 && deliveryManOption < count) {
+
+                    DeliveryMan dm = FastDelivery.deliveryMen.get(deliveryManOption - 1);
+                    deliveryManDetailReport(dm, selectedCal);
 
                     System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
                     scanner.nextLine();
                     humanResourceMenu();
+                } else {
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    deliveryManDailyReport();
                 }
-            } else {
-                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                deliveryManDailyReport();
+            } catch (NumberFormatException ex) {
+                humanResourceMenu();
             }
-        } catch (NumberFormatException ex) {
-            humanResourceMenu();
+        }
+
+    }
+
+    private void deliveryManDetailReport(DeliveryMan dm, Calendar selectedCal) {
+
+        System.out.printf("\nDelivery Man: " + dm.getFullName() + "\n");
+        System.out.printf("Date        : "
+                + new SimpleDateFormat("dd-MMM-yyyy").format(selectedCal.getTime())
+                + "\n");
+        System.out.printf("%-5s %-20s %-20s %-20s\n", "No.", "Order ID", "Time", "Distances(km)");
+        System.out.printf("%-5s %-20s %-20s %-20s\n", "---", "--------", "-----", "------------");
+
+        Calendar calendar = Calendar.getInstance();
+        int numberOfDelivery = 0;
+
+        while (FastDelivery.deliverJobs.hasNext()) {
+
+            DeliveryJob dj = FastDelivery.deliverJobs.next();
+
+            calendar.setTime(dj.getDeliveryJobDate());
+            boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
+                    && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
+
+            if (isSameDay && dj.getDeliveryMan() == dm) {
+                while (FastDelivery.deliverOrders.hasNext()) {
+                    DeliveryOrder deorder = FastDelivery.deliverOrders.next();
+                    if (deorder.getDeliveryJob() == dj) {
+                        numberOfDelivery++;
+                        System.out.printf("%-5s %-20s %-20s %-20s\n",
+                                numberOfDelivery, deorder.getOrder().getOrderId(),
+                                new SimpleDateFormat("HH:mm:ss").format(deorder.getDeliveryDate()),
+                                deorder.getDistance());
+                    }
+                }
+            }
+        }
+
+        if (numberOfDelivery == 0) {
+            System.out.println("No record\n");
         }
     }
+
 }
