@@ -384,6 +384,18 @@ public class FastDelivery {
             punchedCards.add(pc1);
         } catch (ParseException ex) {
         }
+        
+        try {
+            Orders order7 = new Orders(
+                    "Pending",
+                    13.98,
+                    DF.parse("Mon 11-Dec-2017 15:33:30"),
+                    cus1
+            );
+            order7.setOrderId(1513099860);
+            orderList.addNewOrder(order7);
+            } catch (ParseException ex) {
+        }
 
         try {
             Orders order1 = new Orders(

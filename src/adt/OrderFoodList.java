@@ -15,6 +15,7 @@ public class OrderFoodList<T extends Comparable> implements OrderFoodInterface<T
     private Node firstNode;
     private int length;
 
+    @Override
     public boolean addNewOrder(T newEntry) {
         Node newNode = new Node(newEntry);
 
@@ -36,21 +37,41 @@ public class OrderFoodList<T extends Comparable> implements OrderFoodInterface<T
         return true;
     }
     
+    @Override
+    public int getOrderNo() {
+        return length;
+    }
     
-    
+    @Override
+    public T getOrderAt(int givenPosition) {
+        T result = null;
 
+        if ((givenPosition >= 1) && (givenPosition <= length)) {
+            Node currentNode = firstNode;
+            for (int i = 0; i < givenPosition - 1; ++i) {
+                currentNode = currentNode.next;		// advance currentNode to next node
+            }
+            result = currentNode.data;	// currentNode is pointing to the node at givenPosition
+        }
+
+        return result;
+    }
+
+    @Override
     public final void clear() {
         firstNode = null;
         length = 0;
     }
 
     
+    @Override
     public boolean isEmpty() {
         return (length == 0);
     }
     
     
 
+    @Override
     public String toString() {
         int number = 1;
         String outputStr = "";

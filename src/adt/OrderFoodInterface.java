@@ -14,8 +14,9 @@ public interface OrderFoodInterface<T> {
     public boolean addNewOrder(T newOrder); // Add new order
     
      
+    public T getOrderAt(int givenPosition); // Retrieve order at specific position
     
-    //public int getOrderNo(); // Retrieve total number of orders
+    public int getOrderNo(); // Retrieve total number of orders
         
     //public T removeOrderAt(int index); // Delete order record
     

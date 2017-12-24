@@ -1,6 +1,4 @@
 
-import adt.BasicList;
-import adt.BasicListInterface;
 import adt.OrderFoodInterface;
 import adt.OrderFoodList;
 import adt.OrderInterface;
@@ -16,10 +14,12 @@ import entity.Food;
 import entity.OrderDetails;
 import entity.Orders;
 import entity.RestaurantOwner;
+import java.text.DateFormat;
 //import entity.ScheduledOrder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class CustomerScreen {
 
@@ -49,6 +49,8 @@ public class CustomerScreen {
     private Date scheduleTime = new Date();
     //#
     private int failedCount = 0;
+    
+    public static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
     public CustomerScreen() {
 
@@ -56,11 +58,25 @@ public class CustomerScreen {
         System.out.println("==============");
 
         checkAutho();
+            
+        try {
+            Orders order8 = new Orders(
+                    status,
+                    50.00,
+                    DF.parse("Mon 11-Dec-2017 15:33:30"),
+                    currentUser
+            );
+            order8.setOrderId(1513099860);
+            
+            orderList.addNewOrder(order8);
+            } catch (ParseException ex) {
+        }
+        
 
         //OrderDetails orderdetails1 = new OrderDetails(1, 10);
 
         //orderFoodList.addNewOrder(orderdetails1);
-       // Orders order1 = new Orders(id, status, totalPrice);
+       //Orders order1 = new Orders(id, status, totalPrice);
         //#
         RestaurantOwner ro7 = new RestaurantOwner(
                 "Hanbin",
@@ -150,6 +166,8 @@ public class CustomerScreen {
         System.out.println("|                                |");
         System.out.println("|1. Place Order (ad-hoc)         |");
         System.out.println("|2. Schedule Order               |");
+        System.out.println("|3. Update Order                 |");
+        System.out.println("|4. Display order                |");
         System.out.println("|0. Back to Main Menu            |");
         System.out.println("|                                |");
         System.out.println("|--------------------------------|");
@@ -167,6 +185,12 @@ public class CustomerScreen {
                 type = "schedule";
                 customerMenu();
                 break;
+                case 3:
+                updateOrder();
+                break;
+                    case 4:
+                displayOrder();
+                break;
             case 0:
                 break;
             default:
@@ -181,8 +205,8 @@ public class CustomerScreen {
         System.out.println("|--------------------------------|");
         System.out.println("| Please choose a restaurant.    |");
         System.out.println("|--------------------------------|");
-
-if (restaurantList.isEmpty()) {
+        
+        if (restaurantList.isEmpty()) {
             System.out.println("EMPTY!!");
         } else {
             int n = restaurantList.getLength();
@@ -195,7 +219,6 @@ if (restaurantList.isEmpty()) {
                 
                 System.out.print(y + ". ");
                 System.out.println(String.format("%-18s ", restaurantName));
-                
 
                 y++;
 
@@ -204,6 +227,58 @@ if (restaurantList.isEmpty()) {
 }
         System.out.println("");
         System.out.println("Your choice: ");
+    }
+    
+    private void updateOrder(){
+        
+        
+        System.out.println("|--------------------------------------|");
+        System.out.println("| Please choose an Order to update.    |");
+        System.out.println("|--------------------------------------|");
+        System.out.println("Order List");
+        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Status", "Total Price(RM)", "Order Date", "Customer");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println(orderList);
+        System.out.printf("Enter required number to update order: ");
+        int num = scanner.nextInt();
+        
+        System.out.println("\nUpdated Order List:");
+        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Status", "Total Price(RM)", "Order Date", "Customer");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println(orderList);
+        
+        Scanner s = new Scanner(System.in);
+
+        System.out.println("Back to Main?\n"
+                + "1. Yes\n"
+                + "2. No\n");
+        int yesno = s.nextInt();
+        if (yesno == 1) {
+            customerMainMenu();
+        } else {
+            System.exit(0);
+        }
+        
+    }
+    
+    private void displayOrder(){
+        
+        Scanner s = new Scanner(System.in);
+        System.out.println("Order List");
+        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Status", "Total Price(RM)", "Order Date", "Customer");
+        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.println(orderList);
+
+        System.out.println("Back to Main?\n"
+                + "1. Yes\n"
+                + "2. No\n");
+        int yesno = s.nextInt();
+        if (yesno == 1) {
+            customerMainMenu();
+        } else {
+            System.exit(0);
+        }
+        
     }
 
     

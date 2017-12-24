@@ -14,6 +14,10 @@ public interface OrderInterface <T extends Comparable<T>>{
     
     public boolean addNewOrder(T newOrder); // Add new order
     
+    public T getOrderAt(int givenPosition); // Retrieve order at specific position
+    
+    public int getOrderNo(); // Retrieve total number of orders
+    
     public void clear(); // Clear all records
     
     public boolean isEmpty(); // Check whether the records is empty or not
