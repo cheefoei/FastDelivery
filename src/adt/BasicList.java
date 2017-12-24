@@ -23,35 +23,19 @@ public class BasicList<T extends Comparable> implements BasicListInterface<T> {
     @Override
     public boolean add(T newData) {
 
-//        Node newNode = new Node(newData);
-//        if (size() == 0) {
-//            firstNode = newNode;
-//            size++;
-//        } else {
-//            Node referNode = firstNode;
-//            while (referNode.nextNode != null) {
-//                referNode = referNode.nextNode;
-//            }
-//            referNode.nextNode = newNode;
-//            size++;
-//        }
         Node newNode = new Node(newData);
-        Node currentNode = firstNode;
-        Node beforeNode = null;
-
-        while (currentNode != null && newData.compareTo(currentNode.data) > 0) {
-            beforeNode = currentNode;
-            currentNode = currentNode.nextNode;
-        }
-
-        if (isEmpty() || beforeNode == null) {
-            newNode.nextNode = firstNode;
-            this.firstNode = newNode;
+        if (size() == 0) {
+            firstNode = newNode;
+            size++;
         } else {
-            newNode.nextNode = currentNode;
-            beforeNode.nextNode = newNode;
+            Node referNode = firstNode;
+            while (referNode.nextNode != null) {
+                referNode = referNode.nextNode;
+            }
+            referNode.nextNode = newNode;
+            size++;
         }
-        size++;
+
 
         return true;
     }
