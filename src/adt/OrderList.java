@@ -41,7 +41,20 @@ public class OrderList<T extends Comparable<T>> implements OrderInterface<T> {
         length = 0;
     }
 
-    @Override
+    public T getEntry(int givenPosition) {
+        T result = null;
+
+        if ((givenPosition >= 1) && (givenPosition <= length)) {
+            Node currentNode = firstNode;
+            for (int i = 0; i < givenPosition - 1; ++i) {
+                currentNode = currentNode.next;		// advance currentNode to next node
+            }
+            result = currentNode.data;	// currentNode is pointing to the node at givenPosition
+        }
+
+        return result;
+    }
+    
     public boolean isEmpty() {
         return (length == 0);
     }

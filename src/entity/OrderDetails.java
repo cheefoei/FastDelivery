@@ -60,4 +60,9 @@ public class OrderDetails implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+    
+    
+
+
+    
 }

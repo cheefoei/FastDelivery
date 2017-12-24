@@ -8,13 +8,17 @@ package adt;
 /**
  *
  * @author Clarity
- * @param <T>
  */
-public interface OrderInterface <T extends Comparable<T>>{
+public interface RestaurantOwnerInterface <T> {
     
-    public boolean addNewOrder(T newOrder); // Add new order
+    public boolean add(T newEntry); // Add new records
+    
+    public T getAt(int givenPosition);
+    
+    public int getLength();
     
     public void clear(); // Clear all records
     
     public boolean isEmpty(); // Check whether the records is empty or not
+    
 }

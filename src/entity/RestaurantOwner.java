@@ -5,6 +5,7 @@
  */
 package entity;
 
+
 import java.io.Serializable;
 
 /**
@@ -109,4 +110,5 @@ public class RestaurantOwner implements Serializable {
     public void setRestaurantPhoneNumber(String restaurantPhoneNumber) {
         this.restaurantPhoneNumber = restaurantPhoneNumber;
     }
+
 }

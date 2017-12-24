@@ -29,4 +29,6 @@ public interface BasicListInterface<T> {
     public boolean isEmpty();
 
     public int size();
+    
+
 }

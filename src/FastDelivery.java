@@ -5,6 +5,10 @@ import adt.BasicList;
 import adt.BasicListInterface;
 import adt.OrderFoodInterface;
 import adt.OrderFoodList;
+import adt.OrderInterface;
+import adt.OrderList;
+import adt.RestaurantOwnerInterface;
+import adt.RestaurantOwnerList;
 import entity.Contact;
 import entity.Customer;
 import entity.DeliveryJob;
@@ -31,6 +35,10 @@ public class FastDelivery {
     public static BasicListInterface<HumanResource> humanResources = new BasicList<>();
     public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
     public static BasicListInterface<DeliveryJob> deliverJobs = new BasicList<>();
+    //public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
+    public static OrderInterface<Orders> orderList = new OrderList<>();
+    public static RestaurantOwnerInterface<RestaurantOwner> restaurantList = new RestaurantOwnerList<>();
+    
 
     public static List<RestaurantOwner> restaurantOwners = new ArrayList<>();
     public static List<Food> foods = new ArrayList<>();
@@ -38,8 +46,7 @@ public class FastDelivery {
     public static List<Orders> orders = new ArrayList<>();
     public static List<OrderDetails> orderDetail = new ArrayList<>();
     public static List<PunchedCard> punchedCards = new ArrayList<>();
-    public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
-    //public static OrderInterface<Orders> orderList = new OrderList<>();
+    
 
 
     public static void main(String[] args) {
@@ -85,7 +92,7 @@ public class FastDelivery {
                 new RestaurantOwnerScreen();
                 return;
             case 3:
-                new DeliveryManScreen();
+                //new DeliveryManScreen();
                 return;
             case 4:
                 new HumanResourceScreen();
@@ -211,6 +218,48 @@ public class FastDelivery {
         );
 
         restaurantOwners.add(rol);
+        
+        RestaurantOwner ro2 = new RestaurantOwner(
+                "Hanbin",
+                "Kim",
+                "91022-10-5555",
+                new Contact(
+                        "No 22, Jalan Harmoni,Putra Height",
+                        "Shah Alam",
+                        47300,
+                        "Selangor",
+                        "habinnie@email.com",
+                        "0101022222"
+                ),
+                "hanbin",
+                "kim",
+                "Han Bin Restaurant",
+                "No 22, Jalan Harmoni,Putra Height 47300 Shah Alam Selangor",
+                "0322222222"
+        );
+
+        restaurantList.add(ro2);
+        
+        RestaurantOwner ro3 = new RestaurantOwner(
+                "Bobby",
+                "Kim",
+                "951220-10-2020",
+                new Contact(
+                        "No 20, Section 27,Putra Height",
+                        "Shah Alam",
+                        47300,
+                        "Selangor",
+                        "bobbykim@email.com",
+                        "0101220202"
+                ),
+                "bobby",
+                "kim",
+                "Ticket to Korea",
+                "12-12 SS17/1 47650 Subang Jaya, Selangor",
+                "0320202020"
+        );
+
+        restaurantList.add(ro3);
 
         Food food1 = new Food(
                 "Mee Goreng",

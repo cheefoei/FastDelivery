@@ -9,11 +9,11 @@ package adt;
  *
  * @author Clarity
  */
-public interface OrderFoodInterface <T> {
+public interface OrderFoodInterface<T> {
     
     public boolean addNewOrder(T newOrder); // Add new order
     
-    //public T getOrderAt(int index); 
+     
     
     //public int getOrderNo(); // Retrieve total number of orders
         

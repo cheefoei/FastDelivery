@@ -5,6 +5,7 @@
  */
 package entity;
 
+import adt.OrderInterface;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  *
  * @author Clarity
  */
-public class Orders implements Serializable {
+public class Orders implements Comparable<Orders> {
 
     private long orderId;
     private String status = "Pending";
@@ -69,6 +70,15 @@ public class Orders implements Serializable {
     }
 
     
- 
+ @Override
+    public int compareTo(Orders orders) {
+        if (orderId > orders.getOrderId()) {
+            return 1;
+        } else if (orderId == orders.getOrderId()) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
     
 }

@@ -54,8 +54,13 @@ public class BasicList<T> implements BasicListInterface<T> {
             }
         }
         return data;
+        
+        
+         
     }
 
+   
+    
     @Override
     public T next() {
 
@@ -92,7 +97,9 @@ public class BasicList<T> implements BasicListInterface<T> {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        boolean result;
+        result = size == 0;
+        return result;
     }
 
     @Override

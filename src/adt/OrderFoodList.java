@@ -10,41 +10,46 @@ package adt;
  * @author Clarity
  * @param <T>
  */
-public class OrderFoodList<T> implements OrderFoodInterface<T> {
+public class OrderFoodList<T extends Comparable> implements OrderFoodInterface<T>{
 
     private Node firstNode;
     private int length;
 
     public boolean addNewOrder(T newEntry) {
-//        Node newNode = new Node(newEntry);
-//
-//        Node nodeBefore = null;
-//        Node currentNode = firstNode;
-//        while (currentNode != null && newEntry.compareTo(currentNode.data) > 0) {
-//            nodeBefore = currentNode;
-//            currentNode = currentNode.next;
-//        }
-//
-//        if (isEmpty() || (nodeBefore == null)) {
-//            newNode.next = firstNode;
-//            firstNode = newNode;
-//        } else {
-//            newNode.next = currentNode;
-//            nodeBefore.next = newNode;
-//        }
-//        length++;
+        Node newNode = new Node(newEntry);
+
+        Node nodeBefore = null;
+        Node currentNode = firstNode;
+        while (currentNode != null && newEntry.compareTo(currentNode.data) > 0) {
+            nodeBefore = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        if (isEmpty() || (nodeBefore == null)) {
+            newNode.next = firstNode;
+            firstNode = newNode;
+        } else {
+            newNode.next = currentNode;
+            nodeBefore.next = newNode;
+        }
+        length++;
         return true;
     }
+    
+    
+    
 
     public final void clear() {
         firstNode = null;
         length = 0;
     }
 
-    @Override
+    
     public boolean isEmpty() {
         return (length == 0);
     }
+    
+    
 
     public String toString() {
         int number = 1;
