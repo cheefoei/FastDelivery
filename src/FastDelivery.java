@@ -319,37 +319,44 @@ public class FastDelivery {
                 "Mee Goreng",
                 6.99,
                 "Super spicy!!!",
+                25,
                 rol);
         Food food2 = new Food(
                 "Nasi Goreng",
                 8.88,
                 "Spicy!!!",
+                12,
                 rol);
         Food food3 = new Food(
                 "Boiled Egg",
                 1.29,
                 "Hard boiled",
+                6,
                 rol);
         Food food4 = new Food(
                 "Roti Goreng",
                 10.99,
                 "Non-spicy",
+                35,
                 rol);
         Food food5 = new Food(
                 "Mi Sup",
                 7.89,
                 "Got eggs",
+                17,
                 rol);
         Food food6 = new Food(
                 "Ayam Goreng",
                 4.99,
                 "Spicy or non spicy",
-                rol);
-        Food food8 = new Food(
-                "Mee Goreng",
-                6.99,
-                "Super spicy!!!",
+                41,
                 ro4);
+        Food food7 = new Food(
+                "Bihun Goreng",
+                8.99,
+                "Added black pepper",
+                11,
+                rol);
 
         foodList.addFood(food1);
         foodList.addFood(food2);
@@ -357,7 +364,7 @@ public class FastDelivery {
         foodList.addFood(food4);
         foodList.addFood(food5);
         foodList.addFood(food6);
-        foodList.addFood(food8);
+        foodList.addFood(food7);
 
         /* Customer data */
         Customer cus1 = new Customer(
@@ -472,7 +479,7 @@ public class FastDelivery {
             OrderDetails od1 = new OrderDetails(order1, food5, 4, "No spicy pls");
             OrderDetails od2 = new OrderDetails(order2, food2, 4, "More spicy pls");
             OrderDetails od3 = new OrderDetails(order3, food4, 4, "Less spicy pls");
-            OrderDetails od4 = new OrderDetails(order6, food8, 4, "Add more cheese");
+            OrderDetails od4 = new OrderDetails(order6, food7, 4, "Add more cheese");
 
             orderFoodList.addNewOrder(new OrderDetails(order4, food1, 2, "Add spicy pls"));
             orderFoodList.addNewOrder(od1);

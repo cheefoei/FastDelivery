@@ -8,8 +8,9 @@ package adt;
 /**
  *
  * @author Jerry Chow
+ * @param <T>
  */
-public interface FoodInterface<T> {
+public interface FoodInterface<T extends Comparable> {
 
     public boolean addFood(T food);
 
@@ -21,11 +22,13 @@ public interface FoodInterface<T> {
 
     public void resetCursor();
 
-    public boolean replaceFood(T food);
+    public boolean updateFood(T oldFood, T newFood);
 
     public boolean removeFood(T food);
 
     public int getLength();
 
     public void swapPosition(int foodPosition1, int foodPosition2);
+
+    public void sortByPopular();
 }

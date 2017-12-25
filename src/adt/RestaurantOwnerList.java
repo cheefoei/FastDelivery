@@ -43,9 +43,9 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
         if (position >= 0 && position < getLength()) {
             if (position == 0) {
                 restOwner = node.entry;
-            } else if (getLength() > 1) {
+            } else {
                 Node currentNode = node;
-                for (int i = 1; i < position; i++) {
+                for (int i = 0; i < position; i++) {
                     currentNode = currentNode.nextNode;
                 }
                 restOwner = currentNode.entry;

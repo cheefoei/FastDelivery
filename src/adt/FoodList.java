@@ -10,7 +10,7 @@ package adt;
  * @author Jerry Chow
  * @param <T>
  */
-public class FoodList<T> implements FoodInterface<T> {
+public class FoodList<T extends Comparable> implements FoodInterface<T> {
 
     private Node node = null;
     private int length = 0;
@@ -43,9 +43,9 @@ public class FoodList<T> implements FoodInterface<T> {
         if (position >= 0 && position < getLength()) {
             if (position == 0) {
                 food = node.entry;
-            } else if (getLength() > 1) {
+            } else {
                 Node currentNode = node;
-                for (int i = 1; i < position; i++) {
+                for (int i = 0; i < position; i++) {
                     currentNode = currentNode.nextNode;
                 }
                 food = currentNode.entry;
@@ -77,8 +77,26 @@ public class FoodList<T> implements FoodInterface<T> {
     }
 
     @Override
-    public boolean replaceFood(T food) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean updateFood(T oldFood, T newFood) {
+
+        if (getLength() == 0) {
+            return false;
+        } else {
+            this.node = replace(oldFood, newFood, node);
+            return true;
+        }
+    }
+
+    private Node replace(T oldEntry, T newEntry, Node currentNode) {
+
+        if (oldEntry.equals(currentNode.entry)) {
+            currentNode.entry = newEntry;
+        } else {
+            Node nodeAfter = replace(oldEntry, newEntry, currentNode.nextNode);
+            currentNode.nextNode = nodeAfter;
+        }
+
+        return currentNode;
     }
 
     @Override
@@ -87,18 +105,22 @@ public class FoodList<T> implements FoodInterface<T> {
         if (getLength() == 0) {
             return false;
         } else {
-            boolean isFound = false;
-            Node currentNode = node;
-            while (!isFound && currentNode.nextNode != null) {
-                if (currentNode.entry == food) {
-                    isFound = true;
-                } else {
-                    currentNode = currentNode.nextNode;
-                }
-            }
-            currentNode = currentNode.nextNode;
+            this.node = remove(food, node);
+            length--;
             return true;
         }
+    }
+
+    private Node remove(T entry, Node currentNode) {
+
+        if (entry.equals(currentNode.entry)) {
+            currentNode = currentNode.nextNode;
+        } else {
+            Node nodeAfter = remove(entry, currentNode.nextNode);
+            currentNode.nextNode = nodeAfter;
+        }
+
+        return currentNode;
     }
 
     @Override
@@ -108,7 +130,13 @@ public class FoodList<T> implements FoodInterface<T> {
 
     @Override
     public void swapPosition(int foodPosition1, int foodPosition2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+
+    }
+    
+    @Override
+    public void sortByPopular(){
+        
     }
 
     private class Node {
@@ -119,6 +147,11 @@ public class FoodList<T> implements FoodInterface<T> {
         public Node(T entry) {
             this.entry = entry;
             this.nextNode = null;
+        }
+
+        public Node(T entry, Node nextNode) {
+            this.entry = entry;
+            this.nextNode = nextNode;
         }
     }
 }
