@@ -9,20 +9,20 @@ package adt;
  *
  * @author Jerry Chow
  */
-public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
+public class FoodList<T> implements FoodInterface<T> {
 
     private Node node = null;
     private int length = 0;
     private int cursor = 0;
 
-    public RestaurantOwnerList() {
+    public FoodList() {
     }
 
     @Override
-    public boolean addRestOwner(T restOwner) {
+    public boolean addFood(T food) {
 
-        Node newNode = new Node(restOwner);
-        if (isEmpty()) {
+        Node newNode = new Node(food);
+        if (getLength() == 0) {
             node = newNode;
         } else {
             Node currentNode = node;
@@ -36,27 +36,27 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
     }
 
     @Override
-    public T getRestOwner(int position) {
+    public T getFood(int position) {
 
-        T restOwner = null;
+        T food = null;
         if (position >= 0 && position < getLength()) {
             if (position == 0) {
-                restOwner = node.entry;
+                food = node.entry;
             } else if (getLength() > 1) {
                 Node currentNode = node;
                 for (int i = 1; i < position; i++) {
                     currentNode = currentNode.nextNode;
                 }
-                restOwner = currentNode.entry;
+                food = currentNode.entry;
             }
         }
-        return restOwner;
+        return food;
     }
 
     @Override
-    public T getNextRestOwner() {
+    public T getNextFood() {
 
-        T food = getRestOwner(cursor);
+        T food = getFood(cursor);
         if (food == null) {
             resetCursor();
         }
@@ -69,27 +69,38 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
     }
 
     @Override
+    public boolean replaceFood(T food) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean removeFood(T food) {
+
+        if (getLength() == 0) {
+            return false;
+        } else {
+            boolean isFound = false;
+            Node currentNode = node;
+            while (!isFound && currentNode.nextNode != null) {
+                if (currentNode.entry == food) {
+                    isFound = true;
+                } else {
+                    currentNode = currentNode.nextNode;
+                }
+            }
+            currentNode = currentNode.nextNode;
+            return true;
+        }
+    }
+
+    @Override
     public int getLength() {
         return length;
     }
 
     @Override
-    public boolean isEmpty() {
-        return length == 0;
-    }
-
-    @Override
-    public String toString() {
-
-        int number = 1;
-        String outputStr = "";
-        Node currentNode = node;
-        while (currentNode != null) {
-            outputStr += number + "" + currentNode.entry + "\n";;
-            currentNode = currentNode.nextNode;
-            number++;
-        }
-        return outputStr;
+    public void swapPosition(int foodPosition1, int foodPosition2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private class Node {
@@ -97,15 +108,9 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
         private T entry;
         private Node nextNode;
 
-        private Node(T entry) {
+        public Node(T entry) {
             this.entry = entry;
             this.nextNode = null;
         }
-
-        private Node(T entry, Node nextNode) {
-            this.entry = entry;
-            this.nextNode = nextNode;
-        }
     }
-
 }

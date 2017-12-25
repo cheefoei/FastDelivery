@@ -9,16 +9,18 @@ package adt;
  *
  * @author Clarity
  */
-public interface RestaurantOwnerInterface <T> {
-    
-    public boolean add(T newEntry); // Add new records
-    
-    public T getAt(int givenPosition);
-    
+public interface RestaurantOwnerInterface<T> {
+
+    public boolean addRestOwner(T newRestOwner);
+
+    public T getRestOwner(int position);
+
+    public T getNextRestOwner();
+
+    public void resetCursor();
+
     public int getLength();
-    
-    public void clear(); // Clear all records
-    
-    public boolean isEmpty(); // Check whether the records is empty or not
-    
+
+    public boolean isEmpty();
+
 }

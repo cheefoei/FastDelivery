@@ -1,45 +1,21 @@
 
-
-import adt.OrderFoodInterface;
-import adt.OrderFoodList;
-import adt.OrderInterface;
-import adt.OrderList;
-import adt.RestaurantOwnerInterface;
-import adt.RestaurantOwnerList;
-import adt.ScheduledOrderInterface;
-import adt.ScheduledOrderList;
-import entity.Contact;
 import java.util.Scanner;
 import entity.Customer;
-import entity.Food;
 import entity.OrderDetails;
-import entity.Orders;
 import entity.RestaurantOwner;
 import java.text.DateFormat;
 //import entity.ScheduledOrder;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class CustomerScreen {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
-    public static OrderInterface<Orders> orderList = new OrderList<>();
-    public static RestaurantOwnerInterface<RestaurantOwner> restaurantList = new RestaurantOwnerList<>();
-    
-    public static List<Food> foods = new ArrayList<>();
-    public static List<Customer> customerArray = new ArrayList<>();
-    
 //#
     //public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
     //#
-    
-    
     private Customer currentUser;
     private OrderDetails orderDetails;
     public static int id = 0001;
@@ -56,7 +32,7 @@ public class CustomerScreen {
     private Date scheduleTime = new Date();
     //#
     private int failedCount = 0;
-    
+
     public static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
     public CustomerScreen() {
@@ -65,102 +41,9 @@ public class CustomerScreen {
         System.out.println("==============");
 
         checkAutho();
-        
-        
-            
-        try {
-            
-            Customer cus1 = new Customer(
-                "Allan",
-                "950103-14-7777",
-                "Male",
-                new Contact(
-                        "No.8 Jalan Dulang,Balakong",
-                        "Seri Kembangan",
-                        43300,
-                        "Selangor",
-                        "allan0103@gmail.com",
-                        "0101234567"
-                ),
-                "allan",
-                "allan0103"
-        );
-        customerArray.add(cus1);
-            
-                    RestaurantOwner ro7 = new RestaurantOwner(
-                "Hanbin",
-                "Kim",
-                "91022-10-5555",
-                new Contact(
-                        "No 22, Jalan Harmoni,Putra Height",
-                        "Shah Alam",
-                        47300,
-                        "Selangor",
-                        "habinnie@email.com",
-                        "0101022222"
-                ),
-                "hanbin",
-                "kim",
-                "Han Bin Restaurant",
-                "No 22, Jalan Harmoni,Putra Height 47300 Shah Alam Selangor",
-                "0322222222"
-        );
 
-        restaurantList.add(ro7);
-        
-        RestaurantOwner ro8 = new RestaurantOwner(
-                "Bobby",
-                "Kim",
-                "951220-10-2020",
-                new Contact(
-                        "No 20, Section 27,Putra Height",
-                        "Shah Alam",
-                        47300,
-                        "Selangor",
-                        "bobbykim@email.com",
-                        "0101220202"
-                ),
-                "bobby",
-                "kim",
-                "Ticket to Korea",
-                "12-12 SS17/1 47650 Subang Jaya, Selangor",
-                "0320202020"
-        );
-
-        restaurantList.add(ro8);
-        
-                
-        Food food8 = new Food(
-                "Mee Goreng",
-                6.99,
-                "Super spicy!!!",
-                ro7);
-        foods.add(food8);
-        
-            Orders order8 = new Orders(
-                    "Pending",
-                    28.00,
-                    DF.parse("Mon 11-Dec-2017 15:33:30"),
-                    cus1
-            );
-            order8.setOrderId(1513099860);
-            
-            
-            
-            OrderDetails orderdetails1 = new OrderDetails(order8, food8, 4, "Add more cheese");
-
-            orderFoodList.addNewOrder(orderdetails1);
-
-        
-
-            } catch (ParseException ex) {
-        }
-        
-
-        
-       //Orders order1 = new Orders(id, status, totalPrice);
+        //Orders order1 = new Orders(id, status, totalPrice);
         //#
-        
         //ScheduledOrder sOrder1 = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime, currentUser);
         //#
         //id++;
@@ -227,10 +110,10 @@ public class CustomerScreen {
                 type = "schedule";
                 customerMenu();
                 break;
-                case 3:
+            case 3:
                 updateOrder();
                 break;
-                    case 4:
+            case 4:
                 displayOrder();
                 break;
             case 0:
@@ -247,48 +130,45 @@ public class CustomerScreen {
         System.out.println("|--------------------------------|");
         System.out.println("| Please choose a restaurant.    |");
         System.out.println("|--------------------------------|");
-        
-        if (restaurantList.isEmpty()) {
+
+        if (FastDelivery.restaurantList.isEmpty()) {
             System.out.println("EMPTY!!");
         } else {
-            int n = restaurantList.getLength();
 
+            int n = FastDelivery.restaurantList.getLength();
             int y = 1;
             while (y <= n) {
-                RestaurantOwner ro = restaurantList.getAt(y);
+                RestaurantOwner ro = FastDelivery.restaurantList.getRestOwner(y);
 
                 String restaurantName = ro.getRestaurantName();
-                
+
                 System.out.print(y + ". ");
                 System.out.println(String.format("%-18s ", restaurantName));
 
                 y++;
-
             }
-
-}
+        }
         System.out.println("");
         System.out.println("Your choice: ");
     }
-    
-    private void updateOrder(){
-        
-        
+
+    private void updateOrder() {
+
         System.out.println("|--------------------------------------|");
         System.out.println("| Please choose an Order to update.    |");
         System.out.println("|--------------------------------------|");
         System.out.println("Order Details List");
         System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println(orderFoodList);
+        System.out.println(FastDelivery.orderFoodList);
         System.out.printf("Enter required order to update : ");
         int num = scanner.nextInt();
-        
+
         System.out.println("\nUpdated Order Details List:");
         System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println(orderFoodList);
-        
+        System.out.println(FastDelivery.orderFoodList);
+
         Scanner s = new Scanner(System.in);
 
         System.out.println("Back to Main?\n"
@@ -300,16 +180,16 @@ public class CustomerScreen {
         } else {
             System.exit(0);
         }
-        
+
     }
-    
-    private void displayOrder(){
-        
+
+    private void displayOrder() {
+
         Scanner s = new Scanner(System.in);
         System.out.println("Order List");
         System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Status", "Total Price(RM)", "Order Date", "Customer");
         System.out.println("--------------------------------------------------------------------------------------------");
-        System.out.println(orderList);
+        System.out.println(FastDelivery.orderList);
 
         System.out.println("Back to Main?\n"
                 + "1. Yes\n"
@@ -320,11 +200,9 @@ public class CustomerScreen {
         } else {
             System.exit(0);
         }
-        
+
     }
 
-    
-    
 //public int quantity() {
 //    Scanner s = new Scanner(System.in);
 //    Scanner con = new Scanner(System.in);
@@ -344,7 +222,6 @@ public class CustomerScreen {
 //        
 //    return quantity;
 // }
-
 //    public double subTotal(double quantity, double foodPrice) {
 //
 //        double subTotal = quantity * foodPrice;
@@ -362,7 +239,6 @@ public class CustomerScreen {
 //        }
 //    done();
 //}
-
 //    private void makeSchedule() {
 //        
 //        Scanner s = new Scanner(System.in);
@@ -383,7 +259,6 @@ public class CustomerScreen {
 //        }
 //        done();
 //    }
-
 //    public void done() {
 //        
 //        ordering = false;
@@ -394,7 +269,6 @@ public class CustomerScreen {
 //        System.out.println("|-------------------------------|");
 //        payment();
 //    }
-
 //    public void payment() {
 //
 //        System.out.println("\nPlease make payment to the deliveryman. We accept **CASH ONLY!**");
@@ -427,7 +301,6 @@ public class CustomerScreen {
 ////            }
 //        }
 //    }
-
 }
 
 //
