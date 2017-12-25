@@ -8,6 +8,7 @@ package adt;
 /**
  *
  * @author Jerry Chow
+ * @param <T>
  */
 public class FoodList<T> implements FoodInterface<T> {
 
@@ -54,13 +55,20 @@ public class FoodList<T> implements FoodInterface<T> {
     }
 
     @Override
-    public T getNextFood() {
+    public T getCurrentFood() {
+        return getFood(cursor - 1);
+    }
 
-        T food = getFood(cursor);
-        if (food == null) {
+    @Override
+    public boolean moveToNext() {
+
+        if (cursor < getLength()) {
+            cursor++;
+            return true;
+        } else {
             resetCursor();
+            return false;
         }
-        return food;
     }
 
     @Override

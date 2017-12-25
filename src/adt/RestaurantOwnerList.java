@@ -8,6 +8,7 @@ package adt;
 /**
  *
  * @author Jerry Chow
+ * @param <T>
  */
 public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
 
@@ -54,13 +55,20 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
     }
 
     @Override
-    public T getNextRestOwner() {
+    public T getCurrentRestOwner() {
+        return getRestOwner(cursor - 1);
+    }
 
-        T food = getRestOwner(cursor);
-        if (food == null) {
+    @Override
+    public boolean moveToNext() {
+
+        if (cursor < getLength()) {
+            cursor++;
+            return true;
+        } else {
             resetCursor();
+            return false;
         }
-        return food;
     }
 
     @Override

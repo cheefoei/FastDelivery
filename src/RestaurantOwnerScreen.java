@@ -59,9 +59,6 @@ public class RestaurantOwnerScreen {
         System.out.print("NRIC >");
         String nric = scanner.nextLine();
 
-        System.out.print("Address >");
-        String address = scanner.nextLine();
-
         System.out.print("Email >");
         String email = scanner.nextLine();
 
@@ -104,7 +101,7 @@ public class RestaurantOwnerScreen {
                 ),
                 username, password, restaurantName, restaurantAddress, restaurantPhoneNumber);
 
-        if (FastDelivery.restaurantOwners.add(restaurantOwner)) {
+        if (FastDelivery.restaurantOwnerList.addRestOwner(restaurantOwner)) {
             System.out.printf("\n");
             System.out.println(Constants.MSG_REG_SUCCESS);
             restaurantOwnerMenu();
@@ -125,7 +122,8 @@ public class RestaurantOwnerScreen {
         System.out.print("Password >");
         String password = scanner.nextLine();
 
-        for (RestaurantOwner ro : FastDelivery.restaurantOwners) {
+        while (FastDelivery.restaurantOwnerList.moveToNext()) {
+            RestaurantOwner ro = FastDelivery.restaurantOwnerList.getCurrentRestOwner();
             if (username.equals(ro.getUsername())) {
                 restaurantOwner = ro;
             }
@@ -166,16 +164,16 @@ public class RestaurantOwnerScreen {
                 viewMenu();
                 return;
             case "1":
-                addFood();
+//                addFood();
                 return;
             case "2":
-                removeFood();
+//                removeFood();
                 return;
             case "3":
-                updateFood();
+//                updateFood();
                 return;
             case "4":
-                arrangeFood();
+//                arrangeFood();
                 return;
             case "5":
                 System.exit(0);
@@ -195,7 +193,10 @@ public class RestaurantOwnerScreen {
         System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
 
         int count = 1;
-        for (Food food : FastDelivery.foods) {
+        while (FastDelivery.foodList.moveToNext()) {
+
+            Food food = FastDelivery.foodList.getCurrentFood();
+
             if (food.getRestaurant() == restaurantOwner) {
                 System.out.printf("%-5s %-30s %-50s %-10s\n",
                         count + ".",
@@ -214,286 +215,286 @@ public class RestaurantOwnerScreen {
         scanner.nextLine();
         restaurantOwnerMenu();
     }
-
-    private void addFood() {
-
-        System.out.printf("\nPlease enter menu detail...\n");
-
-        String foodname = null;
-        String fooddesc = null;
-        double foodprice = 0.00;
-
-        do {
-            System.out.print("Food Name >");
-            foodname = scanner.nextLine();
-            if (foodname.equals("") || foodname == null) {
-                System.out.printf(Constants.ERROR_INVALID_INPUT);
-            }
-        } while (foodname.equals("") || foodname == null);
-
-        boolean valid;
-        do {
-            valid = true;
-            System.out.print("Food Price >");
-            String input = scanner.nextLine();
-
-            if (input.equals("") || input == null) {
-                System.out.printf(Constants.ERROR_INVALID_INPUT);
-                valid = false;
-            } else {
-                try {
-                    foodprice = Double.parseDouble(input);
-                } catch (NumberFormatException ex) {
-                    System.out.printf(Constants.ERROR_INVALID_INPUT);
-                    valid = false;
-                }
-            }
-        } while (!valid);
-
-        do {
-            System.out.print("Food Description >");
-            fooddesc = scanner.nextLine();
-            if (fooddesc.equals("") || fooddesc == null) {
-                System.out.printf(Constants.ERROR_INVALID_INPUT);
-            }
-        } while (fooddesc.equals("") || fooddesc == null);
-
-        Food food = new Food(foodname, foodprice, fooddesc, restaurantOwner);
-
-        if (FastDelivery.foods.add(food)) {
-            System.out.printf("\n");
-            System.out.println("Your new food is added successfully.");
-            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
-            scanner.nextLine();
-            restaurantOwnerMenu();
-        }
-    }
-
-    private void removeFood() {
-
-        System.out.printf("\nRemove Food from Menu\n");
-        System.out.println("========================");
-        System.out.printf("%-5s %-30s %-50s %-10s\n", "No.", "Food Name", "Food Description", "Food Price");
-        System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
-
-        int count = 1;
-        for (Food food : FastDelivery.foods) {
-            if (food.getRestaurant() == restaurantOwner) {
-                System.out.printf("%-5s %-30s %-50s %-10s\n",
-                        count + ".",
-                        food.getFoodName(),
-                        food.getFoodDesc(),
-                        "RM " + food.getFoodPrice());
-                count++;
-            }
-        }
-
-        if (count == 1) {
-            System.out.println("No food inside...");
-            restaurantOwnerMenu();
-        } else {
-
-            System.out.println("Which do you willing to remove?");
-            System.out.println("Else will go back to menu.");
-            System.out.print("Food Number >");
-
-            String foodOption = scanner.nextLine();
-
-            try {
-
-                int foodNumber = Integer.parseInt(foodOption);
-
-                if (foodNumber > 0 && foodNumber < count) {
-
-                    Food food = FastDelivery.foods.get(foodNumber - 1);
-                    System.out.print("Confirm to remove " + food.getFoodName() + "?[YES or No]  ");
-                    String confirm = scanner.nextLine().toLowerCase();
-
-                    if (confirm.equals("yes") || confirm.equals("y")) {
-                        FastDelivery.foods.remove(food);
-                        System.out.println(food.getFoodName() + " already removed from your menu.");
-                        System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
-                        scanner.nextLine();
-                        restaurantOwnerMenu();
-                    } else {
-                        System.out.println("Cancelled to remove food.");
-                        removeFood();
-                    }
-                } else {
-                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                    removeFood();
-                }
-
-            } catch (NumberFormatException ex) {
-                restaurantOwnerMenu();
-            }
-        }
-    }
-
-    private void arrangeFood() {
-
-        System.out.printf("\nArrange Food in Menu\n");
-        System.out.println("========================");
-        System.out.printf("%-5s %-30s\n", "No.", "Food Name");
-        System.out.printf("%-5s %-30s\n", "---", "---------");
-
-        int count = 1;
-        for (Food food : FastDelivery.foods) {
-            if (food.getRestaurant() == restaurantOwner) {
-                System.out.printf("%-5s %-30s\n",
-                        count + ".",
-                        food.getFoodName());
-                count++;
-            }
-        }
-
-        if (count == 1) {
-            System.out.println("No food inside...");
-            restaurantOwnerMenu();
-        } else {
-
-            System.out.println("Which do you willing to Arrange?");
-
-            int foodTo = -1;
-            int foodFrom = -1;
-            boolean v;
-
-            do {
-                v = true;
-                System.out.print("Arrange Food Number FROM >");
-                try {
-                    foodFrom = Integer.parseInt(scanner.nextLine());
-                    if (foodFrom > count - 1 || foodFrom <= 0) {
-                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
-                        v = false;
-                    }
-                } catch (NumberFormatException ex) {
-                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                    v = false;
-                }
-            } while (!v);
-
-            do {
-                v = true;
-                System.out.print("Arrange Food Number TO >");
-                try {
-                    foodTo = Integer.parseInt(scanner.nextLine());
-                    if (foodTo > count - 1 || foodTo <= 0) {
-                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
-                        v = false;
-                    }
-                } catch (NumberFormatException ex) {
-                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                    v = false;
-                }
-            } while (!v);
-
-            Food food1 = FastDelivery.foods.get(foodFrom - 1);
-            Food food2 = FastDelivery.foods.get(foodTo - 1);
-
-            FastDelivery.foods.set(foodFrom - 1, food2);
-            FastDelivery.foods.set(foodTo - 1, food1);
-
-            System.out.println("The foods are arranged successfully.");
-            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
-            scanner.nextLine();
-            restaurantOwnerMenu();
-        }
-    }
-
-    private void updateFood() {
-
-        System.out.printf("\nUpdate Food in Menu\n");
-        System.out.println("========================");
-        System.out.printf("%-5s %-30s %-50s %-10s\n", "No.", "Food Name", "Food Description", "Food Price");
-        System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
-
-        int count = 1;
-        for (Food food : FastDelivery.foods) {
-            if (food.getRestaurant() == restaurantOwner) {
-                System.out.printf("%-5s %-30s %-50s %-10s\n",
-                        count + ".",
-                        food.getFoodName(),
-                        food.getFoodDesc(),
-                        "RM " + food.getFoodPrice());
-                count++;
-            }
-        }
-
-        if (count == 1) {
-            System.out.println("No food inside...");
-            restaurantOwnerMenu();
-        } else {
-
-            System.out.println("Which do you willing to Update?");
-            System.out.println("Else will go back to menu.");
-            System.out.print("Food Number >");
-
-            String foodOption = scanner.nextLine();
-
-            try {
-
-                int foodNumber = Integer.parseInt(foodOption);
-
-                if (foodNumber > 0 && foodNumber < count) {
-
-                    Food food = FastDelivery.foods.get(foodNumber - 1);
-
-                    System.out.println("(Enter to bypass)");
-                    System.out.print("New Food Name >");
-                    String foodname = scanner.nextLine();
-
-                    double foodprice = Double.NaN;
-                    boolean valid;
-                    do {
-                        valid = true;
-                        System.out.println("(Enter to bypass)");
-                        System.out.print("New Food Price >");
-                        String input = scanner.nextLine();
-
-                        if (!input.equals("")) {
-                            try {
-                                foodprice = Double.parseDouble(input);
-                                if (foodprice <= 0) {
-                                    System.out.printf(Constants.ERROR_INVALID_INPUT);
-                                    valid = false;
-                                }
-                            } catch (NumberFormatException ex) {
-                                System.out.printf(Constants.ERROR_INVALID_INPUT);
-                                valid = false;
-                            }
-                        }
-                    } while (!valid);
-
-                    System.out.println("(Enter to bypass)");
-                    System.out.print("New Food Description >");
-                    String fooddesc = scanner.nextLine();
-
-                    if (!foodname.equals("")) {
-                        food.setFoodName(foodname);
-                    }
-                    if (!fooddesc.equals("")) {
-                        food.setFoodDesc(fooddesc);
-                    }
-                    if (foodprice != Double.NaN && foodprice > 0) {
-                        food.setFoodPrice(foodprice);//
-                    }
-
-                    FastDelivery.foods.set(foodNumber - 1, food);
-                    System.out.printf("\n");
-                    System.out.println("Your food already updated successfully.");
-                    System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
-                    scanner.nextLine();
-                    restaurantOwnerMenu();
-
-                } else {
-                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                    updateFood();
-                }
-
-            } catch (NumberFormatException ex) {
-                restaurantOwnerMenu();
-            }
-        }
-    }
+//
+//    private void addFood() {
+//
+//        System.out.printf("\nPlease enter menu detail...\n");
+//
+//        String foodname = null;
+//        String fooddesc = null;
+//        double foodprice = 0.00;
+//
+//        do {
+//            System.out.print("Food Name >");
+//            foodname = scanner.nextLine();
+//            if (foodname.equals("") || foodname == null) {
+//                System.out.printf(Constants.ERROR_INVALID_INPUT);
+//            }
+//        } while (foodname.equals("") || foodname == null);
+//
+//        boolean valid;
+//        do {
+//            valid = true;
+//            System.out.print("Food Price >");
+//            String input = scanner.nextLine();
+//
+//            if (input.equals("") || input == null) {
+//                System.out.printf(Constants.ERROR_INVALID_INPUT);
+//                valid = false;
+//            } else {
+//                try {
+//                    foodprice = Double.parseDouble(input);
+//                } catch (NumberFormatException ex) {
+//                    System.out.printf(Constants.ERROR_INVALID_INPUT);
+//                    valid = false;
+//                }
+//            }
+//        } while (!valid);
+//
+//        do {
+//            System.out.print("Food Description >");
+//            fooddesc = scanner.nextLine();
+//            if (fooddesc.equals("") || fooddesc == null) {
+//                System.out.printf(Constants.ERROR_INVALID_INPUT);
+//            }
+//        } while (fooddesc.equals("") || fooddesc == null);
+//
+//        Food food = new Food(foodname, foodprice, fooddesc, restaurantOwner);
+//
+//        if (FastDelivery.foods.add(food)) {
+//            System.out.printf("\n");
+//            System.out.println("Your new food is added successfully.");
+//            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+//            scanner.nextLine();
+//            restaurantOwnerMenu();
+//        }
+//    }
+//
+//    private void removeFood() {
+//
+//        System.out.printf("\nRemove Food from Menu\n");
+//        System.out.println("========================");
+//        System.out.printf("%-5s %-30s %-50s %-10s\n", "No.", "Food Name", "Food Description", "Food Price");
+//        System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
+//
+//        int count = 1;
+//        for (Food food : FastDelivery.foods) {
+//            if (food.getRestaurant() == restaurantOwner) {
+//                System.out.printf("%-5s %-30s %-50s %-10s\n",
+//                        count + ".",
+//                        food.getFoodName(),
+//                        food.getFoodDesc(),
+//                        "RM " + food.getFoodPrice());
+//                count++;
+//            }
+//        }
+//
+//        if (count == 1) {
+//            System.out.println("No food inside...");
+//            restaurantOwnerMenu();
+//        } else {
+//
+//            System.out.println("Which do you willing to remove?");
+//            System.out.println("Else will go back to menu.");
+//            System.out.print("Food Number >");
+//
+//            String foodOption = scanner.nextLine();
+//
+//            try {
+//
+//                int foodNumber = Integer.parseInt(foodOption);
+//
+//                if (foodNumber > 0 && foodNumber < count) {
+//
+//                    Food food = FastDelivery.foods.get(foodNumber - 1);
+//                    System.out.print("Confirm to remove " + food.getFoodName() + "?[YES or No]  ");
+//                    String confirm = scanner.nextLine().toLowerCase();
+//
+//                    if (confirm.equals("yes") || confirm.equals("y")) {
+//                        FastDelivery.foods.remove(food);
+//                        System.out.println(food.getFoodName() + " already removed from your menu.");
+//                        System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+//                        scanner.nextLine();
+//                        restaurantOwnerMenu();
+//                    } else {
+//                        System.out.println("Cancelled to remove food.");
+//                        removeFood();
+//                    }
+//                } else {
+//                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+//                    removeFood();
+//                }
+//
+//            } catch (NumberFormatException ex) {
+//                restaurantOwnerMenu();
+//            }
+//        }
+//    }
+//
+//    private void arrangeFood() {
+//
+//        System.out.printf("\nArrange Food in Menu\n");
+//        System.out.println("========================");
+//        System.out.printf("%-5s %-30s\n", "No.", "Food Name");
+//        System.out.printf("%-5s %-30s\n", "---", "---------");
+//
+//        int count = 1;
+//        for (Food food : FastDelivery.foods) {
+//            if (food.getRestaurant() == restaurantOwner) {
+//                System.out.printf("%-5s %-30s\n",
+//                        count + ".",
+//                        food.getFoodName());
+//                count++;
+//            }
+//        }
+//
+//        if (count == 1) {
+//            System.out.println("No food inside...");
+//            restaurantOwnerMenu();
+//        } else {
+//
+//            System.out.println("Which do you willing to Arrange?");
+//
+//            int foodTo = -1;
+//            int foodFrom = -1;
+//            boolean v;
+//
+//            do {
+//                v = true;
+//                System.out.print("Arrange Food Number FROM >");
+//                try {
+//                    foodFrom = Integer.parseInt(scanner.nextLine());
+//                    if (foodFrom > count - 1 || foodFrom <= 0) {
+//                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
+//                        v = false;
+//                    }
+//                } catch (NumberFormatException ex) {
+//                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+//                    v = false;
+//                }
+//            } while (!v);
+//
+//            do {
+//                v = true;
+//                System.out.print("Arrange Food Number TO >");
+//                try {
+//                    foodTo = Integer.parseInt(scanner.nextLine());
+//                    if (foodTo > count - 1 || foodTo <= 0) {
+//                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
+//                        v = false;
+//                    }
+//                } catch (NumberFormatException ex) {
+//                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+//                    v = false;
+//                }
+//            } while (!v);
+//
+//            Food food1 = FastDelivery.foods.get(foodFrom - 1);
+//            Food food2 = FastDelivery.foods.get(foodTo - 1);
+//
+//            FastDelivery.foods.set(foodFrom - 1, food2);
+//            FastDelivery.foods.set(foodTo - 1, food1);
+//
+//            System.out.println("The foods are arranged successfully.");
+//            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+//            scanner.nextLine();
+//            restaurantOwnerMenu();
+//        }
+//    }
+//
+//    private void updateFood() {
+//
+//        System.out.printf("\nUpdate Food in Menu\n");
+//        System.out.println("========================");
+//        System.out.printf("%-5s %-30s %-50s %-10s\n", "No.", "Food Name", "Food Description", "Food Price");
+//        System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
+//
+//        int count = 1;
+//        for (Food food : FastDelivery.foods) {
+//            if (food.getRestaurant() == restaurantOwner) {
+//                System.out.printf("%-5s %-30s %-50s %-10s\n",
+//                        count + ".",
+//                        food.getFoodName(),
+//                        food.getFoodDesc(),
+//                        "RM " + food.getFoodPrice());
+//                count++;
+//            }
+//        }
+//
+//        if (count == 1) {
+//            System.out.println("No food inside...");
+//            restaurantOwnerMenu();
+//        } else {
+//
+//            System.out.println("Which do you willing to Update?");
+//            System.out.println("Else will go back to menu.");
+//            System.out.print("Food Number >");
+//
+//            String foodOption = scanner.nextLine();
+//
+//            try {
+//
+//                int foodNumber = Integer.parseInt(foodOption);
+//
+//                if (foodNumber > 0 && foodNumber < count) {
+//
+//                    Food food = FastDelivery.foods.get(foodNumber - 1);
+//
+//                    System.out.println("(Enter to bypass)");
+//                    System.out.print("New Food Name >");
+//                    String foodname = scanner.nextLine();
+//
+//                    double foodprice = Double.NaN;
+//                    boolean valid;
+//                    do {
+//                        valid = true;
+//                        System.out.println("(Enter to bypass)");
+//                        System.out.print("New Food Price >");
+//                        String input = scanner.nextLine();
+//
+//                        if (!input.equals("")) {
+//                            try {
+//                                foodprice = Double.parseDouble(input);
+//                                if (foodprice <= 0) {
+//                                    System.out.printf(Constants.ERROR_INVALID_INPUT);
+//                                    valid = false;
+//                                }
+//                            } catch (NumberFormatException ex) {
+//                                System.out.printf(Constants.ERROR_INVALID_INPUT);
+//                                valid = false;
+//                            }
+//                        }
+//                    } while (!valid);
+//
+//                    System.out.println("(Enter to bypass)");
+//                    System.out.print("New Food Description >");
+//                    String fooddesc = scanner.nextLine();
+//
+//                    if (!foodname.equals("")) {
+//                        food.setFoodName(foodname);
+//                    }
+//                    if (!fooddesc.equals("")) {
+//                        food.setFoodDesc(fooddesc);
+//                    }
+//                    if (foodprice != Double.NaN && foodprice > 0) {
+//                        food.setFoodPrice(foodprice);//
+//                    }
+//
+//                    FastDelivery.foods.set(foodNumber - 1, food);
+//                    System.out.printf("\n");
+//                    System.out.println("Your food already updated successfully.");
+//                    System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+//                    scanner.nextLine();
+//                    restaurantOwnerMenu();
+//
+//                } else {
+//                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+//                    updateFood();
+//                }
+//
+//            } catch (NumberFormatException ex) {
+//                restaurantOwnerMenu();
+//            }
+//        }
+//    }
 }

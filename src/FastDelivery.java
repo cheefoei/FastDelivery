@@ -36,7 +36,7 @@ public class FastDelivery {
     private static Scanner scanner = new Scanner(System.in);
     private static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
 
-    public static RestaurantOwnerInterface<RestaurantOwner> restaurantList = new RestaurantOwnerList<>();
+    public static RestaurantOwnerInterface<RestaurantOwner> restaurantOwnerList = new RestaurantOwnerList<>();
     public static FoodInterface<Food> foodList = new FoodList<>();
 
     public static BasicListInterface<HumanResource> humanResources = new BasicList<>();
@@ -308,11 +308,11 @@ public class FastDelivery {
                 "12-12 SS17/1 47650 Subang Jaya, Selangor",
                 "0320202020"
         );
-        restaurantList.addRestOwner(rol);
-        restaurantList.addRestOwner(ro2);
-        restaurantList.addRestOwner(ro3);
-        restaurantList.addRestOwner(ro4);
-        restaurantList.addRestOwner(ro5);
+        restaurantOwnerList.addRestOwner(rol);
+        restaurantOwnerList.addRestOwner(ro2);
+        restaurantOwnerList.addRestOwner(ro3);
+        restaurantOwnerList.addRestOwner(ro4);
+        restaurantOwnerList.addRestOwner(ro5);
 
         /* Food data */
         Food food1 = new Food(

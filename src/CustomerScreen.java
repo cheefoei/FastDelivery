@@ -131,14 +131,14 @@ public class CustomerScreen {
         System.out.println("| Please choose a restaurant.    |");
         System.out.println("|--------------------------------|");
 
-        if (FastDelivery.restaurantList.isEmpty()) {
+        if (FastDelivery.restaurantOwnerList.isEmpty()) {
             System.out.println("EMPTY!!");
         } else {
 
-            int n = FastDelivery.restaurantList.getLength();
+            int n = FastDelivery.restaurantOwnerList.getLength();
             int y = 1;
             while (y <= n) {
-                RestaurantOwner ro = FastDelivery.restaurantList.getRestOwner(y);
+                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y);
 
                 String restaurantName = ro.getRestaurantName();
 

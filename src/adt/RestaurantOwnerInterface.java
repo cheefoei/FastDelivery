@@ -15,7 +15,9 @@ public interface RestaurantOwnerInterface<T> {
 
     public T getRestOwner(int position);
 
-    public T getNextRestOwner();
+    public T getCurrentRestOwner();
+    
+    public boolean moveToNext();
 
     public void resetCursor();
 

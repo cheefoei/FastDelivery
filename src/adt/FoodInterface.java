@@ -15,14 +15,16 @@ public interface FoodInterface<T> {
 
     public T getFood(int position);
 
-    public T getNextFood();
+    public T getCurrentFood();
+
+    public boolean moveToNext();
 
     public void resetCursor();
 
     public boolean replaceFood(T food);
 
     public boolean removeFood(T food);
-    
+
     public int getLength();
 
     public void swapPosition(int foodPosition1, int foodPosition2);
