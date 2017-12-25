@@ -1,4 +1,5 @@
 
+
 import adt.OrderFoodInterface;
 import adt.OrderFoodList;
 import adt.OrderInterface;
@@ -18,17 +19,23 @@ import java.text.DateFormat;
 //import entity.ScheduledOrder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CustomerScreen {
 
     private Scanner scanner = new Scanner(System.in);
 
-    //public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
+    public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
     public static OrderInterface<Orders> orderList = new OrderList<>();
     public static RestaurantOwnerInterface<RestaurantOwner> restaurantList = new RestaurantOwnerList<>();
-    //#
+    
+    public static List<Food> foods = new ArrayList<>();
+    public static List<Customer> customerArray = new ArrayList<>();
+    
+//#
     //public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
     //#
     
@@ -58,27 +65,29 @@ public class CustomerScreen {
         System.out.println("==============");
 
         checkAutho();
+        
+        
             
         try {
-            Orders order8 = new Orders(
-                    status,
-                    50.00,
-                    DF.parse("Mon 11-Dec-2017 15:33:30"),
-                    currentUser
-            );
-            order8.setOrderId(1513099860);
             
-            orderList.addNewOrder(order8);
-            } catch (ParseException ex) {
-        }
-        
-
-        //OrderDetails orderdetails1 = new OrderDetails(1, 10);
-
-        //orderFoodList.addNewOrder(orderdetails1);
-       //Orders order1 = new Orders(id, status, totalPrice);
-        //#
-        RestaurantOwner ro7 = new RestaurantOwner(
+            Customer cus1 = new Customer(
+                "Allan",
+                "950103-14-7777",
+                "Male",
+                new Contact(
+                        "No.8 Jalan Dulang,Balakong",
+                        "Seri Kembangan",
+                        43300,
+                        "Selangor",
+                        "allan0103@gmail.com",
+                        "0101234567"
+                ),
+                "allan",
+                "allan0103"
+        );
+        customerArray.add(cus1);
+            
+                    RestaurantOwner ro7 = new RestaurantOwner(
                 "Hanbin",
                 "Kim",
                 "91022-10-5555",
@@ -119,6 +128,39 @@ public class CustomerScreen {
         );
 
         restaurantList.add(ro8);
+        
+                
+        Food food8 = new Food(
+                "Mee Goreng",
+                6.99,
+                "Super spicy!!!",
+                ro7);
+        foods.add(food8);
+        
+            Orders order8 = new Orders(
+                    "Pending",
+                    28.00,
+                    DF.parse("Mon 11-Dec-2017 15:33:30"),
+                    cus1
+            );
+            order8.setOrderId(1513099860);
+            
+            
+            
+            OrderDetails orderdetails1 = new OrderDetails(order8, food8, 4, "Add more cheese");
+
+            orderFoodList.addNewOrder(orderdetails1);
+
+        
+
+            } catch (ParseException ex) {
+        }
+        
+
+        
+       //Orders order1 = new Orders(id, status, totalPrice);
+        //#
+        
         //ScheduledOrder sOrder1 = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime, currentUser);
         //#
         //id++;
@@ -238,14 +280,14 @@ public class CustomerScreen {
         System.out.println("Order Details List");
         System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
         System.out.println("-------------------------------------------------------------------------------");
-        //System.out.println(orderDetailList);
+        System.out.println(orderFoodList);
         System.out.printf("Enter required order to update : ");
         int num = scanner.nextInt();
         
         System.out.println("\nUpdated Order Details List:");
         System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
         System.out.println("-------------------------------------------------------------------------------");
-        //System.out.println(orderDetailList);
+        System.out.println(orderFoodList);
         
         Scanner s = new Scanner(System.in);
 

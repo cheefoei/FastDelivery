@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Clarity
  */
-public class OrderDetails implements Serializable {
+public class OrderDetails implements Serializable, Comparable<OrderDetails> {
 
     private Orders order;
     private Food food;
@@ -58,6 +58,20 @@ public class OrderDetails implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+    
+    @Override
+    public int compareTo(OrderDetails od) {
+        
+        if (qty > od.getQty()) {
+            return 1;
+        } else if (qty == od.getQty()) {
+            return 0;
+        } else {
+            return -1;
+        }
+        
+        
     }
     
     

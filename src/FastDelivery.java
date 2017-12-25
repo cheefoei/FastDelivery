@@ -38,7 +38,7 @@ public class FastDelivery {
     public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
     public static BasicListInterface<DeliveryOrder> deliverOrders = new BasicList<>();
     public static BasicListInterface<DeliveryJob> deliverJobs = new BasicList<>();
-    //public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
+    public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
     public static OrderInterface<Orders> orderList = new OrderList<>();
     public static RestaurantOwnerInterface<RestaurantOwner> restaurantList = new RestaurantOwnerList<>();
     
