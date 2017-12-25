@@ -129,14 +129,21 @@ public class FoodList<T extends Comparable> implements FoodInterface<T> {
     }
 
     @Override
-    public void swapPosition(int foodPosition1, int foodPosition2) {
+    public void arrangeFood(int foodPosition, T food) {
 
+        if (foodPosition >= 0 && foodPosition < getLength()) {
 
+            Node currentNode = node;
+            for (int i = 0; i < foodPosition; i++) {
+                currentNode = currentNode.nextNode;
+            }
+            currentNode.entry = food;
+        }
     }
-    
+
     @Override
-    public void sortByPopular(){
-        
+    public void sortByPopular() {
+
     }
 
     private class Node {

@@ -28,7 +28,7 @@ public interface FoodInterface<T extends Comparable> {
 
     public int getLength();
 
-    public void swapPosition(int foodPosition1, int foodPosition2);
+    public void arrangeFood(int foodPosition, T food);
 
     public void sortByPopular();
 }
