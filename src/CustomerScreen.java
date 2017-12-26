@@ -304,7 +304,7 @@ public class CustomerScreen {
         Scanner s = new Scanner(System.in);
         System.out.println("Order List");
         System.out.printf("%-10s %-20s %-20s %-20s %-50s \n", "No.", "Order ID", "Status", "Total Price(RM)", "Order Date");
-        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------------------");
         System.out.println(FastDelivery.orderList);
         
         int count = 1;
