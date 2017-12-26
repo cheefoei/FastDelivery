@@ -8,6 +8,7 @@ package adt;
 /**
  *
  * @author admin
+ * @param <T>
  */
 public class PunchCardList<T> implements PunchCardInterface<T> {
 
@@ -64,6 +65,7 @@ public class PunchCardList<T> implements PunchCardInterface<T> {
         return data;
     }
 
+    @Override
     public boolean haveNext() {
 
         if (currentPosition >= size) {
@@ -74,10 +76,33 @@ public class PunchCardList<T> implements PunchCardInterface<T> {
         }
     }
 
+    @Override
+    public boolean updatePunchCard(int position, T newCard) {
+
+        boolean isUpdated = false;
+        if (!isEmpty()) {
+            if (position < size) {
+                if (position != 0) {
+                    Node node = firstNode;
+                    for (int i = 0; i < position; i++) {
+                        node = node.nextNode;
+                    }
+                    node.entry = newCard;
+                } else {
+                    firstNode.entry = newCard;
+                }
+                isUpdated = true;
+            }
+        }
+        return isUpdated;
+    }
+
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public int size() {
         return size;
     }

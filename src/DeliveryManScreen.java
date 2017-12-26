@@ -1,78 +1,30 @@
-//import static CustomerScreen.customerArray;
-import adt.OrderInterface;
-import adt.OrderList;
-import adt.ScheduledOrderInterface;
-import adt.ScheduledOrderList;
+
 import entity.Contact;
 import entity.DeliveryMan;
 import entity.PunchedCard;
-//import entity.ScheduledOrder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import entity.Customer;
-import entity.Orders;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class DeliveryManScreen {
-
-
 
     private Scanner scanner = new Scanner(System.in);
     private DeliveryMan deliveryman;
     private String type;
     private Customer cus2;
-//    private ScheduledOrder newSOrder;
+
     public static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
+
     public DeliveryManScreen() {
 
         System.out.printf("\nDelivery Man Login\n");
         System.out.println("==============");
 
-//        Customer cus1 = new Customer(
-//                "Allan",
-//                "950103-14-7777",
-//                "Male",
-//                new Contact(
-//                        "No.8 Jalan Dulang,Balakong",
-//                        "Seri Kembangan",
-//                        43300,
-//                        "Selangor",
-//                        "allan0103@gmail.com",
-//                        "0101234567"
-//                ),
-//                "allan",
-//                "allan0103"
-//        );
-//        customer.add(cus1);
-
-//        cus2 = new Customer(
-//                "Anna",
-//                "801108-08-2424",
-//                "Female",
-//                "16, Taman Gajah, Jalan Gajah, Cheras, 52000 Kuala Lumpur",
-//                "01123456789",
-//                "anna1234@gmail.com",
-//                "anna1234",
-//                "anna5678"
-//        );
-
-//        Calendar cal = new GregorianCalendar();
-//
-//        cal.set(Calendar.DAY_OF_MONTH, 2);
-//        cal.set(Calendar.MONTH, 11);
-//        cal.set(Calendar.YEAR, 2017);
-//        cal.set(Calendar.HOUR, 1);
-//        cal.set(Calendar.MINUTE, 30);
-//        cal.set(Calendar.AM_PM, Calendar.PM);
-//
-//        ScheduledOrder sOrder1 = new ScheduledOrder(0001, "Pending", 30.00, cal.getTime(), cal.getTime(), cus1);
-//        scheduledOrder.add(sOrder1);
         checkAutho();
     }
 
@@ -138,10 +90,10 @@ public class DeliveryManScreen {
         }
     }
 
-   private void clock_in() {
+    private void clock_in() {
 
         Calendar now = Calendar.getInstance();
-       Date clock_in = now.getTime();
+        Date clock_in = now.getTime();
         PunchedCard pc = null;
 
         if (FastDelivery.punchedCards.isEmpty()) {
@@ -153,7 +105,7 @@ public class DeliveryManScreen {
         } else {
 
             int last = FastDelivery.punchedCards.size() - 1;
-           PunchedCard old_pc = FastDelivery.punchedCards.get(last);
+            PunchedCard old_pc = FastDelivery.punchedCards.getPunchCard(last);
 
             Date today = new Date();
             Date date = old_pc.getClock_in();
@@ -162,14 +114,15 @@ public class DeliveryManScreen {
                 System.out.println("Today you already clock in on " + date + ". \n");
             } else {
 
-               pc = new PunchedCard();
+                pc = new PunchedCard();
                 pc.setClock_in(clock_in);
                 pc.setPunched_status(Constants.ON_DUTY);
             }
         }
 
         if (pc != null) {
-            if (FastDelivery.punchedCards.add(pc)) {
+
+            if (FastDelivery.punchedCards.addPunchCard(pc)) {
                 System.out.println("Clock In Successful!\n"
                         + "Date & Time:   " + clock_in + "\n"
                         + "Employee Name: " + deliveryman.username + "\n");
@@ -182,22 +135,6 @@ public class DeliveryManScreen {
                 cal.set(Calendar.HOUR, 1);
                 cal.set(Calendar.MINUTE, 30);
                 cal.set(Calendar.AM_PM, Calendar.PM);
-
-//                newSOrder = new ScheduledOrder(0123, "Pending", 60.00, cal.getTime(), cal.getTime(), cus2);
-//                scheduledOrder.add(newSOrder);
-//                System.out.println("\nNew scheduled Order has been assigned\n");
-//                System.out.println("Scheduled Order");
-//                System.out.println("--------------------------------------------------------------------");
-//                System.out.println("ID: " + String.format("%04d", newSOrder.getOrderId()));
-//                System.out.println("Status: " + newSOrder.getStatus());
-//                System.out.println("Address: " + newSOrder.getCustomer().getCusAddress());
-//                Date scheduleDate = newSOrder.getScheduleDate();
-//                Date currentDate = new Date();
-//                if (scheduleDate.after(currentDate)) {
-//                    long diffTime = scheduleDate.getTime() - currentDate.getTime();
-//
-//                    System.out.println("Estimated Time: " + getEstimatedTime(diffTime) + "\n");
-//                }
             }
         }
         punchedCard();
@@ -211,9 +148,9 @@ public class DeliveryManScreen {
         if (!FastDelivery.punchedCards.isEmpty()) {
 
             int last = FastDelivery.punchedCards.size() - 1;
-            PunchedCard pc = FastDelivery.punchedCards.get(last);
+            PunchedCard pc = FastDelivery.punchedCards.getPunchCard(last);
             Date today = new Date();
-            Date date = pc.getClock_in();           
+            Date date = pc.getClock_in();
             deliveryman.setWorkingStatus(Constants.NOT_AVAILABLE);
 
             if (isSameDay(today, date)) {
@@ -223,7 +160,7 @@ public class DeliveryManScreen {
                     pc.setPunched_status(Constants.OFF_DUTY);
                     pc.setClock_out(clock_out);
 
-                    if (FastDelivery.punchedCards.set(last, pc) != null) {
+                    if (FastDelivery.punchedCards.updatePunchCard(last, pc)) {
 
                         System.out.println("Clock Out Successful!\n"
                                 + "Date & Time:   " + clock_out + "\n"
@@ -299,6 +236,7 @@ public class DeliveryManScreen {
     }
 
     private void viewJob() {
+        
         System.out.println("Job Assigned");
         System.out.println("===================");
         System.out.println("1) Place Order (ad-hoc)");
@@ -332,15 +270,18 @@ public class DeliveryManScreen {
         System.out.print("Enter customer's phone number >");
         String cusContactNo = scanner.nextLine();
 
-        for (Customer cus : FastDelivery.customerArray) {
+        while (FastDelivery.customerArray.hasNext()) {
+
+            Customer cus = FastDelivery.customerArray.next();
+            Contact contact = cus.getContact();
+
             if (cusContactNo.equals(cus.getContact())) {
 
                 System.out.printf("Customer name \t\t: " + cus.getCusName() + "\n");
-                System.out.printf("Last name \t\t: " + cus.getCusIc() + "\n");;
-                System.out.printf("Gender \t\t\t: " + cus.getCusGender() + "\n");
-                System.out.printf("NRIC \t\t\t: " + cus.getCusIc() + "\n");
-//                System.out.printf("Home address \t\t: " + cus.getCusContactNo() + "\n");
-//                System.out.printf("Email address \t\t: " + cus.getCusEmail() + "\n");
+                System.out.printf("Home address \t\t: " + contact.getAddress() + ","
+                        + contact.getPostcode() + " " + contact.getCity() + ","
+                        + contact.getState() + "\n");
+                System.out.printf("Email address \t\t: " + contact.getEmail() + "\n");
 
             } else {
                 System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
@@ -349,13 +290,8 @@ public class DeliveryManScreen {
         }
     }
 
-//    private static void clearScreen() {
-//        for (int clear = 0; clear < 40; clear++) {
-//            System.out.println("\b");
-//        }
-//    }
-//
     private void breakTime() {
+
         Calendar now = Calendar.getInstance();
         if (deliveryman.getWorkingStatus() != Constants.BREAKTIME) {
             deliveryman.setWorkingStatus(Constants.BREAKTIME);
@@ -369,6 +305,7 @@ public class DeliveryManScreen {
         }
     }
 //
+
     private void displayOrder() {
         if (type.equals("ad-hoc")) {
 //            Orders newOrders = new Orders(
@@ -380,7 +317,6 @@ public class DeliveryManScreen {
 //            newOrders.setOrderId(1513099862);
 
 //            orderList.addNewOrder(newOrders);
-
             System.out.println("------------------------------------------------------------------------");
             System.out.println("                              Order List");
             System.out.println("------------------------------------------------------------------------");

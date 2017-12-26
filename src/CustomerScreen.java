@@ -62,7 +62,8 @@ public class CustomerScreen {
         System.out.print("Password >");
         String cusPassword = scanner.nextLine();
 
-        for (Customer cus : FastDelivery.customerArray) {
+        while (FastDelivery.customerArray.hasNext()) {
+            Customer cus = FastDelivery.customerArray.next();
             if (cusUsername.equals(cus.cusUsername)) {
                 currentUser = cus;
             }

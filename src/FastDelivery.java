@@ -25,13 +25,13 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import adt.BaseListInterface;
 import adt.DeliveryJobInterface;
 import adt.DeliveryJobList;
+import adt.PunchCardInterface;
+import adt.PunchCardList;
 
 public class FastDelivery {
 
@@ -46,11 +46,11 @@ public class FastDelivery {
     public static BaseListInterface<DeliveryOrder> deliverOrders = new BaseList<>();
     public static DeliveryJobInterface<DeliveryJob> deliverJobs = new DeliveryJobList<>();
 
-    public static List<Customer> customerArray = new ArrayList<>();
+    public static BaseListInterface<Customer> customerArray = new BaseList<>();
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
     public static OrderInterface<Orders> orderList = new OrderList<>();
 
-    public static List<PunchedCard> punchedCards = new ArrayList<>();
+    public static PunchCardInterface<PunchedCard> punchedCards = new PunchCardList<>();
 
     public static void main(String[] args) {
 
@@ -707,7 +707,7 @@ public class FastDelivery {
                     null,
                     dm1
             );
-            punchedCards.add(pc1);
+            punchedCards.addPunchCard(pc1);
         } catch (ParseException ex) {
         }
     }

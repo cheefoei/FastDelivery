@@ -19,6 +19,8 @@ public interface PunchCardInterface<T> {
     public T goNext();
 
     public boolean haveNext();
+    
+    public boolean updatePunchCard(int position, T newCard);
 
     public boolean isEmpty();
 
