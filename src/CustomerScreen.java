@@ -355,7 +355,7 @@ public class CustomerScreen {
         Orders arrivingOrder = FastDelivery.orderList.getOrderAt(1);
         Date now = new Date();       
                 if (arrivingOrder.getDoneOrderDate().after(now)) {
-                    long diffTime = scheduleDate.getTime() - now.getTime();
+                    long diffTime = arrivingOrder.getDoneOrderDate().getTime() - now.getTime();
 
                     System.out.println("Your current order will be arrive in  " + getEstimatedTime(diffTime) + " !\n");
                 }
