@@ -1,6 +1,8 @@
 
 import java.util.Scanner;
 import entity.Customer;
+import entity.DeliveryJob;
+import entity.DeliveryOrder;
 import entity.OrderDetails;
 import entity.Orders;
 import entity.RestaurantOwner;
@@ -401,12 +403,28 @@ public class CustomerScreen {
         if (count == 1) {
             System.out.println("No order");
         }
-        Orders arrivingOrder = FastDelivery.orderList.getOrderAt(1);
+        
+        Orders order = FastDelivery.orderList.getCurrentOrder();
+        DeliveryOrder delOrder = FastDelivery.deliverOrders.next();
+        int distance = 0;       
+        while (FastDelivery.deliverOrders.hasNext()) {
+            DeliveryOrder deord = FastDelivery.deliverOrders.next();
+            if(order.getCustomer() == currentUser){
+                if(order.getStatus() == "pending"){
+                    distance =(int) delOrder.getDistance();
+                 }
+             }
+        }
         Date now = new Date();       
-                if (arrivingOrder.getDoneOrderDate().after(now)) {
-                    long diffTime = arrivingOrder.getDoneOrderDate().getTime() - now.getTime();
+                if (order.getDoneOrderDate().after(now)) {
+                    
+                    Date startDate= delOrder.getDeliveryDate();
+                    long endTime = startDate.getTime() + (distance*8*60*1000);
+                    long diffNow = endTime - new Date().getTime();
+                    
+//                    long diffTime = order.getDoneOrderDate().getTime() - now.getTime();
 
-                    System.out.println("Your current order will be arrive in  " + getEstimatedTime(diffTime) + " !\n");
+                    System.out.println("Your current order will be arrive                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     in  " + diffNow + " !\n");
                 }
         System.out.println("Back to Main?\n"
                 + "1. Yes\n"
