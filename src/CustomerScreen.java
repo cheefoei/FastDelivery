@@ -269,11 +269,11 @@ public class CustomerScreen {
                     Food food = od.getFood();
                     double totalPrice = food.getFoodPrice() * od.getQty();
                     System.out.printf("%-5s %-30s %-15s %-10s %-15s %-50s\n",
-                            count, 
+                            count,
                             food.getFoodName(),
                             new DecimalFormat("#0.00").format(food.getFoodPrice()),
-                            od.getQty(), 
-                            new DecimalFormat("#0.00").format(totalPrice), 
+                            od.getQty(),
+                            new DecimalFormat("#0.00").format(totalPrice),
                             od.getRemark());
                     count++;
                     totalPay += totalPrice;
@@ -321,10 +321,10 @@ public class CustomerScreen {
 
         System.out.printf("\nCurrent Month Order Report\n");
         System.out.println("============================");
-        System.out.printf("%-5s %-20s %-20s %-10s \n",
-                "No.", "Order ID", "Time", "Total Price");
-        System.out.printf("%-5s %-20s %-20s %-10s \n",
-                "---", "--------", "----", "-----------");
+        System.out.printf("%-5s %-20s %-40s %-10s \n",
+                "No.", "Order ID", "Date Time", "Total Price");
+        System.out.printf("%-5s %-20s %-40s %-10s \n",
+                "---", "--------", "---------", "-----------");
 
         int count = 1;
         while (FastDelivery.orderList.goToNext()) {
@@ -334,9 +334,9 @@ public class CustomerScreen {
 
             if (o.getCustomer() == currentUser
                     && (oDate.after(startDate) && oDate.before(endDate))) {
-                System.out.printf("%-5s %-20s %-20s %-10s \n",
+                System.out.printf("%-5s %-20s %-40s %-10s \n",
                         count, o.getOrderId(),
-                        new SimpleDateFormat("HH:mm:ss").format(oDate),
+                        new SimpleDateFormat("EEE yyyy MMM dd  HH:mm:ss").format(oDate),
                         new DecimalFormat("#0.00").format(o.getTotalPrice()));
                 count++;
             }
