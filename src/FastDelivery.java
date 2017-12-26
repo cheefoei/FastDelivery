@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import adt.BaseListInterface;
+import adt.DeliveryJobInterface;
+import adt.DeliveryJobList;
 
 public class FastDelivery {
 
@@ -42,7 +44,7 @@ public class FastDelivery {
     public static BaseListInterface<HumanResource> humanResources = new BaseList<>();
     public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
     public static BaseListInterface<DeliveryOrder> deliverOrders = new BaseList<>();
-    public static BaseListInterface<DeliveryJob> deliverJobs = new BaseList<>();
+    public static DeliveryJobInterface<DeliveryJob> deliverJobs = new DeliveryJobList<>();
 
     public static List<Customer> customerArray = new ArrayList<>();
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();

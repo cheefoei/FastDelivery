@@ -34,6 +34,7 @@ public class DeliveryManList<T extends Comparable> implements DeliveryManInterfa
 
     @Override
     public boolean addByName(T deliveryMan) {
+        
         Node newNode = new Node(deliveryMan);
         Node currentNode = firstNode;
         Node beforeNode = null;

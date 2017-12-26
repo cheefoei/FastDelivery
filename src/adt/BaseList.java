@@ -10,7 +10,7 @@ package adt;
  * @author Student
  * @param <T>
  */
-public class BaseList<T extends Comparable> implements BaseListInterface<T> {
+public class BaseList<T> implements BaseListInterface<T> {
 
     private Node firstNode;
     private int size;
