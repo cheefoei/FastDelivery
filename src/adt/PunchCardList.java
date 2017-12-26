@@ -35,7 +35,7 @@ public class PunchCardList<T> implements PunchCardInterface {
         size++;
         return true;
     }
-    public T get(int position) {
+    public T getPC(int position) {
 
         T data = null;
         if (!isEmpty()) {
@@ -53,7 +53,7 @@ public class PunchCardList<T> implements PunchCardInterface {
     }
      public T goNext() {
 
-        T data = get(currentPosition);
+        T data = getPC(currentPosition);
         currentPosition++;
         return data;
     }
