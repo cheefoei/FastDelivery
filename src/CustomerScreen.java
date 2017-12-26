@@ -15,43 +15,15 @@ public class CustomerScreen {
     private Scanner scanner = new Scanner(System.in);
     private Customer currentUser;
     private Orders currentOrder;
-    private OrderDetails orderDetails;
-//#
-    //public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
-    //#
-    //For Update Order
-    public static String foodRemark;
-    public static long orderID;
-    public static String foodName;
-    public static int foodQty;
-    public static int foodPosition;
 
-//    public static int id = 0001;
     private static String status = "Pending";
-
-    //#
-    private String type;
-    private Date scheduleDate = new Date();
-    private Date scheduleTime = new Date();
-    //#
     private int failedCount = 0;
 
     public CustomerScreen() {
 
         System.out.printf("\nCustomer Login\n");
         System.out.println("==============");
-
         checkAutho();
-
-        //Orders order1 = new Orders(id, status, totalPrice);
-        //#
-        //ScheduledOrder sOrder1 = new ScheduledOrder(id, status, totalPrice, scheduleDate, scheduleTime, currentUser);
-        //#
-        //id++;
-        //orderList.addNewOrder(order1);
-        //#
-        //scheduledOrder.add(sOrder1);
-        //#
     }
 
     private void checkAutho() {
@@ -87,91 +59,95 @@ public class CustomerScreen {
 
     private void customerMainMenu() {
 
-        System.out.println("|--------------------------------|");
-        System.out.println("|       Customer Main Menu       |");
-        System.out.println("|--------------------------------|");
-        System.out.println("|                                |");
-        System.out.println("|1. Place Order (ad-hoc)         |");
-        System.out.println("|2. Schedule Order               |");
-        System.out.println("|3. Update Order                 |");
-        System.out.println("|4. Display order                |");
-        System.out.println("|5. Daily order report           |");
-        System.out.println("|0. Back to Main Menu            |");
-        System.out.println("|                                |");
-        System.out.println("|--------------------------------|");
-        System.out.println("");
-        System.out.print("Your choice: ");
+        System.out.printf("\nWelcome back, " + currentUser.getCusName() + "\n");
 
-        try {
-            int input = Integer.parseInt(scanner.nextLine());
+        boolean valid;
+        do {
+            valid = true;
+
+            System.out.println("|--------------------------------|");
+            System.out.println("|       Customer Main Menu       |");
+            System.out.println("|--------------------------------|");
+            System.out.println("|                                |");
+            System.out.println("|1. Place Order                  |");
+            System.out.println("|2. Display order                |");
+            System.out.println("|3. Daily order report           |");
+            System.out.println("|0. GO BACK                      |");
+            System.out.println("|                                |");
+            System.out.println("|--------------------------------|");
+            System.out.println("");
+            System.out.print("Your choice: ");
+
+            int input = -1;
+            try {
+                input = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException ex) {
+                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                valid = false;
+            }
 
             switch (input) {
                 case 1:
-                    type = "ad-hoc";
                     customerMenu();
                     break;
                 case 2:
-                    type = "schedule";
-                    customerMenu();
-                    break;
-                case 3:
-//                updateOrder();
-                    break;
-                case 4:
                     displayOrder();
                     break;
-                case 5:
+                case 3:
                     //dailyReport();
                     break;
                 case 0:
-                    break;
+                    FastDelivery.clearScreen();
+                    return;
                 default:
-                    System.out.println("Invalid option, please try again!\n");
-                    customerMenu();
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    valid = false;
                     break;
             }
-        } catch (Exception ex) {
-            System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-            customerMainMenu();
-        }
+        } while (!valid);
     }
 
     private void customerMenu() {
 
-        System.out.println("|--------------------------------|");
-        System.out.println("| Please choose a restaurant.    |");
-        System.out.println("|--------------------------------|");
+        boolean valid;
+        do {
+            valid = true;
 
-        if (FastDelivery.restaurantOwnerList.isEmpty()) {
-            System.out.println("No restaurant available!");
-        } else {
+            System.out.println("|--------------------------------|");
+            System.out.println("| Please choose a restaurant.    |");
+            System.out.println("|--------------------------------|");
 
-            int n = FastDelivery.restaurantOwnerList.getLength();
-            int y = 1;
-            while (y <= n) {
-                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
-                String restaurantName = ro.getRestaurantName();
-                System.out.print(y + ". ");
-                System.out.println(String.format("%-18s ", restaurantName));
-                y++;
-            }
+            if (FastDelivery.restaurantOwnerList.isEmpty()) {
+                System.out.println("No restaurant available!");
+            } else {
 
-            System.out.println("");
-            System.out.print("Your choice: ");
-
-            try {
-                int option = Integer.parseInt(scanner.nextLine());
-                if (option > 0 && option <= n) {
-                    displayFoodMenu(option);
-                } else {
-                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                    customerMenu();
+                int n = FastDelivery.restaurantOwnerList.getLength();
+                int y = 1;
+                while (y <= n) {
+                    RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
+                    String restaurantName = ro.getRestaurantName();
+                    System.out.print(y + ". ");
+                    System.out.println(String.format("%-18s ", restaurantName));
+                    y++;
                 }
-            } catch (Exception ex) {
-                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                customerMenu();
+
+                System.out.println("");
+                System.out.print("Your choice: ");
+
+                try {
+                    int option = Integer.parseInt(scanner.nextLine());
+                    if (option > 0 && option <= n) {
+                        displayFoodMenu(option);
+                    } else {
+                        System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                        valid = false;
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    valid = false;
+                }
             }
-        }
+        } while (!valid);
     }
 
     private void displayFoodMenu(int restOption) {
@@ -206,45 +182,39 @@ public class CustomerScreen {
             System.out.println("Please select your food.");
             System.out.print("Food >");
 
-            try {
+            int option = Integer.parseInt(scanner.nextLine());
 
-                int option = Integer.parseInt(scanner.nextLine());
+            if (option > 0 && option < count) {
 
-                if (option > 0 && option < count) {
+                System.out.println("Please enter your quantity.");
+                System.out.print("Quantity >");
+                int qty = Integer.parseInt(scanner.nextLine());
 
-                    System.out.println("\nPlease enter your quantity.");
-                    System.out.print("Quantity >");
-                    int qty = Integer.parseInt(scanner.nextLine());
+                System.out.println("Please enter any remark.");
+                System.out.print("Remark >");
+                String remark = scanner.nextLine();
 
-                    System.out.println("\nPlease enter any remark.");
-                    System.out.print("Remark >");
-                    String remark = scanner.nextLine();
+                Food selectedFood = currFoodList.getFood(option - 1);
+                double totalPrice = selectedFood.getFoodPrice() * qty;
 
-                    Food selectedFood = currFoodList.getFood(option - 1);
-                    double totalPrice = selectedFood.getFoodPrice() * qty;
+                if (currentOrder == null) {
+                    currentOrder = new Orders(status, totalPrice, new Date(), currentUser);
+                }
 
-                    if (currentOrder == null) {
-                        currentOrder = new Orders(status, totalPrice, new Date(), currentUser);
-                    }
+                OrderDetails od = new OrderDetails(currentOrder, selectedFood, qty, remark);
+                FastDelivery.orderFoodList.addNewOrder(od);
 
-                    OrderDetails od = new OrderDetails(currentOrder, selectedFood, qty, remark);
-                    FastDelivery.orderFoodList.addNewOrder(od);
-
-                    System.out.println("\nOrder more food?[Yes/No]");
-                    String cont = scanner.nextLine().toLowerCase();
-                    if (cont.equals("yes") || cont.equals("y")) {
-                        displayFoodMenu(restOption);
-                    } else {
-                        if (FastDelivery.orderList.addNewOrder(currentOrder)) {
-                            displayOrder();
-                        }
+                System.out.println("\nOrder more food?[Yes/No]");
+                System.out.print("Continue? >");
+                String cont = scanner.nextLine().toLowerCase();
+                if (cont.equals("yes") || cont.equals("y")) {
+                    displayFoodMenu(restOption);
+                } else {
+                    if (FastDelivery.orderList.addNewOrder(currentOrder)) {
+                        displayOrder();
                     }
                 }
-            } catch (Exception ex) {
-                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                displayFoodMenu(restOption);
             }
-
         }
     }
 
