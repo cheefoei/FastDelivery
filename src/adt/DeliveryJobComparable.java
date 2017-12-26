@@ -7,11 +7,11 @@ package adt;
 
 /**
  *
- * @author cheefoei's
- * @param <T>
+ * @author Jerry Chow
  */
 public interface DeliveryJobComparable<T> {
-    
+
     public int compareToTotalDelivery(T o);
-    
+
+    public int compareToDeliveryTime(T o);
 }

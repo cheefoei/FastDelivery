@@ -83,17 +83,15 @@ public class DeliveryJobList<T extends DeliveryJobComparable> implements Deliver
     public void sortByTotalDelivery() {
 
         Node sortedNode = null;
-        Node currentNode = firstNode;
-        while (currentNode.nextNode != null) {
-            sortedNode = sortingTotalDelivery(currentNode.data, sortedNode);
-            currentNode = currentNode.nextNode;
+        while (hasNext()) {
+            sortedNode = sortingTotalDelivery(next(), sortedNode);
         }
         this.firstNode = sortedNode;
     }
 
     private Node sortingTotalDelivery(T job, Node currentNode) {
 
-        if (currentNode == null || job.compareToTotalDelivery(currentNode.nextNode) > 0) {
+        if (currentNode == null || job.compareToTotalDelivery(currentNode.data) > 0) {
             currentNode = new Node(job, currentNode);
         } else {
             Node afterNode = sortingTotalDelivery(job, currentNode.nextNode);
@@ -116,6 +114,7 @@ public class DeliveryJobList<T extends DeliveryJobComparable> implements Deliver
             this.data = data;
             this.nextNode = nextNode;
         }
+
     }
 
 }
