@@ -61,6 +61,21 @@ public class OrderDetails implements Serializable, Comparable<OrderDetails> {
     }
     
     @Override
+    public String toString() {
+        String orderID = "";
+        if (order.getOrderId() < 10) {
+            orderID = "000" + order.getOrderId();
+        } else if (order.getOrderId() >= 10 && order.getOrderId() < 100) {
+            orderID = "00" + order.getOrderId();
+        } else if (order.getOrderId() >= 100 && order.getOrderId() < 1000) {
+            orderID = "0" + order.getOrderId();
+        } else {
+            orderID = "" + order.getOrderId();
+        }
+        return String.format("%-10s %-20s %-20s %-20s %-20s", "", order.getOrderId(), food.getFoodName(), qty, remark);
+    }
+    
+    @Override
     public int compareTo(OrderDetails od) {
         
         if (qty > od.getQty()) {

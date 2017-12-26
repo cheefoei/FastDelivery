@@ -269,28 +269,57 @@ public class CustomerScreen {
         System.out.println("| Please choose an Order to update.    |");
         System.out.println("|--------------------------------------|");
         System.out.println("Order Details List");
-        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
-        System.out.println("-------------------------------------------------------------------------------");
+        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remarks");
+        System.out.println("----------------------------------------------------------------------------------------");
         System.out.println(FastDelivery.orderFoodList);
-        System.out.printf("Enter required order to update : ");
-        int num = scanner.nextInt();
+        
+        int count = 1;
+        while (FastDelivery.orderFoodList.goToNext()) {
 
-        System.out.println("\nUpdated Order Details List:");
-        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
-        System.out.println("-------------------------------------------------------------------------------");
-        System.out.println(FastDelivery.orderFoodList);
-
-        Scanner s = new Scanner(System.in);
-
-        System.out.println("Back to Main?\n"
-                + "1. Yes\n"
-                + "2. No\n");
-        int yesno = s.nextInt();
-        if (yesno == 1) {
-            customerMainMenu();
-        } else {
-            System.exit(0);
+            OrderDetails orderDetail = FastDelivery.orderFoodList.getCurrentOrderDetail();
+            System.out.printf("%-5s %-35s\n", count + ") ", orderDetail.getOrder().getOrderId(),
+                    orderDetail.getFood().getFoodName(),orderDetail.getQty(),orderDetail.getRemark());
+            count++;
+            
+            
         }
+//        System.out.println("Enter the number to select delivery man and update. .");
+//        System.out.println("Else will go back to menu.");
+//        System.out.print(">");
+//
+//            if (orderDetail.getOrder() == currentUser) {
+//                System.out.printf("%-10s %-20s %-20s %-20s %-40s %-20s\n",
+//                        count + ".",
+//                        order.getOrderId(),
+//                        order.getStatus(),
+//                        order.getDoneOrderDate(),
+//                        "RM " + order.getTotalPrice());
+//                count++;
+//            }
+//        }
+//
+//        if (count == 1) {
+//            System.out.println("No order details");
+//        }
+//        System.out.printf("Enter required order to update : ");
+//        int num = scanner.nextInt();
+//
+//        System.out.println("\nUpdated Order Details List:");
+//        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remark");
+//        System.out.println("-------------------------------------------------------------------------------");
+//        System.out.println(FastDelivery.orderFoodList);
+//
+//        Scanner s = new Scanner(System.in);
+//
+//        System.out.println("Back to Main?\n"
+//                + "1. Yes\n"
+//                + "2. No\n");
+//        int yesno = s.nextInt();
+//        if (yesno == 1) {
+//            customerMainMenu();
+//        } else {
+//            System.exit(0);
+//        }
 
     }
 
@@ -309,11 +338,11 @@ public class CustomerScreen {
 
             if (order.getCustomer() == currentUser) {
                 System.out.printf("%-10s %-20s %-20s %-20s %-40s %-20s\n",
-                        count + ".",
+                        count,
                         order.getOrderId(),
                         order.getStatus(),
                         order.getDoneOrderDate(),
-                        "RM " + order.getTotalPrice());
+                        order.getTotalPrice());
                 count++;
             }
         }
