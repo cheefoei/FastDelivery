@@ -8,7 +8,19 @@ package adt;
 /**
  *
  * @author admin
+ * @param <T>
  */
 public interface PunchCardInterface<T> {
-    public boolean addPunchCard(T newPunchCard);
+
+    public boolean addPunchCard(T newPc);
+
+    public T getPunchCard(int position);
+
+    public T goNext();
+
+    public boolean haveNext();
+
+    public boolean isEmpty();
+
+    public int size();
 }

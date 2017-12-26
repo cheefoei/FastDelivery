@@ -9,21 +9,23 @@ package adt;
  *
  * @author admin
  */
-public class PunchCardList<T> implements PunchCardInterface {
+public class PunchCardList<T> implements PunchCardInterface<T> {
+
     private Node firstNode;
     private int size;
     private int currentPosition;
-    
+
     public PunchCardList() {
         this.firstNode = null;
         this.size = 0;
         this.currentPosition = 0;
     }
 
-    
-      public boolean addPunchCard(T newPC) {
-        Node newNode = new Node(newPC);
-         if (size() == 0) {
+    @Override
+    public boolean addPunchCard(T newPc) {
+
+        Node newNode = new Node(newPc);
+        if (size() == 0) {
             firstNode = newNode;
         } else {
             Node referNode = firstNode;
@@ -35,14 +37,16 @@ public class PunchCardList<T> implements PunchCardInterface {
         size++;
         return true;
     }
-    public T getPC(int position) {
+
+    @Override
+    public T getPunchCard(int position) {
 
         T data = null;
         if (!isEmpty()) {
             if (position < size) {
                 Node referNode = firstNode;
                 for (int i = 0; i <= position; i++) {
-                    data = referNode.data;
+                    data = referNode.entry;
                     referNode = referNode.nextNode;
                 }
             } else {
@@ -51,13 +55,16 @@ public class PunchCardList<T> implements PunchCardInterface {
         }
         return data;
     }
-     public T goNext() {
 
-        T data = getPC(currentPosition);
+    @Override
+    public T goNext() {
+
+        T data = getPunchCard(currentPosition);
         currentPosition++;
         return data;
     }
-     public boolean haveNext() {
+
+    public boolean haveNext() {
 
         if (currentPosition >= size) {
             currentPosition = 0;
@@ -66,28 +73,23 @@ public class PunchCardList<T> implements PunchCardInterface {
             return true;
         }
     }
+
     public boolean isEmpty() {
         return size == 0;
     }
+
     public int size() {
         return size;
     }
 
-   
-   
     private class Node {
 
-        private T data;
+        private T entry;
         private Node nextNode;
 
-        private Node(T data) {
-            this.data = data;
+        private Node(T entry) {
+            this.entry = entry;
             this.nextNode = null;
         }
-
-        private Node(T data, Node nextNode) {
-            this.data = data;
-            this.nextNode = nextNode;
-        } 
-   }
+    }
 }
