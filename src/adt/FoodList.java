@@ -36,6 +36,24 @@ public class FoodList<T extends Comparable> implements FoodInterface<T> {
         return true;
     }
 
+    public boolean addFoodByRank(T food) {
+
+        this.node = sortByRank(food, node);
+        length++;
+        return true;
+    }
+
+    private Node sortByRank(T food, Node currentNode) {
+
+        if (currentNode == null || food.compareTo(currentNode.entry) > 0) {
+            currentNode = new Node(food, currentNode);
+        } else {
+            Node afterNode = sortByRank(food, currentNode.nextNode);
+            currentNode.nextNode = afterNode;
+        }
+        return currentNode;
+    }
+
     @Override
     public T getFood(int position) {
 
@@ -129,14 +147,43 @@ public class FoodList<T extends Comparable> implements FoodInterface<T> {
     }
 
     @Override
-    public void swapPosition(int foodPosition1, int foodPosition2) {
+    public void arrangeFood(T food1, T food2) {
 
+        int foodPosition1 = getPosition(food1);
+        int foodPosition2 = getPosition(food2);
 
+        if (foodPosition2 < foodPosition1) {
+
+            int tempPos = foodPosition1;
+            T tempFood = food1;
+
+            foodPosition1 = foodPosition2;
+            foodPosition2 = tempPos;
+            food1 = food2;
+            food2 = tempFood;
+        }
+
+        Node currentNode = node;
+        for (int i = 0; i <= foodPosition2; i++) {
+            if (i == foodPosition1) {
+                currentNode.entry = food2;
+            } else if (i == foodPosition2) {
+                currentNode.entry = food1;
+            }
+            currentNode = currentNode.nextNode;
+        }
     }
-    
-    @Override
-    public void sortByPopular(){
-        
+
+    private int getPosition(T food) {
+
+        int position = 0;
+        Node currentNode = node;
+        while (!food.equals(currentNode.entry)) {
+            position++;
+            currentNode = currentNode.nextNode;
+        }
+
+        return position;
     }
 
     private class Node {

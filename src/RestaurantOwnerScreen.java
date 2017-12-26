@@ -1,3 +1,4 @@
+
 import adt.FoodInterface;
 import adt.FoodList;
 import entity.Contact;
@@ -156,7 +157,8 @@ public class RestaurantOwnerScreen {
         System.out.println("2) Remove food from menu");
         System.out.println("3) Update food in menu");
         System.out.println("4) Arrange food in menu");
-        System.out.println("5) EXIT SYSTEM");
+        System.out.println("5) View Food Sale summary report");
+        System.out.println("6) EXIT SYSTEM");
         System.out.print("Option >");
         String option = scanner.nextLine();
 
@@ -177,6 +179,9 @@ public class RestaurantOwnerScreen {
                 arrangeFood();
                 return;
             case "5":
+                summaryReport();
+                return;
+            case "6":
                 System.exit(0);
                 break;
             default:
@@ -405,8 +410,7 @@ public class RestaurantOwnerScreen {
             Food food1 = currentFoodList.getFood(foodFrom - 1);
             Food food2 = currentFoodList.getFood(foodTo - 1);
 
-            //FastDelivery.foods.set(foodFrom - 1, food2);
-            //FastDelivery.foods.set(foodTo - 1, food1);
+            FastDelivery.foodList.arrangeFood(food1, food2);
 
             System.out.println("The foods are arranged successfully.");
             System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
@@ -515,5 +519,36 @@ public class RestaurantOwnerScreen {
                 restaurantOwnerMenu();
             }
         }
+    }
+
+    private void summaryReport() {
+
+        FoodInterface<Food> currentFoodList = new FoodList<>();
+        int limit = 1;
+        while (FastDelivery.foodList.moveToNext() && limit <= 10) {
+
+            Food food = FastDelivery.foodList.getCurrentFood();
+
+            if (food.getRestaurant() == restaurantOwner) {
+                currentFoodList.addFoodByRank(food);
+            }
+            limit++;
+        }
+
+        System.out.printf("\nTop 10 Food Sale Summary Report\n");
+        System.out.println("==================================");
+        System.out.printf("%-10s %-50s %-15s\n", "Rank No.", "Food Name", "Total Sale");
+        System.out.printf("%-10s %-50s %-15s\n", "--------", "---------", "----------");
+
+        int rank = 1;
+        while (currentFoodList.moveToNext()) {
+            Food food = currentFoodList.getCurrentFood();
+            System.out.printf("%-10s %-50s %-15s\n", rank, food.getFoodName(), food.getNumberOfSold());
+            rank++;
+        }
+
+        System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+        scanner.nextLine();
+        restaurantOwnerMenu();
     }
 }

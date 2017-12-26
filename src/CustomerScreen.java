@@ -1,15 +1,10 @@
 
 import java.util.Scanner;
 import entity.Customer;
-import entity.Food;
 import entity.OrderDetails;
 import entity.Orders;
 import entity.RestaurantOwner;
-import java.text.DateFormat;
-//import entity.ScheduledOrder;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class CustomerScreen {
 
