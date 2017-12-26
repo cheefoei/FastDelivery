@@ -5,6 +5,7 @@
  */
 package entity;
 
+import adt.DeliveryJobComparable;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Date;
  *
  * @author cheefoei's
  */
-public class DeliveryJob implements Serializable, Comparable<DeliveryJob> {
+public class DeliveryJob implements Serializable, DeliveryJobComparable<DeliveryJob> {
 
     private DeliveryMan deliveryMan;
     private Date deliveryJobDate;
@@ -71,11 +72,9 @@ public class DeliveryJob implements Serializable, Comparable<DeliveryJob> {
     }
 
     @Override
-    public int compareTo(DeliveryJob o) {
+    public int compareToTotalDelivery(DeliveryJob o) {
 
-        return Comparator.comparing(DeliveryJob::getTotalDelivery)
-                .thenComparing(DeliveryJob::getTotalDistance)
-                .compare(o, this);
-
+        return Integer.compare(o.getTotalDelivery(), this.totalDelivery);
     }
+
 }

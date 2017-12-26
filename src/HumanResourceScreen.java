@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import adt.BaseListInterface;
+import adt.DeliveryJobInterface;
+import adt.DeliveryJobList;
 
 public class HumanResourceScreen {
 
@@ -672,10 +674,13 @@ public class HumanResourceScreen {
             System.out.printf("%-5s %-20s %-20s %-20s\n",
                     "---", "------------", "----------------", "-------------------");
 
-            int count = 1;
-            while (FastDelivery.deliverJobs.hasNext()) {
+            DeliveryJobInterface<DeliveryJob> deliveryJobs = FastDelivery.deliverJobs;
+            deliveryJobs.sortByTotalDelivery();
 
-                DeliveryJob dj = FastDelivery.deliverJobs.next();
+            int count = 1;
+            while (deliveryJobs.hasNext()) {
+
+                DeliveryJob dj = deliveryJobs.next();
 
                 calendar.setTime(dj.getDeliveryJobDate());
                 boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
