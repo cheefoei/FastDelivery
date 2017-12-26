@@ -52,7 +52,21 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
             }
         }
         return restOwner;
+//        T restOwner = null;
+//
+//        if ((position >= 1) && (position <= getLength())) {
+//            Node currentNode = node;
+//            for (int i = 0; i < position - 1; ++i) {
+//                currentNode = currentNode.nextNode;		// advance currentNode to next node
+//            }
+//            restOwner = currentNode.entry;	// currentNode is pointing to the node at givenPosition
+//        }
+//
+//        return restOwner;
+        
     }
+    
+    
 
     @Override
     public T getCurrentRestOwner() {

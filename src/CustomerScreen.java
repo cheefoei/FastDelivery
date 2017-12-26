@@ -3,15 +3,12 @@ import java.util.Scanner;
 import entity.Customer;
 import entity.OrderDetails;
 import entity.RestaurantOwner;
-import java.text.DateFormat;
-//import entity.ScheduledOrder;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class CustomerScreen {
 
     private Scanner scanner = new Scanner(System.in);
+    private RestaurantOwner restaurantOwner;
 
 //#
     //public static ScheduledOrderInterface<ScheduledOrder> scheduledOrder = new ScheduledOrderList<>();
@@ -33,7 +30,7 @@ public class CustomerScreen {
     //#
     private int failedCount = 0;
 
-    public static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
+    
 
     public CustomerScreen() {
 
@@ -93,6 +90,7 @@ public class CustomerScreen {
         System.out.println("|2. Schedule Order               |");
         System.out.println("|3. Update Order                 |");
         System.out.println("|4. Display order                |");
+        System.out.println("|5. Daily order report           |");
         System.out.println("|0. Back to Main Menu            |");
         System.out.println("|                                |");
         System.out.println("|--------------------------------|");
@@ -116,6 +114,9 @@ public class CustomerScreen {
             case 4:
                 displayOrder();
                 break;
+            case 5:
+                dailyReport();
+                break;
             case 0:
                 break;
             default:
@@ -126,19 +127,24 @@ public class CustomerScreen {
     }
 
     private void customerMenu() {
-
+        
+        Scanner s = new Scanner(System.in);
+        int selectedRo = 0;
+        int qty;
+        
+do {
         System.out.println("|--------------------------------|");
         System.out.println("| Please choose a restaurant.    |");
         System.out.println("|--------------------------------|");
 
         if (FastDelivery.restaurantOwnerList.isEmpty()) {
-            System.out.println("EMPTY!!");
+            System.out.println("No restaurant available!");
         } else {
 
             int n = FastDelivery.restaurantOwnerList.getLength();
             int y = 1;
             while (y <= n) {
-                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y);
+                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
 
                 String restaurantName = ro.getRestaurantName();
 
@@ -150,7 +156,109 @@ public class CustomerScreen {
         }
         System.out.println("");
         System.out.println("Your choice: ");
-    }
+
+            while (!s.hasNextInt()) { //hasNextInt() check int
+                System.out.println("\nInvalid option, please try again!");
+                System.out.println("\nPlease choose number only!");
+                System.out.println("|--------------------------------|");
+        System.out.println("| Please choose a restaurant.    |");
+        System.out.println("|--------------------------------|");
+
+        if (FastDelivery.restaurantOwnerList.isEmpty()) {
+            System.out.println("No restaurant available!");
+        } else {
+
+            int n = FastDelivery.restaurantOwnerList.getLength();
+            int y = 1;
+            while (y <= n) {
+                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
+
+                String restaurantName = ro.getRestaurantName();
+
+                System.out.print(y + ". ");
+                System.out.println(String.format("%-18s ", restaurantName));
+
+                y++;
+            }
+        }
+        System.out.println("");
+        System.out.println("Your choice: ");
+                s.next();
+            }
+            selectedRo = s.nextInt();
+            
+        } while (selectedRo <= 0);
+
+        do {
+        System.out.printf("\nMenu\n");
+        System.out.println("=======");
+        System.out.printf("%-5s %-30s %-50s %-10s\n", "No.", "Food Name", "Food Description", "Food Price");
+        System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
+        
+
+        int count = 1;
+//        while (FastDelivery.foodList.moveToNext()) {
+//
+//            Food food = FastDelivery.foodList.getCurrentFood();
+//            
+//            RestaurantOwner ro = FastDelivery.restaurantOwnerList.getCurrentRestOwner();
+//
+//            if (food.getRestaurant()== ro.getRestName())
+//                System.out.printf("%-5s %-30s %-50s %-10s\n",
+//                        count + ".",
+//                        food.getFoodName(),
+//                        food.getFoodDesc(),
+//                        "RM " + food.getFoodPrice());
+//                count++;
+//            }
+//        }
+//
+//        if (count == 1) {
+//            System.out.println("No food available!");
+//        }
+//            while (!s.hasNextInt()) {
+//                System.out.println("\nInvalid option, please try again!");
+//                System.out.println("\nPlease choose number only!");
+//                
+//                s.next();
+//
+//            }
+//            qty = s.nextInt();
+//
+//            
+//        } while (qty <= 0);
+//        //OrderDetails newOrder = new OrderDetails(order, food, qty, remark);
+//        //FastDelivery.orderFoodList.addNewOrder(newOrder);
+//        //orderDetails = new OrderDetails(qty);
+////        if (FastDelivery.orderDetail.add(orderDetails)) {
+//        System.out.printf("\n");
+//        System.out.println("\nNew order added!\n");
+//        System.out.println("---------------------------------------------");
+//        System.out.println("             Order Details List");
+//        System.out.println("----------------------------------------------");
+//        System.out.printf("%-10s %-20s %-20s \n", "No.", "Food Name", "Quantity");
+//        System.out.println("----------------------------------------------");
+//        System.out.println(FastDelivery.orderFoodList);
+//        System.out.println("Order more food?\n"
+//                + "1. Yes\n"
+//                + "2. No\n");
+//        int yesno = s.nextInt();
+//        if (yesno == 1) {
+//            customerMenu();
+//        } else {
+//            if (type.equals("ad-hoc")) {
+//                done();
+//            } else {
+//                makeSchedule();
+//            }
+//        }
+        
+        
+        
+   
+}
+
+    
 
     private void updateOrder() {
 
@@ -201,6 +309,10 @@ public class CustomerScreen {
             System.exit(0);
         }
 
+    }
+    
+    private void dailyReport(){
+        
     }
 
 //public int quantity() {
