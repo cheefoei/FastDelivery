@@ -20,12 +20,21 @@ public class PunchCardList<T> implements PunchCardInterface {
         this.currentPosition = 0;
     }
 
-    /**
-     *
-     * @param newEntry
-     * @return
-     */
-   
+    
+      public boolean addPunchCard(T newPC) {
+        Node newNode = new Node(newPC);
+         if (size() == 0) {
+            firstNode = newNode;
+        } else {
+            Node referNode = firstNode;
+            while (referNode.nextNode != null) {
+                referNode = referNode.nextNode;
+            }
+            referNode.nextNode = newNode;
+        }
+        size++;
+        return true;
+    }
     public T get(int position) {
 
         T data = null;
@@ -42,13 +51,13 @@ public class PunchCardList<T> implements PunchCardInterface {
         }
         return data;
     }
-     public T next() {
+     public T goNext() {
 
         T data = get(currentPosition);
         currentPosition++;
         return data;
     }
-     public boolean hasNext() {
+     public boolean haveNext() {
 
         if (currentPosition >= size) {
             currentPosition = 0;
@@ -65,20 +74,7 @@ public class PunchCardList<T> implements PunchCardInterface {
     }
 
    
-    public boolean addPunchCard(T newPC) {
-        Node newNode = new Node(newPC);
-         if (size() == 0) {
-            firstNode = newNode;
-        } else {
-            Node referNode = firstNode;
-            while (referNode.nextNode != null) {
-                referNode = referNode.nextNode;
-            }
-            referNode.nextNode = newNode;
-        }
-        size++;
-        return true;
-    }
+   
     private class Node {
 
         private T data;
