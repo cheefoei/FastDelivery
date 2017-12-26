@@ -100,6 +100,27 @@ public class DeliveryJobList<T extends DeliveryJobComparable> implements Deliver
         return currentNode;
     }
 
+    @Override
+    public void sortByDeliveryTime() {
+
+        Node sortedNode = null;
+        while (hasNext()) {
+            sortedNode = sortingDeliveryTime(next(), sortedNode);
+        }
+        this.firstNode = sortedNode;
+    }
+
+    private Node sortingDeliveryTime(T job, Node currentNode) {
+
+        if (currentNode == null || job.compareToDeliveryTime(currentNode.data) > 0) {
+            currentNode = new Node(job, currentNode);
+        } else {
+            Node afterNode = sortingDeliveryTime(job, currentNode.nextNode);
+            currentNode.nextNode = afterNode;
+        }
+        return currentNode;
+    }
+
     private class Node {
 
         private T data;

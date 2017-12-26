@@ -7,7 +7,8 @@ package adt;
 
 /**
  *
- * @author Jerry Chow
+ * @author cheefoei's
+ * @param <T>
  */
 public interface DeliveryJobComparable<T> {
 

@@ -13,4 +13,6 @@ package adt;
 public interface DeliveryJobInterface<T extends DeliveryJobComparable> extends BaseListInterface<T> {
     
     public void sortByTotalDelivery();
+    
+    public void sortByDeliveryTime();
 }

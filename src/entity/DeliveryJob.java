@@ -26,11 +26,11 @@ public class DeliveryJob implements Serializable, DeliveryJobComparable<Delivery
 
     public DeliveryJob(
             DeliveryMan deliveryMan,
-            Date deliveryStartTime, 
+            Date deliveryStartTime,
             Date deliveryEndTime,
             double totalDistance,
             int totalDelivery) {
-        
+
         this.deliveryMan = deliveryMan;
         this.deliveryStartTime = deliveryStartTime;
         this.deliveryEndTime = deliveryEndTime;
@@ -77,7 +77,11 @@ public class DeliveryJob implements Serializable, DeliveryJobComparable<Delivery
     public void setTotalDelivery(int totalDelivery) {
         this.totalDelivery = totalDelivery;
     }
-
+    
+    public long getTimeDiff() {
+        return getDeliveryEndTime().getTime() - getDeliveryStartTime().getTime();
+    }
+    
     @Override
     public int compareToTotalDelivery(DeliveryJob o) {
         return Integer.compare(this.totalDelivery, o.getTotalDelivery());
@@ -85,7 +89,7 @@ public class DeliveryJob implements Serializable, DeliveryJobComparable<Delivery
 
     @Override
     public int compareToDeliveryTime(DeliveryJob o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Long.compare(this.getTimeDiff(), o.getTimeDiff());
     }
 
 }

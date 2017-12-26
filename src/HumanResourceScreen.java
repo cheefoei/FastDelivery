@@ -823,6 +823,133 @@ public class HumanResourceScreen {
 
     private void deliveryTimeReport() {
 
+        System.out.printf("\nDelivery Time Report\n");
+        System.out.println("============================");
+        System.out.println("1) Today");
+        System.out.println("2) Yesterday");
+        System.out.println("3) Select a date");
+        System.out.print("Option >");
+        String option = scanner.nextLine();
+
+        if (!option.equals("1") && !option.equals("2") && !option.equals("3")) {
+
+            System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+            deliveryManDailyReport();
+        } else {
+
+            Calendar calendar = Calendar.getInstance();
+            Calendar selectedCal = Calendar.getInstance();
+
+            if (option.equals("1")) {
+                selectedCal.setTime(new Date());
+            } else if (option.equals("2")) {
+                selectedCal.add(Calendar.DATE, -1);
+            } else if (option.equals("3")) {
+
+                int year = 0;
+                int month = 0;
+                int day = 0;
+                boolean v;
+
+                do {
+                    v = true;
+                    System.out.print("Year   > ");
+                    String y = scanner.nextLine();
+
+                    if (y.matches("\\d{4}")) {
+                        try {
+                            year = Integer.parseInt(y);
+                        } catch (Exception ex) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                            v = false;
+                        }
+                    } else {
+                        System.out.println(Constants.ERROR_INVALID_INPUT);
+                        v = false;
+                    }
+                } while (!v);
+
+                do {
+                    v = true;
+                    System.out.print("Month  > ");
+                    try {
+                        month = Integer.parseInt(scanner.nextLine()) - 1;
+                        if (month < 0 || month > 11) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                            v = false;
+                        }
+                    } catch (Exception ex) {
+                        System.out.println(Constants.ERROR_INVALID_INPUT);
+                        v = false;
+                    }
+                } while (!v);
+
+                Calendar cal = new GregorianCalendar(year, month, day);
+                int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+                do {
+                    v = true;
+                    System.out.print("Day    > ");
+                    try {
+                        day = Integer.parseInt(scanner.nextLine());
+                        if (day < 1 || day > daysInMonth) {
+                            System.out.println(Constants.ERROR_INVALID_INPUT);
+                            v = false;
+                        }
+                    } catch (Exception ex) {
+                        System.out.println(Constants.ERROR_INVALID_INPUT);
+                        v = false;
+                    }
+                } while (!v);
+
+                selectedCal.set(Calendar.YEAR, year);
+                selectedCal.set(Calendar.MONTH, month);
+                selectedCal.set(Calendar.DATE, day);
+            }
+
+            System.out.printf("\nDate        : "
+                    + new SimpleDateFormat("dd-MMM-yyyy").format(selectedCal.getTime())
+                    + "\n");
+            System.out.printf("%-5s %-20s %-20s %-20s\n",
+                    "No.", "Delivery Man", "Total Deliveries", "Total Time Used");
+            System.out.printf("%-5s %-20s %-20s %-20s\n",
+                    "---", "------------", "----------------", "---------------");
+
+            DeliveryJobInterface<DeliveryJob> deliveryJobs = FastDelivery.deliverJobs;
+            deliveryJobs.sortByDeliveryTime();
+
+            int count = 1;
+            while (deliveryJobs.hasNext()) {
+
+                DeliveryJob dj = deliveryJobs.next();
+
+                if (dj.getDeliveryEndTime() != null) {
+
+                    calendar.setTime(dj.getDeliveryEndTime());
+                    boolean isSameDay = selectedCal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
+                            && selectedCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR);
+
+                    if (isSameDay && dj.getTimeDiff() > 0) {
+
+                        long hour = dj.getTimeDiff() / (60 * 60 * 1000) % 24;
+                        long minute = dj.getTimeDiff() / (60 * 1000) % 60;
+                        long sec = dj.getTimeDiff() / 1000 % 60;
+
+                        System.out.printf("%-5s %-20s %-20s %-20s\n",
+                                count, dj.getDeliveryMan().getFullName(),
+                                dj.getTotalDelivery(), hour + ":" + minute + ":" + sec);
+                        count++;
+                    }
+                }
+            }
+
+            if (count == 1) {
+                System.out.println("No record");
+            }
+            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+            scanner.nextLine();
+            humanResourceMenu();
+        }
     }
 
 }

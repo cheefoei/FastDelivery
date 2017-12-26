@@ -640,9 +640,9 @@ public class FastDelivery {
             DeliveryJob dj5 = new DeliveryJob(dm2, DF.parse("Tue 26-Dec-2017 17:33:30"),
                     DF.parse("Tue 26-Dec-2017 18:08:35"), 4.5, 2);
             DeliveryJob dj6 = new DeliveryJob(dm5, DF.parse("Wed 27-Dec-2017 12:56:45"),
-                    null, 7.0, 2);
+                    DF.parse("Wed 27-Dec-2017 12:56:45"), 7.0, 2);
             DeliveryJob dj7 = new DeliveryJob(dm1, DF.parse("Wed 27-Dec-2017 13:20:24"),
-                    null, 2.0, 1);
+                    DF.parse("Wed 27-Dec-2017 13:20:24"), 2.0, 1);
 
             DeliveryOrder do1 = new DeliveryOrder(dj1, order1, 4.0);
             do1.setDeliveryDate(DF.parse("Mon 25-Dec-2017 15:33:41"));
