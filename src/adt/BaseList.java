@@ -10,14 +10,16 @@ package adt;
  * @author Student
  * @param <T>
  */
-public class BasicList<T extends Comparable> implements BasicListInterface<T> {
+public class BaseList<T extends Comparable> implements BaseListInterface<T> {
 
     private Node firstNode;
-    private int size = 0;
-    private int currentPosition = 0;
+    private int size;
+    private int currentPosition;
 
-    public BasicList() {
+    public BaseList() {
         this.firstNode = null;
+        this.size = 0;
+        this.currentPosition = 0;
     }
 
     @Override
@@ -26,17 +28,14 @@ public class BasicList<T extends Comparable> implements BasicListInterface<T> {
         Node newNode = new Node(newData);
         if (size() == 0) {
             firstNode = newNode;
-            size++;
         } else {
             Node referNode = firstNode;
             while (referNode.nextNode != null) {
                 referNode = referNode.nextNode;
             }
             referNode.nextNode = newNode;
-            size++;
         }
-
-
+        size++;
         return true;
     }
 
@@ -56,13 +55,8 @@ public class BasicList<T extends Comparable> implements BasicListInterface<T> {
             }
         }
         return data;
-        
-        
-         
     }
 
-   
-    
     @Override
     public T next() {
 
@@ -80,21 +74,6 @@ public class BasicList<T extends Comparable> implements BasicListInterface<T> {
         } else {
             return true;
         }
-    }
-
-    @Override
-    public boolean remove(T data) {
-        return true;
-    }
-
-    @Override
-    public boolean remove(int position) {
-        return true;
-    }
-
-    @Override
-    public boolean replace(T data, int position) {
-        return true;
     }
 
     @Override

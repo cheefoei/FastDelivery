@@ -1,6 +1,4 @@
 
-import adt.BasicList;
-import adt.BasicListInterface;
 import adt.DeliveryManList;
 import entity.Contact;
 import entity.DeliveryJob;
@@ -12,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import adt.BaseListInterface;
 
 public class HumanResourceScreen {
 
@@ -365,7 +364,7 @@ public class HumanResourceScreen {
                     System.out.print("New State > ");
                     dm.contact.setState(scanner.nextLine());
 
-                    FastDelivery.deliveryMen.replace(dm, deliveryManOption - 1);
+                    FastDelivery.deliveryMen.updateDeliveryMan(dm, deliveryManOption - 1);
                     System.out.println("His/her home address is updated successfully.");
                     humanResourceMenu();
 
@@ -382,7 +381,7 @@ public class HumanResourceScreen {
                         }
                     } while (!valid);
 
-                    FastDelivery.deliveryMen.replace(dm, deliveryManOption - 1);
+                    FastDelivery.deliveryMen.updateDeliveryMan(dm, deliveryManOption - 1);
                     System.out.println("His/her email address is updated successfully.");
                     humanResourceMenu();
 
@@ -399,7 +398,7 @@ public class HumanResourceScreen {
                         }
                     } while (!valid);
 
-                    FastDelivery.deliveryMen.replace(dm, deliveryManOption - 1);
+                    FastDelivery.deliveryMen.updateDeliveryMan(dm, deliveryManOption - 1);
                     System.out.println("His/her phone number is updated successfully.");
                     humanResourceMenu();
 
@@ -436,7 +435,7 @@ public class HumanResourceScreen {
             if (option.equals("1")) {
 
                 dm.setIsLeave(false);
-                FastDelivery.deliveryMen.replace(dm, index);
+                FastDelivery.deliveryMen.updateDeliveryMan(dm, index);
                 System.out.println(dm.getFullName() + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
@@ -445,7 +444,7 @@ public class HumanResourceScreen {
                 dm.setIsLeave(false);
                 dm.setIsResigned(true);
 
-                FastDelivery.deliveryMen.replace(dm, index);
+                FastDelivery.deliveryMen.updateDeliveryMan(dm, index);
                 System.out.println(dm.getFullName() + " is RESIGNED now.");
                 humanResourceMenu();
 
@@ -465,7 +464,7 @@ public class HumanResourceScreen {
             if (option.equals("1")) {
 
                 dm.setIsResigned(false);
-                FastDelivery.deliveryMen.replace(dm, index);
+                FastDelivery.deliveryMen.updateDeliveryMan(dm, index);
                 System.out.println(dm.getFullName() + " is AVAILABLE TO WORK now.");
                 humanResourceMenu();
 
@@ -485,7 +484,7 @@ public class HumanResourceScreen {
             if (option.equals("1")) {
 
                 dm.setIsLeave(true);
-                FastDelivery.deliveryMen.replace(dm, index);
+                FastDelivery.deliveryMen.updateDeliveryMan(dm, index);
                 System.out.println(dm.getFullName() + " is LEAVE now.");
                 humanResourceMenu();
 
@@ -493,7 +492,7 @@ public class HumanResourceScreen {
 
                 dm.setIsResigned(true);
 
-                FastDelivery.deliveryMen.replace(dm, index);
+                FastDelivery.deliveryMen.updateDeliveryMan(dm, index);
                 System.out.println(dm.getFullName() + " is RESIGNED now.");
                 humanResourceMenu();
 
@@ -510,7 +509,8 @@ public class HumanResourceScreen {
         System.out.printf("%-5s %-35s %-15s\n", "No.", "Delivery Man", "Total Pending Delivery");
         System.out.printf("%-5s %-35s %-15s\n", "---", "------------", "----------------------");
 
-        BasicListInterface<DeliveryMan> pendingDeliveryMan = new DeliveryManList<>();
+        BaseListInterface<DeliveryMan> pendingDeliveryMan = new DeliveryManList<>();
+        
         int count = 1;
 
         while (FastDelivery.deliveryMen.hasNext()) {
