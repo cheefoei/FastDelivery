@@ -14,6 +14,8 @@ public interface FoodInterface<T extends Comparable> {
 
     public boolean addFood(T food);
 
+    public boolean addFoodByRank(T food);
+
     public T getFood(int position);
 
     public T getCurrentFood();
@@ -28,7 +30,5 @@ public interface FoodInterface<T extends Comparable> {
 
     public int getLength();
 
-    public void arrangeFood(int foodPosition, T food);
-
-    public void sortByPopular();
+    public void arrangeFood(T food1, T food2);
 }
