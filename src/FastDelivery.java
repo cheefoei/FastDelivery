@@ -273,40 +273,40 @@ public class FastDelivery {
                 "0320202020"
         );
         RestaurantOwner ro4 = new RestaurantOwner(
-                "Hanbin",
-                "Kim",
+                "Mitra",
+                "Siva",
                 "91022-10-5555",
                 new Contact(
-                        "No 22, Jalan Harmoni,Putra Height",
+                        "No 50,  Kota Kemuning Bayu,Kota Kemuning",
                         "Shah Alam",
                         47300,
                         "Selangor",
-                        "habinnie@email.com",
+                        "mitra@email.com",
                         "0101022222"
                 ),
-                "hanbin",
-                "kim",
-                "Han Bin Restaurant",
-                "No 22, Jalan Harmoni,Putra Height 47300 Shah Alam Selangor",
-                "0322222222"
+                "mitra",
+                "siva",
+                "Kapitan Restaurant",
+                "No 34, Jalan Megah,Alam Denai 47300 Shah Alam Selangor",
+                "0333333333"
         );
         RestaurantOwner ro5 = new RestaurantOwner(
-                "Bobby",
-                "Kim",
-                "951220-10-2020",
+                "Abu",
+                "Mohd",
+                "881220-10-2020",
                 new Contact(
-                        "No 20, Section 27,Putra Height",
+                        "No 88, Section 29,Putra Height",
                         "Shah Alam",
                         47300,
                         "Selangor",
-                        "bobbykim@email.com",
-                        "0101220202"
+                        "abumohd@email.com",
+                        "0103434343"
                 ),
-                "bobby",
-                "kim",
-                "Ticket to Korea",
-                "12-12 SS17/1 47650 Subang Jaya, Selangor",
-                "0320202020"
+                "abu",
+                "mohd",
+                "Maju maju restaurant",
+                "No. 77 SS19/1 47650 Subang Jaya, Selangor",
+                "0302121212"
         );
         restaurantOwnerList.addRestOwner(rol);
         restaurantOwnerList.addRestOwner(ro2);
@@ -357,6 +357,24 @@ public class FastDelivery {
                 "Added black pepper",
                 11,
                 rol);
+        Food food8 = new Food(
+                "Bihun Goreng",
+                8.99,
+                "Added black pepper",
+                11,
+                ro2);
+        Food food9 = new Food(
+                "Bihun Goreng",
+                8.99,
+                "Added black pepper",
+                11,
+                ro2);
+        Food food10 = new Food(
+                "Bihun Goreng",
+                8.99,
+                "Added black pepper",
+                11,
+                ro2);
 
         foodList.addFood(food1);
         foodList.addFood(food2);
@@ -365,6 +383,9 @@ public class FastDelivery {
         foodList.addFood(food5);
         foodList.addFood(food6);
         foodList.addFood(food7);
+        foodList.addFood(food8);
+        foodList.addFood(food9);
+        foodList.addFood(food10);
 
         /* Customer data */
         Customer cus1 = new Customer(

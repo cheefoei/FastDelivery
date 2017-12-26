@@ -1,4 +1,3 @@
-
 import adt.FoodInterface;
 import adt.FoodList;
 import entity.Contact;
@@ -175,7 +174,7 @@ public class RestaurantOwnerScreen {
                 updateFood();
                 return;
             case "4":
-//                arrangeFood();
+                arrangeFood();
                 return;
             case "5":
                 System.exit(0);
@@ -340,76 +339,82 @@ public class RestaurantOwnerScreen {
         }
     }
 
-//    private void arrangeFood() {
-//
-//        System.out.printf("\nArrange Food in Menu\n");
-//        System.out.println("========================");
-//        System.out.printf("%-5s %-30s\n", "No.", "Food Name");
-//        System.out.printf("%-5s %-30s\n", "---", "---------");
-//
-//        int count = 1;
-//        for (Food food : FastDelivery.foods) {
-//            if (food.getRestaurant() == restaurantOwner) {
-//                System.out.printf("%-5s %-30s\n",
-//                        count + ".",
-//                        food.getFoodName());
-//                count++;
-//            }
-//        }
-//
-//        if (count == 1) {
-//            System.out.println("No food inside...");
-//            restaurantOwnerMenu();
-//        } else {
-//
-//            System.out.println("Which do you willing to Arrange?");
-//
-//            int foodTo = -1;
-//            int foodFrom = -1;
-//            boolean v;
-//
-//            do {
-//                v = true;
-//                System.out.print("Arrange Food Number FROM >");
-//                try {
-//                    foodFrom = Integer.parseInt(scanner.nextLine());
-//                    if (foodFrom > count - 1 || foodFrom <= 0) {
-//                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
-//                        v = false;
-//                    }
-//                } catch (NumberFormatException ex) {
-//                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-//                    v = false;
-//                }
-//            } while (!v);
-//
-//            do {
-//                v = true;
-//                System.out.print("Arrange Food Number TO >");
-//                try {
-//                    foodTo = Integer.parseInt(scanner.nextLine());
-//                    if (foodTo > count - 1 || foodTo <= 0) {
-//                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
-//                        v = false;
-//                    }
-//                } catch (NumberFormatException ex) {
-//                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-//                    v = false;
-//                }
-//            } while (!v);
-//
-//            Food food1 = FastDelivery.foods.get(foodFrom - 1);
-//            Food food2 = FastDelivery.foods.get(foodTo - 1);
-//
-//            FastDelivery.foods.set(foodFrom - 1, food2);
-//            FastDelivery.foods.set(foodTo - 1, food1);
-//
-//            System.out.println("The foods are arranged successfully.");
-//            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
-//            scanner.nextLine();
-//            restaurantOwnerMenu();
-//        }
-//    }
+    private void arrangeFood() {
+
+        System.out.printf("\nArrange Food in Menu\n");
+        System.out.println("========================");
+        System.out.printf("%-5s %-30s\n", "No.", "Food Name");
+        System.out.printf("%-5s %-30s\n", "---", "---------");
+
+        FoodInterface<Food> currentFoodList = new FoodList<>();
+        int count = 1;
+        while (FastDelivery.foodList.moveToNext()) {
+
+            Food food = FastDelivery.foodList.getCurrentFood();
+
+            if (food.getRestaurant() == restaurantOwner) {
+                System.out.printf("%-5s %-30s\n",
+                        count + ".",
+                        food.getFoodName());
+                currentFoodList.addFood(food);
+                count++;
+            }
+        }
+
+        if (count == 1) {
+            System.out.println("No food inside...");
+            restaurantOwnerMenu();
+        } else {
+
+            System.out.println("Which do you willing to Arrange?");
+
+            int foodTo = -1;
+            int foodFrom = -1;
+            boolean v;
+
+            do {
+                v = true;
+                System.out.print("Arrange Food Number FROM >");
+                try {
+                    foodFrom = Integer.parseInt(scanner.nextLine());
+                    if (foodFrom > count - 1 || foodFrom <= 0) {
+                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
+                        v = false;
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    v = false;
+                }
+            } while (!v);
+
+            do {
+                v = true;
+                System.out.print("Arrange Food Number TO >");
+                try {
+                    foodTo = Integer.parseInt(scanner.nextLine());
+                    if (foodTo > count - 1 || foodTo <= 0) {
+                        System.out.printf(Constants.ERROR_OUT_OF_BOUND);
+                        v = false;
+                    }
+                } catch (NumberFormatException ex) {
+                    System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+                    v = false;
+                }
+            } while (!v);
+
+            Food food1 = currentFoodList.getFood(foodFrom - 1);
+            Food food2 = currentFoodList.getFood(foodTo - 1);
+
+            //FastDelivery.foods.set(foodFrom - 1, food2);
+            //FastDelivery.foods.set(foodTo - 1, food1);
+
+            System.out.println("The foods are arranged successfully.");
+            System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+            scanner.nextLine();
+            restaurantOwnerMenu();
+        }
+    }
+
     private void updateFood() {
 
         System.out.printf("\nUpdate Food in Menu\n");
