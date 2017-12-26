@@ -28,7 +28,7 @@ public class DeliveryMan extends Staff implements Serializable, Comparable<Deliv
             String password) {
 
         super(fname, lname, gender, nric, contact, username, password);
-        this.workingStatus = "Available";
+        this.workingStatus = "Not Available";
         this.isLeave = false;
         this.isResigned = false;
         this.isDeliveryAvailable = true;

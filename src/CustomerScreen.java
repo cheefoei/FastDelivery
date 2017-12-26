@@ -4,7 +4,9 @@ import entity.Customer;
 import entity.OrderDetails;
 import entity.Orders;
 import entity.RestaurantOwner;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class CustomerScreen {
 
@@ -350,6 +352,13 @@ public class CustomerScreen {
         if (count == 1) {
             System.out.println("No order");
         }
+        Orders arrivingOrder = FastDelivery.orderList.getOrderAt(1);
+        Date now = new Date();       
+                if (arrivingOrder.getDoneOrderDate().after(now)) {
+                    long diffTime = scheduleDate.getTime() - now.getTime();
+
+                    System.out.println("Your current order will be arrive in  " + getEstimatedTime(diffTime) + " !\n");
+                }
         System.out.println("Back to Main?\n"
                 + "1. Yes\n"
                 + "2. No\n");
@@ -368,7 +377,27 @@ public class CustomerScreen {
     private void dailyReport(){
         
     }
-
+private String getEstimatedTime(long diffTime) {
+        if (diffTime < Constants.MINUTE_MILLIS) {
+            int seconds = (int) diffTime / 1000 % 60;
+            return seconds + " seconds";
+        } else if (diffTime < 50 * Constants.MINUTE_MILLIS) {
+            int seconds = (int) diffTime / 1000 % 60;
+            int minutes = (int) (diffTime / 1000 / 60 % 60);
+            return minutes + " minutes " + seconds + " seconds";
+        } else if (diffTime < 24 * Constants.HOUR_MILLIS) {
+            int seconds = (int) diffTime / 1000 % 60;
+            int minutes = (int) (diffTime / 1000 / 60 % 60);
+            int hours = (int) (diffTime / 1000 / 60 / 60 % 24);
+            return hours + " hours " + minutes + " minutes " + seconds + " seconds";
+        } else {
+            int seconds = (int) diffTime / 1000 % 60;
+            int minutes = (int) (diffTime / 1000 / 60 % 60);
+            int hours = (int) (diffTime / 1000 / 60 / 60 % 24);
+            int days = (int) diffTime / 1000 / 60 / 60 / 24;
+            return days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds";
+        }
+    }
 //public int quantity() {
 //    Scanner s = new Scanner(System.in);
 //    Scanner con = new Scanner(System.in);
