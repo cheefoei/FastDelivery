@@ -18,8 +18,8 @@ public class DeliveryJob implements Serializable, DeliveryJobComparable<Delivery
     private DeliveryMan deliveryMan;
     private Date deliveryStartTime;
     private Date deliveryEndTime;
-    private double totalDistance;
-    private int totalDelivery;
+    private double totalDistance = 0.00;
+    private int totalDelivery = 0;
 
     public DeliveryJob() {
     }
@@ -67,7 +67,7 @@ public class DeliveryJob implements Serializable, DeliveryJobComparable<Delivery
     }
 
     public void setTotalDistance(double totalDistance) {
-        this.totalDistance = totalDistance;
+        this.totalDistance += totalDistance;
     }
 
     public int getTotalDelivery() {
@@ -77,11 +77,15 @@ public class DeliveryJob implements Serializable, DeliveryJobComparable<Delivery
     public void setTotalDelivery(int totalDelivery) {
         this.totalDelivery = totalDelivery;
     }
-    
+
+    public void increTotalDelivery() {
+        this.totalDelivery++;
+    }
+
     public long getTimeDiff() {
         return getDeliveryEndTime().getTime() - getDeliveryStartTime().getTime();
     }
-    
+
     @Override
     public int compareToTotalDelivery(DeliveryJob o) {
         return Integer.compare(this.totalDelivery, o.getTotalDelivery());

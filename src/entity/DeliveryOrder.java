@@ -8,6 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -21,6 +22,20 @@ public class DeliveryOrder implements Serializable {
     private double distance;
     private Date deliveryDate;
     private boolean isDone;
+
+    public DeliveryOrder(
+            DeliveryJob deliveryJob,
+            Orders order) {
+
+        Calendar now = Calendar.getInstance();
+
+        this.deliveryJob = deliveryJob;
+        this.order = order;
+        this.deliveryFee = calculateDeliveryFee();
+        this.deliveryDate = now.getTime();
+        this.distance = (1.0 + (10.0 - 1.0) * new Random().nextDouble());
+        this.isDone = false;
+    }
 
     public DeliveryOrder(
             DeliveryJob deliveryJob,

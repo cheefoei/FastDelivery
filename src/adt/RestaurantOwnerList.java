@@ -52,10 +52,7 @@ public class RestaurantOwnerList<T> implements RestaurantOwnerInterface<T> {
             }
         }
         return restOwner;
-        
     }
-    
-    
 
     @Override
     public T getCurrentRestOwner() {

@@ -3,12 +3,16 @@ import adt.FoodInterface;
 import adt.FoodList;
 import java.util.Scanner;
 import entity.Customer;
+import entity.DeliveryJob;
+import entity.DeliveryMan;
 import entity.DeliveryOrder;
 import entity.Food;
 import entity.OrderDetails;
 import entity.Orders;
 import entity.RestaurantOwner;
+import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class CustomerScreen {
 
@@ -211,7 +215,25 @@ public class CustomerScreen {
                     displayFoodMenu(restOption);
                 } else {
                     if (FastDelivery.orderList.addNewOrder(currentOrder)) {
-                        displayOrder();
+
+                        int max = FastDelivery.deliveryMen.size();
+                        int rand = new Random().nextInt((max - 0) + 1) + 0;
+                        DeliveryMan dm = FastDelivery.deliveryMen.get(rand);
+                        Date curr = new Date();
+
+                        DeliveryJob dj = new DeliveryJob();
+                        dj.increTotalDelivery();
+                        DeliveryOrder dor = new DeliveryOrder(dj, currentOrder);
+                        dj.setTotalDistance(dor.getDistance());
+                        dj.setDeliveryStartTime(curr);
+                        dj.setDeliveryEndTime(curr);
+                        dor.setDeliveryJob(dj);
+
+                        if (FastDelivery.deliverJobs.add(dj)) {
+                            if (FastDelivery.deliverOrders.add(dor)) {
+                                displayOrder();
+                            }
+                        }
                     }
                 }
             }
@@ -220,191 +242,73 @@ public class CustomerScreen {
 
     private void displayOrder() {
 
-        System.out.printf("%-5s %-30s %-15s %-10s %-50s\n",
-                "No.", "Food Name", "Food Price", "Quantity", "Remark");
-        System.out.printf("%-5s %-30s %-15s %-10s %-50s\n",
-                "---", "---------", "----------", "--------", "-------");
-
         if (currentOrder == null) {
-            System.out.println("You do not have any order yet.");
-        } else {
-            int count = 1;
-            while (FastDelivery.orderFoodList.goToNext()) {
-                OrderDetails od = FastDelivery.orderFoodList.getCurrentOrderDetail();
-                if (od.getOrder() == currentOrder) {
-
+            while (FastDelivery.deliverOrders.hasNext()) {
+                DeliveryOrder dor = FastDelivery.deliverOrders.next();
+                Orders o = dor.getOrder();
+                if (o.getCustomer() == currentUser && o.getStatus().equals("Pending")) {
+                    System.out.println(o);
+                    currentOrder = o;
                 }
             }
         }
-    }
 
-    private void zhenhou() {
+        System.out.printf("%-5s %-30s %-15s %-10s %-15s %-50s\n",
+                "No.", "Food Name", "Unit Price", "Quantity", "Total Price", "Remark");
+        System.out.printf("%-5s %-30s %-15s %-10s %-15s %-50s\n",
+                "---", "---------", "----------", "--------", "-----------", "-------");
 
-        Orders order = FastDelivery.orderList.getOrderAt(1);
-        DeliveryOrder delOrder = FastDelivery.deliverOrders.next();
-        int distance = 0;
-        while (FastDelivery.deliverOrders.hasNext()) {
-            DeliveryOrder deord = FastDelivery.deliverOrders.next();
-            if (order.getCustomer() == currentUser && order.getStatus() == "Pending") {
-                distance = (int) deord.getDistance();
+        if (currentOrder != null) {
 
+            int count = 1;
+            double totalPay = 0;
+
+            while (FastDelivery.orderFoodList.goToNext()) {
+
+                OrderDetails od = FastDelivery.orderFoodList.getCurrentOrderDetail();
+
+                if (od.getOrder() == currentOrder) {
+
+                    Food food = od.getFood();
+                    double totalPrice = food.getFoodPrice() * od.getQty();
+                    System.out.printf("%-5s %-30s %-15s %-10s %-15s %-50s\n",
+                            count, food.getFoodName(), food.getFoodPrice(),
+                            od.getQty(), totalPrice, od.getRemark());
+                    count++;
+                    totalPay += totalPrice;
+                }
             }
+
+            System.out.println("\nTotal Payable Amount: RM" + new DecimalFormat("#0.00").format(totalPay));
+
+            Date startDate = null;
+            int distance = 0;
+            while (FastDelivery.deliverOrders.hasNext()) {
+                DeliveryOrder deord = FastDelivery.deliverOrders.next();
+                if (deord.getOrder() == currentOrder) {
+                    distance = (int) deord.getDistance();
+                    startDate = deord.getDeliveryDate();
+                }
+            }
+
+            long endTime = startDate.getTime() + (distance * 8 * 60 * 1000);
+            long diffNow = endTime - new Date().getTime();
+            long hour = diffNow / (60 * 60 * 1000) % 24;
+            long minute = diffNow / (60 * 1000) % 60;
+            long sec = diffNow / 1000 % 60;
+            System.out.println("Remaining Time: " + hour + " :" + minute + ": " + sec);
+
+        } else {
+            System.out.println("You do not have any order yet.");
         }
-        Date now = new Date();
-//        if (order.getDoneOrderDate().after(now)) {
 
-        Date startDate = delOrder.getDeliveryDate();
-        long endTime = startDate.getTime() + (distance * 8 * 60 * 1000);
-        long diffNow = endTime - new Date().getTime();
-        long hour = diffNow / (60 * 60 * 1000) % 24;
-        long minute = diffNow / (60 * 1000) % 60;
-        long sec = diffNow / 1000 % 60;
-        System.out.println(distance);
-        System.out.println("Your order will be arrive in " + hour + " hours " + minute + " minutes " + sec + "seconds" + " /n");
-//        }
-
-//        System.out.println("Back to Main?\n"
-//                + "1. Yes\n"
-//                + "2. No\n");
-//        int yesno = s.nextInt();
-//        if (yesno == 1) {
-//            customerMainMenu();
-//        } else {
-//            System.exit(0);
-//        }
+        System.out.print(Constants.MSG_ENTER_TO_CONTINUE);
+        scanner.nextLine();
+        customerMainMenu();
     }
 
 }
 
-//        do {
-//
-//        if (count == 1) {
-//            System.out.println("No food available!");
-//        }
-//            while (!s.hasNextInt()) {
-//                System.out.println("\nInvalid option, please try again!");
-//                System.out.println("\nPlease choose number only!");
-//                
-//                s.next();
-//
-//            }
-//            qty = s.nextInt();
-//
-//            
-//        } while (qty <= 0);
-//        //OrderDetails newOrder = new OrderDetails(order, food, qty, remark);
-//        //FastDelivery.orderFoodList.addNewOrder(newOrder);
-//        //orderDetails = new OrderDetails(qty);
-////        if (FastDelivery.orderDetail.add(orderDetails)) {
-//        System.out.printf("\n");
-//        System.out.println("\nNew order added!\n");
-//        System.out.println("---------------------------------------------");
-//        System.out.println("             Order Details List");
-//        System.out.println("----------------------------------------------");
-//        System.out.printf("%-10s %-20s %-20s \n", "No.", "Food Name", "Quantity");
-//        System.out.println("----------------------------------------------");
-//        System.out.println(FastDelivery.orderFoodList);
-//        System.out.println("Order more food?\n"
-//                + "1. Yes\n"
-//                + "2. No\n");
-//        int yesno = s.nextInt();
-//        if (yesno == 1) {
-//            customerMenu();
-//        } else {
-//            if (type.equals("ad-hoc")) {
-//                done();
-//            } else {
-//                makeSchedule();
-//            }
-//        }
-//        
-//        
-//    
-//
-//    private void updateOrder() {
-//
-//        System.out.println("|--------------------------------------|");
-//        System.out.println("| Please choose an Order to update.    |");
-//        System.out.println("|--------------------------------------|");
-//        System.out.println("Order Details List");
-//        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Food", "Quantity", "Remarks");
-//        System.out.println("----------------------------------------------------------------------------------------");
-//        //System.out.println(FastDelivery.orderFoodList);
-//
-//        int count = 1;
-//        while (FastDelivery.orderFoodList.goToNext()) {
-//
-//            OrderDetails orderDetail = FastDelivery.orderFoodList.getCurrentOrderDetail();
-//            if (orderDetail.getOrder().getCustomer() == currentUser) {
-//            System.out.printf("%-5s %-35s\n", count + ") ", orderDetail.getOrder().getOrderId(),
-//                    orderDetail.getFood().getFoodName(),orderDetail.getQty(),orderDetail.getRemark());
-//            count++;
-//            
-//            
-//        }
-//        }
-//        System.out.println("\n*Please select required order to update*( 1 - " + FastDelivery.orderFoodList.getOrderNo() + ") : ");
-//        System.out.println("Your choice :");
-//        Scanner sc = new Scanner(System.in);
-//        int selectedFood = sc.nextInt();
-//
-//        selectedFood = sc.nextInt();
-//        OrderDetails orderDetail = FastDelivery.orderFoodList.getOrderAt(selectedFood);
-//        orderID = orderDetail.getOrder().getOrderId();
-//        foodName = orderDetail.getFood().getFoodName();
-//        foodRemark = orderDetail.getRemark();
-//        foodQty = orderDetail.getQty();
-//
-//
-//        //FastDelivery.orderFoodList.removeOrderAt(selectedFood);
-//        foodPosition = selectedFood;
-//        
-//       updateOrderFunction();     
-//
-//    }
-//    
-//    private void updateOrderFunction() {
-//        Scanner scanner = new Scanner(System.in);
-//        char yOn;
-//        int choice = 0;
-//        System.out.println("What to update ?");
-//        System.out.println("1. Update Food Quantity ");
-//        System.out.println("2. Update Food Remarks ");
-//        
-//        do {
-//            do {
-//                System.out.print("Your choice : ");
-//                choice = scanner.nextInt();
-//
-//                if (choice == 1) {
-//                    updateQuantity();
-//                } else if (choice == 2) {
-//                    updateRemarks();
-//                } else {
-//                    System.out.println("\nInvalid option, please try again!");
-//                    System.out.println("\nPlease choose number only!");
-//                }
-//            } while (choice != 3);
-//            System.out.print("Continue updating? (y/n) : ");
-//            yOn = scanner.next().charAt(0);
-//D                        order.getTotalPrice());
-//                count++;
-//            }
-//        }
-//
-//        if (count == 1) {
-//            System.out.println("No order");
-//        }
-//        Orders arrivingOrder = FastDelivery.orderList.getOrderAt(1);
-//        Date now = new Date();       
-//                if (arrivingOrder.getDoneOrderDate().after(now)) {
-//                    long diffTime = arrivingOrder.getDoneOrderDate().getTime() - now.getTime();
-//
-//                    System.out.println("Your current order will be arrive in  " + getEstimatedTime(diffTime) + " !\n");      
-//
-//
-//
-//
 //    
 //    private void dailyReport(){
 //        

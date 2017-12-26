@@ -4,6 +4,7 @@ import adt.FoodList;
 import entity.Contact;
 import entity.Food;
 import entity.RestaurantOwner;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class RestaurantOwnerScreen {
@@ -210,7 +211,7 @@ public class RestaurantOwnerScreen {
                         count + ".",
                         food.getFoodName(),
                         food.getFoodDesc(),
-                        "RM " + food.getFoodPrice());
+                        "RM " + new DecimalFormat("#0.00").format(food.getFoodPrice()));
                 count++;
             }
         }
@@ -296,7 +297,7 @@ public class RestaurantOwnerScreen {
                         count + ".",
                         food.getFoodName(),
                         food.getFoodDesc(),
-                        "RM " + food.getFoodPrice());
+                        "RM " + new DecimalFormat("#0.00").format(food.getFoodPrice()));
                 currentFoodList.addFood(food);
                 count++;
             }

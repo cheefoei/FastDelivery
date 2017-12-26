@@ -5,8 +5,6 @@
  */
 package entity;
 
-import adt.OrderInterface;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,7 +25,7 @@ public class Orders implements Comparable<Orders> {
     public Orders(String status, double totalPrice, Date doneOrderDate, Customer customer) {
 
         this.orderId = new Date().getTime();
-        this.status = "Pending";
+        this.status = status;
         this.totalPrice = totalPrice;
         this.doneOrderDate = doneOrderDate;
         this.customer = customer;

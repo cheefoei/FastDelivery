@@ -12,68 +12,46 @@ package adt;
  */
 public class OrderList<T> implements OrderInterface<T> {
 
-    private Node firstNode;
-    private int length;
+    private Node firstNode = null;
+    private int length = 0;
     private int cursor = 0;
 
-    
+    public OrderList() {
+    }
+
     @Override
     public boolean addNewOrder(T newEntry) {
-//        Node newNode = new Node(newEntry);
-//
-//        Node nodeBefore = null;
-//        Node currentNode = firstNode;
-//        while (currentNode != null && newEntry.compareTo(currentNode.data) > 0) {
-//            nodeBefore = currentNode;
-//            currentNode = currentNode.next;
-//        }
-//
-//        if (isEmpty() || (nodeBefore == null)) {
-//            newNode.next = firstNode;
-//            firstNode = newNode;
-//        } else {
-//            newNode.next = currentNode;
-//            nodeBefore.next = newNode;
-//        }
-//        length++;
-//        return true;
-        
-        
+
         Node newNode = new Node(newEntry);
         if (getOrderNo() == 0) {
             firstNode = newNode;
-            length++;
         } else {
             Node referNode = firstNode;
             while (referNode.next != null) {
                 referNode = referNode.next;
             }
             referNode.next = newNode;
-            length++;
         }
-
-
+        length++;
         return true;
-    
     }
-    
+
     @Override
     public int getOrderNo() {
         return length;
     }
-    
+
     @Override
     public T getOrderAt(int givenPosition) {
-        T result = null;
 
-        if ((givenPosition >= 1) && (givenPosition <= length)) {
+        T result = null;
+        if ((givenPosition >= 0) && (givenPosition < length)) {
             Node currentNode = firstNode;
-            for (int i = 0; i < givenPosition - 1; ++i) {
+            for (int i = 0; i < givenPosition; i++) {
                 currentNode = currentNode.next;		// advance currentNode to next node
             }
             result = currentNode.data;	// currentNode is pointing to the node at givenPosition
         }
-
         return result;
     }
 
@@ -96,12 +74,12 @@ public class OrderList<T> implements OrderInterface<T> {
 
         return result;
     }
-    
+
     @Override
     public void reset() {
         this.cursor = 0;
     }
-    
+
     @Override
     public boolean goToNext() {
 
@@ -113,15 +91,15 @@ public class OrderList<T> implements OrderInterface<T> {
             return false;
         }
     }
-    
+
     @Override
     public T getCurrentOrder() {
         return getOrderAt(cursor - 1);
     }
-    
+
     @Override
     public boolean isEmpty() {
-        return (length == 0);
+        return length == 0;
     }
 
     @Override
