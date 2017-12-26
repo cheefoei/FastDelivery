@@ -90,7 +90,7 @@ public class FastDelivery {
         switch (roleNum) {
             case 1:
                 clearScreen();
-//                new CustomerScreen();
+                new CustomerScreen();
                 return;
             case 2:
                 clearScreen();
