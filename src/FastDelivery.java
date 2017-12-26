@@ -1,7 +1,6 @@
 
 import adt.DeliveryManList;
-import adt.BasicList;
-import adt.BasicListInterface;
+import adt.BaseList;
 import adt.DeliveryManInterface;
 import adt.FoodInterface;
 import adt.FoodList;
@@ -30,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import adt.BaseListInterface;
 
 public class FastDelivery {
 
@@ -39,10 +39,10 @@ public class FastDelivery {
     public static RestaurantOwnerInterface<RestaurantOwner> restaurantOwnerList = new RestaurantOwnerList<>();
     public static FoodInterface<Food> foodList = new FoodList<>();
 
-    public static BasicListInterface<HumanResource> humanResources = new BasicList<>();
+    public static BaseListInterface<HumanResource> humanResources = new BaseList<>();
     public static DeliveryManInterface<DeliveryMan> deliveryMen = new DeliveryManList<>();
-    public static BasicListInterface<DeliveryOrder> deliverOrders = new BasicList<>();
-    public static BasicListInterface<DeliveryJob> deliverJobs = new BasicList<>();
+    public static BaseListInterface<DeliveryOrder> deliverOrders = new BaseList<>();
+    public static BaseListInterface<DeliveryJob> deliverJobs = new BaseList<>();
 
     public static List<Customer> customerArray = new ArrayList<>();
     public static OrderFoodInterface<OrderDetails> orderFoodList = new OrderFoodList<>();
@@ -87,15 +87,13 @@ public class FastDelivery {
 
         switch (roleNum) {
             case 1:
-                new CustomerScreen();
+//                new CustomerScreen();
                 return;
             case 2:
                 new RestaurantOwnerScreen();
                 return;
             case 3:
-
                 //new DeliveryManScreen();
-//                new DeliveryManScreen();
                 return;
             case 4:
                 clearScreen();
@@ -213,9 +211,43 @@ public class FastDelivery {
                 "ahmad",
                 "ahmad123"
         );
+        DeliveryMan dm4 = new DeliveryMan(
+                "Alexandar",
+                "Oman",
+                'M',
+                "850311-14-4157",
+                new Contact(
+                        "55-G, Jalan Wisma Hill",
+                        "Shah Alam",
+                        48700,
+                        "Selangor",
+                        "alexandar@email.com",
+                        "012145873"
+                ),
+                "alexandar",
+                "alex1234"
+        );
+        DeliveryMan dm5 = new DeliveryMan(
+                "Mandy",
+                "Wong",
+                'F',
+                "740529-10-5536",
+                new Contact(
+                        "J-2-1, Jalan Sungai Besar",
+                        "Gombak",
+                        52300,
+                        "Kuala Lumpur",
+                        "mandy@email.com",
+                        "0165874893"
+                ),
+                "mandy",
+                "mandy123"
+        );
         deliveryMen.add(dm1);
         deliveryMen.add(dm2);
         deliveryMen.add(dm3);
+        deliveryMen.add(dm4);
+        deliveryMen.add(dm5);
 
         /* Restaurant Owner data */
         RestaurantOwner rol = new RestaurantOwner(
@@ -403,8 +435,6 @@ public class FastDelivery {
                 "allan",
                 "allan0103"
         );
-        customerArray.add(cus1);
-
         Customer cus2 = new Customer(
                 "Ji Yong",
                 "880818-10-8888",
@@ -420,8 +450,6 @@ public class FastDelivery {
                 "gd",
                 "gd0818"
         );
-        customerArray.add(cus2);
-
         Customer cus3 = new Customer(
                 "Charlotte",
                 "940505-08-5698",
@@ -437,57 +465,123 @@ public class FastDelivery {
                 "charlotte",
                 "charlotte0505"
         );
+        Customer cus4 = new Customer(
+                "Amelia Fu",
+                "650212-08-5486",
+                "Female",
+                new Contact(
+                        "G248 Jalan Kepong 13/3",
+                        "Kepong",
+                        58600,
+                        "Kuala Lumpur",
+                        "amelia@gmail.com",
+                        "0175896347"
+                ),
+                "amelia",
+                "a1234"
+        );
+        Customer cus5 = new Customer(
+                "Jack To",
+                "890426-14-7849",
+                "Male",
+                new Contact(
+                        "A-32 Taman Melati",
+                        "Wangsa Maju",
+                        50000,
+                        "Kuala Lumpur",
+                        "jack@gmail.com",
+                        "0142154268"
+                ),
+                "jack",
+                "jack0123"
+        );
+        customerArray.add(cus1);
+        customerArray.add(cus2);
         customerArray.add(cus3);
+        customerArray.add(cus4);
+        customerArray.add(cus5);
 
         try {
             /* Order data */
             Orders order1 = new Orders(
-                    "Pending",
+                    "Done",
                     13.98,
-                    DF.parse("Mon 11-Dec-2017 15:33:30"),
+                    DF.parse("Mon 25-Dec-2017 15:33:30"),
                     cus1
             );
             order1.setOrderId(1513099860);
 
             Orders order2 = new Orders(
-                    "Pending",
+                    "Done",
                     29.88,
-                    DF.parse("Tue 12-Dec-2017 11:55:40"),
-                    cus1
+                    DF.parse("Mon 25-Dec-2017 22:55:40"),
+                    cus3
             );
             order2.setOrderId(1513099861);
 
             Orders order3 = new Orders(
-                    "Pending",
+                    "Done",
                     35.66,
-                    DF.parse("Tue 12-Dec-2017 12:56:23"),
-                    cus1
+                    DF.parse("Mon 25-Dec-2017 23:56:23"),
+                    cus2
             );
             order3.setOrderId(1513099862);
 
             Orders order4 = new Orders(
-                    "Pending",
-                    12.33,
-                    DF.parse("Wed 13-Dec-2017 10:25:47"),
-                    cus1
+                    "Done",
+                    58.99,
+                    DF.parse("Mon 25-Dec-2017 23:57:47"),
+                    cus5
             );
             order4.setOrderId(1513099863);
 
             Orders order5 = new Orders(
-                    "Pending",
-                    13.98,
-                    DF.parse("Mon 11-Dec-2017 15:33:30"),
-                    cus1
+                    "Done",
+                    29.98,
+                    DF.parse("Tue 26-Dec-2017 12:33:30"),
+                    cus4
             );
             order5.setOrderId(1513099864);
 
             Orders order6 = new Orders(
-                    "Pending",
+                    "Done",
                     28.00,
-                    DF.parse("Mon 11-Dec-2017 15:33:30"),
-                    cus1
+                    DF.parse("Tue 26-Dec-2017 17:33:30"),
+                    cus2
             );
             order6.setOrderId(1513099865);
+
+            Orders order7 = new Orders(
+                    "Done",
+                    57.98,
+                    DF.parse("Tue 26-Dec-2017 17:45:28"),
+                    cus3
+            );
+            order7.setOrderId(1513099866);
+
+            Orders order8 = new Orders(
+                    "Pending",
+                    41.98,
+                    DF.parse("Wed 27-Dec-2017 12:56:42"),
+                    cus4
+            );
+            order8.setOrderId(1513099867);
+
+            Orders order9 = new Orders(
+                    "Pending",
+                    38.98,
+                    DF.parse("Wed 27-Dec-2017 12:58:12"),
+                    cus2
+            );
+            order9.setOrderId(1513099868);
+
+            Orders order10 = new Orders(
+                    "Pending",
+                    23.98,
+                    DF.parse("Wed 27-Dec-2017 13:20:23"),
+                    cus5
+            );
+            order10.setOrderId(1513099869);
 
             orderList.addNewOrder(order1);
             orderList.addNewOrder(order2);
@@ -495,44 +589,104 @@ public class FastDelivery {
             orderList.addNewOrder(order4);
             orderList.addNewOrder(order5);
             orderList.addNewOrder(order6);
+            orderList.addNewOrder(order7);
+            orderList.addNewOrder(order8);
+            orderList.addNewOrder(order9);
+            orderList.addNewOrder(order10);
 
             /* Order Detail data */
             OrderDetails od1 = new OrderDetails(order1, food5, 4, "No spicy pls");
             OrderDetails od2 = new OrderDetails(order2, food2, 4, "More spicy pls");
             OrderDetails od3 = new OrderDetails(order3, food4, 4, "Less spicy pls");
-            OrderDetails od4 = new OrderDetails(order6, food7, 4, "Add more cheese");
+            OrderDetails od4 = new OrderDetails(order4, food1, 2, "Add spicy pls");
+            OrderDetails od5 = new OrderDetails(order4, food4, 4, "Less spicy pls");
+            OrderDetails od6 = new OrderDetails(order5, food7, 4, "Add more cheese");
+            OrderDetails od7 = new OrderDetails(order6, food2, 2, "Nothing");
+            OrderDetails od8 = new OrderDetails(order7, food4, 5, "more spicy");
+            OrderDetails od9 = new OrderDetails(order8, food1, 3, "Up size");
+            OrderDetails od10 = new OrderDetails(order8, food2, 1, "-");
+            OrderDetails od11 = new OrderDetails(order9, food6, 1, "Dont want egg");
+            OrderDetails od12 = new OrderDetails(order9, food3, 1, "-");
+            OrderDetails od13 = new OrderDetails(order10, food2, 5, "No chili");
 
-            orderFoodList.addNewOrder(new OrderDetails(order4, food1, 2, "Add spicy pls"));
             orderFoodList.addNewOrder(od1);
             orderFoodList.addNewOrder(od2);
             orderFoodList.addNewOrder(od3);
             orderFoodList.addNewOrder(od4);
+            orderFoodList.addNewOrder(od5);
+            orderFoodList.addNewOrder(od6);
+            orderFoodList.addNewOrder(od7);
+            orderFoodList.addNewOrder(od8);
+            orderFoodList.addNewOrder(od9);
+            orderFoodList.addNewOrder(od10);
+            orderFoodList.addNewOrder(od11);
+            orderFoodList.addNewOrder(od12);
+            orderFoodList.addNewOrder(od13);
 
             /* Delivery Job and Order data */
-            DeliveryJob dj1 = new DeliveryJob(dm1, DF.parse("Fri 22-Dec-2017 11:39:30"), 8.0, 1);
-            DeliveryJob dj2 = new DeliveryJob(dm2, DF.parse("Fri 22-Dec-2017 13:40:34"), 7.5, 2);
-            DeliveryJob dj3 = new DeliveryJob(dm3, DF.parse("Sat 23-Dec-2017 15:17:50"), 0.8, 1);
+            DeliveryJob dj1 = new DeliveryJob(dm5, DF.parse("Mon 25-Dec-2017 11:39:30"), 4.0, 1);
+            DeliveryJob dj2 = new DeliveryJob(dm4, DF.parse("Mon 25-Dec-2017 13:40:34"), 2.5, 1);
+            DeliveryJob dj3 = new DeliveryJob(dm1, DF.parse("Mon 25-Dec-2017 15:17:50"), 7.8, 2);
+            DeliveryJob dj4 = new DeliveryJob(dm3, DF.parse("Tue 26-Dec-2017 15:17:50"), 2.5, 1);
+            DeliveryJob dj5 = new DeliveryJob(dm2, DF.parse("Tue 26-Dec-2017 15:17:50"), 4.5, 2);
+            DeliveryJob dj6 = new DeliveryJob(dm5, DF.parse("Wed 27-Dec-2017 12:56:45"), 7.0, 2);
+            DeliveryJob dj7 = new DeliveryJob(dm1, DF.parse("Wed 27-Dec-2017 13:20:24"), 2.0, 1);
 
-            DeliveryOrder do1 = new DeliveryOrder(dj1, order1, 8.0);
-            do1.setDeliveryDate(DF.parse("Fri 22-Dec-2017 11:40:30"));
+            DeliveryOrder do1 = new DeliveryOrder(dj1, order1, 4.0);
+            do1.setDeliveryDate(DF.parse("Mon 25-Dec-2017 15:33:41"));
+            do1.setIsDone(true);
 
             DeliveryOrder do2 = new DeliveryOrder(dj2, order2, 2.5);
-            do2.setDeliveryDate(DF.parse("Fri 22-Dec-2017 12:55:40"));
+            do2.setDeliveryDate(DF.parse("Mon 25-Dec-2017 22:55:41"));
+            do2.setIsDone(true);
 
-            DeliveryOrder do3 = new DeliveryOrder(dj2, order3, 5.0);
-            do3.setDeliveryDate(DF.parse("Fri 22-Dec-2017 13:40:41"));
+            DeliveryOrder do3 = new DeliveryOrder(dj3, order3, 5.0);
+            do3.setDeliveryDate(DF.parse("Mon 25-Dec-2017 23:56:23"));
+            do3.setIsDone(true);
 
-            DeliveryOrder do4 = new DeliveryOrder(dj3, order4, 0.8);
-            do4.setDeliveryDate(DF.parse("Sat 23-Dec-2017 15:17:55"));
+            DeliveryOrder do4 = new DeliveryOrder(dj3, order4, 2.8);
+            do4.setDeliveryDate(DF.parse("Mon 25-Dec-2017 23:58:55"));
+            do4.setIsDone(true);
+
+            DeliveryOrder do5 = new DeliveryOrder(dj4, order5, 2.5);
+            do5.setDeliveryDate(DF.parse("Tue 26-Dec-2017 12:33:30"));
+            do5.setIsDone(true);
+
+            DeliveryOrder do6 = new DeliveryOrder(dj5, order6, 1.0);
+            do6.setDeliveryDate(DF.parse("Tue 26-Dec-2017 17:33:30"));
+            do6.setIsDone(true);
+
+            DeliveryOrder do7 = new DeliveryOrder(dj5, order7, 3.5);
+            do7.setDeliveryDate(DF.parse("Tue 26-Dec-2017 17:45:28"));
+            do7.setIsDone(true);
+
+            DeliveryOrder do8 = new DeliveryOrder(dj6, order8, 1.5);
+            do8.setDeliveryDate(DF.parse("Wed 27-Dec-2017 12:56:42"));
+
+            DeliveryOrder do9 = new DeliveryOrder(dj6, order9, 5.5);
+            do9.setDeliveryDate(DF.parse("Wed 27-Dec-2017 12:58:12"));
+
+            DeliveryOrder do10 = new DeliveryOrder(dj7, order10, 2.0);
+            do10.setDeliveryDate(DF.parse("Wed 27-Dec-2017 13:20:23"));
 
             deliverOrders.add(do1);
             deliverOrders.add(do2);
             deliverOrders.add(do3);
             deliverOrders.add(do4);
+            deliverOrders.add(do5);
+            deliverOrders.add(do6);
+            deliverOrders.add(do7);
+            deliverOrders.add(do8);
+            deliverOrders.add(do9);
+            deliverOrders.add(do10);
 
             deliverJobs.add(dj1);
             deliverJobs.add(dj2);
             deliverJobs.add(dj3);
+            deliverJobs.add(dj4);
+            deliverJobs.add(dj5);
+            deliverJobs.add(dj6);
+            deliverJobs.add(dj7);
 
             /* Punch Card data */
             PunchedCard pc1 = new PunchedCard(

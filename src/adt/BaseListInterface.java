@@ -8,27 +8,21 @@ package adt;
 /**
  *
  * @author Student
+ * @param <T>
  */
-public interface BasicListInterface<T> {
+public interface BaseListInterface<T> {
 
     public boolean add(T newData);
 
     public T get(int position);
-    
+
     /* Use for iterating*/
     public T next();
 
     public boolean hasNext();
 
-    public boolean remove(T data);
-
-    public boolean remove(int position);
-
-    public boolean replace(T data, int position);
-
     public boolean isEmpty();
 
     public int size();
-    
 
 }

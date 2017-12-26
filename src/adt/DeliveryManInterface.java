@@ -10,6 +10,9 @@ package adt;
  * @author cheefoei's
  * @param <T>
  */
-public interface DeliveryManInterface<T extends Comparable> extends BasicListInterface<T> {
+public interface DeliveryManInterface<T extends Comparable> extends BaseListInterface<T> {
     
+    public boolean addByName(T deliveryMan);
+    
+    public boolean updateDeliveryMan(T deliveyMan, int position);
 }

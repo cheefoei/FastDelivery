@@ -6,21 +6,39 @@ package adt;
 public class DeliveryManList<T extends Comparable> implements DeliveryManInterface<T> {
 
     private Node firstNode;
-    private int size = 0;
-    private int currentPosition = 0;
+    private int size;
+    private int currentPosition;
 
     public DeliveryManList() {
         this.firstNode = null;
+        this.size = 0;
+        this.currentPosition = 0;
     }
 
     @Override
-    public boolean add(T newDeliveryMan) {
+    public boolean add(T deliveryMan) {
 
-        Node newNode = new Node(newDeliveryMan);
+        Node newNode = new Node(deliveryMan);
+        if (size() == 0) {
+            firstNode = newNode;
+        } else {
+            Node referNode = firstNode;
+            while (referNode.nextNode != null) {
+                referNode = referNode.nextNode;
+            }
+            referNode.nextNode = newNode;
+        }
+        size++;
+        return true;
+    }
+
+    @Override
+    public boolean addByName(T deliveryMan) {
+        Node newNode = new Node(deliveryMan);
         Node currentNode = firstNode;
         Node beforeNode = null;
 
-        while (currentNode != null && newDeliveryMan.compareTo(currentNode.data) > 0) {
+        while (currentNode != null && deliveryMan.compareTo(currentNode.data) > 0) {
             beforeNode = currentNode;
             currentNode = currentNode.nextNode;
         }
@@ -75,32 +93,9 @@ public class DeliveryManList<T extends Comparable> implements DeliveryManInterfa
     }
 
     @Override
-    public boolean remove(T deliveyMan) {
+    public boolean updateDeliveryMan(T deliveyMan, int position) {
 
-        boolean isRemoved = false;
-
-        if (!isEmpty()) {
-            Node referNode = firstNode;
-            for (int i = 0; i < size; i++) {
-                if (referNode.data != deliveyMan) {
-
-                }
-                referNode = referNode.nextNode;
-            }
-            size--;
-        }
-        return isRemoved;
-    }
-
-    @Override
-    public boolean remove(int position) {
-        return true;
-    }
-
-    @Override
-    public boolean replace(T deliveyMan, int position) {
-
-        boolean isReplaced = false;
+        boolean isUpdated = false;
         if (!isEmpty()) {
             if (position < size) {
                 if (position == 0) {
@@ -112,12 +107,12 @@ public class DeliveryManList<T extends Comparable> implements DeliveryManInterfa
                     }
                     referNode.data = deliveyMan;
                 }
-                isReplaced = true;
+                isUpdated = true;
             } else {
                 throw new IndexOutOfBoundsException();
             }
         }
-        return isReplaced;
+        return isUpdated;
     }
 
     @Override
