@@ -509,7 +509,7 @@ public class FastDelivery {
         try {
             /* Order data */
             Orders order1 = new Orders(
-                    "Done",
+                    "Pending",
                     13.98,
                     DF.parse("Mon 25-Dec-2017 15:33:30"),
                     cus1

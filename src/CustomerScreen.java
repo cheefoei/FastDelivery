@@ -100,7 +100,7 @@ public class CustomerScreen {
         System.out.println("");
         System.out.print("Your choice: ");
 
-        try {
+//        try {
             int input = Integer.parseInt(scanner.nextLine());
 
             switch (input) {
@@ -116,7 +116,7 @@ public class CustomerScreen {
 //                updateOrder();
                     break;
                 case 4:
-//                displayOrder();
+                displayOrder();
                     break;
                 case 5:
                     //dailyReport();
@@ -128,10 +128,10 @@ public class CustomerScreen {
                     customerMenu();
                     break;
             }
-        } catch (Exception ex) {
-            System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-            customerMainMenu();
-        }
+//        } catch (Exception ex) {
+//            System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+//            customerMainMenu();
+//        }
     }
 
     private void customerMenu() {
@@ -252,24 +252,30 @@ public class CustomerScreen {
 
     private void displayOrder() {
 
-        Orders order = FastDelivery.orderList.getCurrentOrder();
+        Orders order = FastDelivery.orderList.getOrderAt(1);
         DeliveryOrder delOrder = FastDelivery.deliverOrders.next();
         int distance = 0;
         while (FastDelivery.deliverOrders.hasNext()) {
             DeliveryOrder deord = FastDelivery.deliverOrders.next();
-            if (order.getCustomer() == currentUser) {
-                if (order.getStatus() == "pending") {
-                    distance = (int) delOrder.getDistance();
-                }
+            if (order.getCustomer() == currentUser && order.getStatus() == "Pending") {
+                    distance = (int) deord.getDistance();
+                
             }
         }
         Date now = new Date();
-        if (order.getDoneOrderDate().after(now)) {
+//        if (order.getDoneOrderDate().after(now)) {
 
             Date startDate = delOrder.getDeliveryDate();
             long endTime = startDate.getTime() + (distance * 8 * 60 * 1000);
             long diffNow = endTime - new Date().getTime();
-        }
+            long hour = diffNow / (60 * 60 * 1000) % 24;
+            long minute = diffNow / (60 * 1000) % 60;
+            long sec = diffNow / 1000 % 60;
+            System.out.println(distance);
+            System.out.println("Your order will be arrive in "+ hour +" hours " + minute +" minutes "+ sec + "seconds" +" /n");
+//        }
+        
+        
 
 //        System.out.println("Back to Main?\n"
 //                + "1. Yes\n"
