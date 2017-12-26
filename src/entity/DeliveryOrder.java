@@ -33,7 +33,7 @@ public class DeliveryOrder implements Serializable {
         this.order = order;
         this.deliveryFee = calculateDeliveryFee();
         this.deliveryDate = now.getTime();
-        this.distance = (1.0 + (10.0 - 1.0) * new Random().nextDouble());
+        this.distance = (1.0 + (5.0 - 1.0) * new Random().nextDouble());
         this.isDone = false;
     }
 

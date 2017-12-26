@@ -1,4 +1,8 @@
 
+import adt.BaseList;
+import adt.BaseListInterface;
+import adt.DeliveryJobInterface;
+import adt.DeliveryJobList;
 import entity.Contact;
 import entity.DeliveryMan;
 import entity.PunchedCard;
@@ -7,6 +11,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import entity.Customer;
+import entity.DeliveryJob;
+import entity.DeliveryOrder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -15,7 +21,6 @@ public class DeliveryManScreen {
 
     private Scanner scanner = new Scanner(System.in);
     private DeliveryMan deliveryman;
-    private String type;
     private Customer cus2;
 
     public static final DateFormat DF = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH);
@@ -236,61 +241,87 @@ public class DeliveryManScreen {
     }
 
     private void viewJob() {
-        
+
         System.out.println("Job Assigned");
         System.out.println("===================");
-        System.out.println("1) Place Order (ad-hoc)");
-        System.out.println("2) Schedule Order");
-        System.out.println("3) go back");
-        System.out.print("Option >");
+        System.out.printf("%-5s %-20s %-30s %-20s %-50s\n",
+                "No.", "Order ID", "Customer Name", "Customer Phone Number", "Deliver To");
+        System.out.printf("%-5s %-20s %-30s %-20s %-50s\n",
+                "---", "--------", "-------------", "---------------------", "----------");
 
-        int opt = scanner.nextInt();
+        DeliveryJob selDJ = null;
+        for (int i = 0; i < FastDelivery.deliverJobs.size(); i++) {
+            DeliveryJob dj = FastDelivery.deliverJobs.get(i);
+            if (dj.getDeliveryMan() == deliveryman && !dj.isIsDelivered()) {
+                selDJ = dj;
 
-        switch (opt) {
-            case 1:
-                type = "ad-hoc";
-                displayOrder();
-                break;
-            case 2:
-                type = "schedule";
-                displayOrder();
-                break;
-            case 3:
-                return;
-            default:
-                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                break;
+            }
         }
+
+        for (int i = 0; i < FastDelivery.deliverOrders.size(); i++) {
+
+            DeliveryOrder dor = FastDelivery.deliverOrders.get(i);
+            if (dor.getDeliveryJob() == selDJ && !dor.isIsDone()) {
+
+                Customer cust = dor.getOrder().getCustomer();
+                Contact contact = cust.getContact();
+
+                System.out.printf("%-5s %-20s %-30s %-20s %-50s\n",
+                        i + 1, dor.getOrder().getOrderId(),
+                        cust.getCusName(), contact.getPhoneNumber(),
+                        contact.getAddress() + ","
+                        + contact.getPostcode() + " " + contact.getCity() + ","
+                        + contact.getState());
+            }
+        }
+
     }
 
     private void viewCusDetails() {
 
         System.out.println("\n  View customer's details");
         System.out.println("=============================");
+
+        boolean v = true;
+        String phone = scanner.nextLine();
+        do {
+            System.out.println("Q: What's his/her phone number (Exclude '-') ?");
+            System.out.print("Phone number > ");
+            phone = scanner.nextLine();
+
+            v = phone.matches("\\d{10,12}");
+            if (!v) {
+                System.out.println(Constants.ERROR_INVALID_INPUT);
+            }
+        } while (!v);
+
         System.out.print("Enter customer's phone number >");
-        String cusContactNo = scanner.nextLine();
 
-        while (FastDelivery.customerArray.hasNext()) {
+//            Contact cont = FastDelivery.customerArray.get(i);
+        for (int i = 0; i < FastDelivery.deliverOrders.size(); i++) {
+            if (FastDelivery.deliverOrders.get(i).getOrder().getStatus().equals("Done")) {
+                if (phone.equals(FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getPhoneNumber())) {
 
-            Customer cus = FastDelivery.customerArray.next();
-            Contact contact = cus.getContact();
+                    System.out.printf("Customer name \t\t: " + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getCusName() + "\n");
+                    System.out.printf("Home address \t\t: " + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getAddress() + ","
+                            + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getPostcode() + " " + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getCity() + ","
+                            + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getState() + "\n");
+                    System.out.printf("Email address \t\t: " + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getEmail() + "\n");
+                    deliveryManMenu();
 
-            if (cusContactNo.equals(cus.getContact())) {
-
-                System.out.printf("Customer name \t\t: " + cus.getCusName() + "\n");
-                System.out.printf("Home address \t\t: " + contact.getAddress() + ","
-                        + contact.getPostcode() + " " + contact.getCity() + ","
-                        + contact.getState() + "\n");
-                System.out.printf("Email address \t\t: " + contact.getEmail() + "\n");
-
-            } else {
-                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-                deliveryManMenu();
+                } else {
+                    //
+//                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
+//                deliveryManMenu();
+                }
             }
         }
     }
+    
 
-    private void breakTime() {
+
+
+private void breakTime() {
 
         Calendar now = Calendar.getInstance();
         if (deliveryman.getWorkingStatus() != Constants.BREAKTIME) {
@@ -305,38 +336,6 @@ public class DeliveryManScreen {
         }
     }
 //
-
-    private void displayOrder() {
-        if (type.equals("ad-hoc")) {
-//            Orders newOrders = new Orders(
-//                    "Pending",
-//                    35.66,
-//                    DF.parse("Tue 12-Dec-2017 12:56:23"),
-//                    cus1
-//            );
-//            newOrders.setOrderId(1513099862);
-
-//            orderList.addNewOrder(newOrders);
-            System.out.println("------------------------------------------------------------------------");
-            System.out.println("                              Order List");
-            System.out.println("------------------------------------------------------------------------");
-            System.out.printf("%-10s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)");
-            System.out.println("------------------------------------------------------------------------");
-//            System.out.println(orderList);
-        } else {
-            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("                                                 Order List");
-            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.printf("%-10s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n", "No.", "Order ID", "Status", "Total Price(RM)", "Customer Name", "Customer Contact", "Deliver Date", "Deliver Time");
-            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------");
-//            for (int i = 0; i < scheduledOrder.size(); i++) {
-//                if (new Date().compareTo(scheduledOrder.show(i).getScheduleDate()) > 0) {
-//                    System.out.println(scheduledOrder.show(i).toString());
-//            System.out.println(scheduledOrder);
-//                }
-//            }
-        }
-    }
 
 //    private String getEstimatedTime(long diffTime) {
 //        if (diffTime < Constants.MINUTE_MILLIS) {
