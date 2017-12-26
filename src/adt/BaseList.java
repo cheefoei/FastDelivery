@@ -78,9 +78,7 @@ public class BaseList<T> implements BaseListInterface<T> {
 
     @Override
     public boolean isEmpty() {
-        boolean result;
-        result = size == 0;
-        return result;
+        return size == 0;
     }
 
     @Override
