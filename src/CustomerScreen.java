@@ -3,6 +3,7 @@ import java.util.Scanner;
 import entity.Customer;
 import entity.Food;
 import entity.OrderDetails;
+import entity.Orders;
 import entity.RestaurantOwner;
 import java.text.DateFormat;
 //import entity.ScheduledOrder;
@@ -120,7 +121,7 @@ public class CustomerScreen {
                 displayOrder();
                 break;
             case 5:
-                dailyReport();
+                //dailyReport();
                 break;
             case 0:
                 break;
@@ -137,71 +138,73 @@ public class CustomerScreen {
         int selectedRo = 0;
         int qty;
         
-do {
-        System.out.println("|--------------------------------|");
-        System.out.println("| Please choose a restaurant.    |");
-        System.out.println("|--------------------------------|");
-
-        if (FastDelivery.restaurantOwnerList.isEmpty()) {
-            System.out.println("No restaurant available!");
-        } else {
-
-            int n = FastDelivery.restaurantOwnerList.getLength();
-            int y = 1;
-            while (y <= n) {
-                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
-
-                String restaurantName = ro.getRestaurantName();
-
-                System.out.print(y + ". ");
-                System.out.println(String.format("%-18s ", restaurantName));
-
-                y++;
-            }
-        }
-        System.out.println("");
-        System.out.println("Your choice: ");
-
-            while (!s.hasNextInt()) { //hasNextInt() check int
-                System.out.println("\nInvalid option, please try again!");
-                System.out.println("\nPlease choose number only!");
-                System.out.println("|--------------------------------|");
-        System.out.println("| Please choose a restaurant.    |");
-        System.out.println("|--------------------------------|");
-
-        if (FastDelivery.restaurantOwnerList.isEmpty()) {
-            System.out.println("No restaurant available!");
-        } else {
-
-            int n = FastDelivery.restaurantOwnerList.getLength();
-            int y = 1;
-            while (y <= n) {
-                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
-
-                String restaurantName = ro.getRestaurantName();
-
-                System.out.print(y + ". ");
-                System.out.println(String.format("%-18s ", restaurantName));
-
-                y++;
-            }
-        }
-        System.out.println("");
-        System.out.println("Your choice: ");
-                s.next();
-            }
-            selectedRo = s.nextInt();
-            
-        } while (selectedRo <= 0);
-
-        do {
-        System.out.printf("\nMenu\n");
-        System.out.println("=======");
-        System.out.printf("%-5s %-30s %-50s %-10s\n", "No.", "Food Name", "Food Description", "Food Price");
-        System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
-        
-
-        int count = 1;
+//do {
+//        System.out.println("|--------------------------------|");
+//        System.out.println("| Please choose a restaurant.    |");
+//        System.out.println("|--------------------------------|");
+//
+//        if (FastDelivery.restaurantOwnerList.isEmpty()) {
+//            System.out.println("No restaurant available!");
+//        } else {
+//
+//            int n = FastDelivery.restaurantOwnerList.getLength();
+//            int y = 1;
+//            while (y <= n) {
+//                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
+//
+//                String restaurantName = ro.getRestaurantName();
+//
+//                System.out.print(y + ". ");
+//                System.out.println(String.format("%-18s ", restaurantName));
+//
+//                y++;
+//            }
+//        }
+//        System.out.println("");
+//        System.out.println("Your choice: ");
+//
+//            while (!s.hasNextInt()) { //hasNextInt() check int
+//                System.out.println("\nInvalid option, please try again!");
+//                System.out.println("\nPlease choose number only!");
+//                System.out.println("|--------------------------------|");
+//        System.out.println("| Please choose a restaurant.    |");
+//        System.out.println("|--------------------------------|");
+//
+//        if (FastDelivery.restaurantOwnerList.isEmpty()) {
+//            System.out.println("No restaurant available!");
+//        } else {
+//
+//            int n = FastDelivery.restaurantOwnerList.getLength();
+//            int y = 1;
+//            while (y <= n) {
+//                RestaurantOwner ro = FastDelivery.restaurantOwnerList.getRestOwner(y - 1);
+//
+//                String restaurantName = ro.getRestaurantName();
+//
+//                System.out.print(y + ". ");
+//                System.out.println(String.format("%-18s ", restaurantName));
+//
+//                y++;
+//            }
+//        }
+//        System.out.println("");
+//        System.out.println("Your choice: ");
+//        String option = scanner.nextLine();
+//                s.next();
+//            }
+//            String option = scanner.nextLine();
+//            int opt = Integer.parseInt(option);
+//            
+//        } while (Integer.parseInt(option) <= 0);
+//
+//        do {
+//        System.out.printf("\nMenu\n");
+//        System.out.println("=======");
+//        System.out.printf("%-5s %-30s %-50s %-10s\n", "No.", "Food Name", "Food Description", "Food Price");
+//        System.out.printf("%-5s %-30s %-50s %-10s\n", "---", "---------", "----------------", "----------");
+//        
+//
+//        int count = 1;
 //        while (FastDelivery.foodList.moveToNext()) {
 //
 //            Food food = FastDelivery.foodList.getCurrentFood();
@@ -257,8 +260,8 @@ do {
 //                makeSchedule();
 //            }
 //        }
-        
-        
+//        
+//        
         
    
 }
@@ -300,10 +303,29 @@ do {
 
         Scanner s = new Scanner(System.in);
         System.out.println("Order List");
-        System.out.printf("%-10s %-20s %-20s %-20s %-20s\n", "No.", "Status", "Total Price(RM)", "Order Date", "Customer");
-        System.out.println("--------------------------------------------------------------------------------------------");
+        System.out.printf("%-10s %-20s %-20s %-20s %-50s \n", "No.", "Order ID", "Status", "Total Price(RM)", "Order Date");
+        System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println(FastDelivery.orderList);
+        
+        int count = 1;
+        while (FastDelivery.orderList.goToNext()) {
 
+            Orders order = FastDelivery.orderList.getCurrentOrder();
+
+            if (order.getCustomer() == currentUser) {
+                System.out.printf("%-10s %-20s %-20s %-20s %-40s %-20s\n",
+                        count + ".",
+                        order.getOrderId(),
+                        order.getStatus(),
+                        order.getDoneOrderDate(),
+                        "RM " + order.getTotalPrice());
+                count++;
+            }
+        }
+
+        if (count == 1) {
+            System.out.println("No order");
+        }
         System.out.println("Back to Main?\n"
                 + "1. Yes\n"
                 + "2. No\n");
@@ -313,8 +335,11 @@ do {
         } else {
             System.exit(0);
         }
+    }        
 
-    }
+
+
+
     
     private void dailyReport(){
         

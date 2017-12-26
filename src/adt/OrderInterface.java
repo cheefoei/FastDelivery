@@ -10,13 +10,19 @@ package adt;
  * @author Clarity
  * @param <T>
  */
-public interface OrderInterface <T extends Comparable<T>>{
+public interface OrderInterface <T>{
     
     public boolean addNewOrder(T newOrder); // Add new order
     
     public T getOrderAt(int givenPosition); // Retrieve order at specific position
     
     public int getOrderNo(); // Retrieve total number of orders
+    
+    public boolean goToNext();
+
+    public void reset();
+    
+    public T getCurrentOrder();
     
     public void clear(); // Clear all records
     

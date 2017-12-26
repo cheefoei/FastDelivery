@@ -73,20 +73,20 @@ public class Orders implements Comparable<Orders> {
         this.customer = customer;
     }
     
-//    @Override
-//    public String toString() {
-//        String orderID = "";
-//        if (orderId < 10) {
-//            orderID = "000" + orderId;
-//        } else if (orderId >= 10 && orderId < 100) {
-//            orderID = "00" + orderId;
-//        } else if (orderId >= 100 && orderId < 1000) {
-//            orderID = "0" + orderId;
-//        } else {
-//            orderID = "" + orderId;
-//        }
-//        return String.format("%-10s %-20s %-20s %-20s %-20s %-20s", "", orderID, status, totalPrice, doneOrderDate, customer);
-//    }
+    @Override
+    public String toString() {
+        String orderID = "";
+        if (orderId < 10) {
+            orderID = "000" + orderId;
+        } else if (orderId >= 10 && orderId < 100) {
+            orderID = "00" + orderId;
+        } else if (orderId >= 100 && orderId < 1000) {
+            orderID = "0" + orderId;
+        } else {
+            orderID = "" + orderId;
+        }
+        return String.format("%-10s %-20s %-20s %-20s %-40s", "", orderID, status, totalPrice, doneOrderDate);
+    }
     
     
  @Override

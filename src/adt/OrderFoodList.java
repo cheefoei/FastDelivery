@@ -10,31 +10,49 @@ package adt;
  * @author Clarity
  * @param <T>
  */
-public class OrderFoodList<T extends Comparable> implements OrderFoodInterface<T>{
+public class OrderFoodList<T> implements OrderFoodInterface<T>{
 
     private Node firstNode;
     private int length;
+    private int cursor = 0;
 
     @Override
     public boolean addNewOrder(T newEntry) {
+//        Node newNode = new Node(newEntry);
+//
+//        Node nodeBefore = null;
+//        Node currentNode = firstNode;
+//        while (currentNode != null && newEntry.compareTo(currentNode.data) > 0) {
+//            nodeBefore = currentNode;
+//            currentNode = currentNode.next;
+//        }
+//
+//        if (isEmpty() || (nodeBefore == null)) {
+//            newNode.next = firstNode;
+//            firstNode = newNode;
+//        } else {
+//            newNode.next = currentNode;
+//            nodeBefore.next = newNode;
+//        }
+//        length++;
+//        return true;
+        
         Node newNode = new Node(newEntry);
-
-        Node nodeBefore = null;
-        Node currentNode = firstNode;
-        while (currentNode != null && newEntry.compareTo(currentNode.data) > 0) {
-            nodeBefore = currentNode;
-            currentNode = currentNode.next;
-        }
-
-        if (isEmpty() || (nodeBefore == null)) {
-            newNode.next = firstNode;
+        if (getOrderNo() == 0) {
             firstNode = newNode;
+            length++;
         } else {
-            newNode.next = currentNode;
-            nodeBefore.next = newNode;
+            Node referNode = firstNode;
+            while (referNode.next != null) {
+                referNode = referNode.next;
+            }
+            referNode.next = newNode;
+            length++;
         }
-        length++;
+
+
         return true;
+    
     }
     
     @Override
@@ -69,6 +87,28 @@ public class OrderFoodList<T extends Comparable> implements OrderFoodInterface<T
         return (length == 0);
     }
     
+    @Override
+    public void reset() {
+        this.cursor = 0;
+    }
+    
+    @Override
+    public boolean goToNext() {
+
+        if (cursor < getOrderNo()) {
+            cursor++;
+            return true;
+        } else {
+            reset();
+            return false;
+        }
+    }
+    
+    
+    @Override
+    public T getCurrentOrderDetail() {
+        return getOrderAt(cursor - 1);
+    }
     
 
     @Override

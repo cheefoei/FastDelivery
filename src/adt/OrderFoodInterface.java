@@ -17,6 +17,12 @@ public interface OrderFoodInterface<T> {
     public T getOrderAt(int givenPosition); // Retrieve order at specific position
     
     public int getOrderNo(); // Retrieve total number of orders
+    
+    public boolean goToNext();
+
+    public void reset();
+    
+    public T getCurrentOrderDetail();
         
     //public T removeOrderAt(int index); // Delete order record
     
