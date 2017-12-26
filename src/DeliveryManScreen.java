@@ -1,8 +1,4 @@
 
-import adt.BaseList;
-import adt.BaseListInterface;
-import adt.DeliveryJobInterface;
-import adt.DeliveryJobList;
 import entity.Contact;
 import entity.DeliveryMan;
 import entity.PunchedCard;
@@ -300,7 +296,8 @@ public class DeliveryManScreen {
 //            Contact cont = FastDelivery.customerArray.get(i);
         for (int i = 0; i < FastDelivery.deliverOrders.size(); i++) {
             if (FastDelivery.deliverOrders.get(i).getOrder().getStatus().equals("Done")) {
-                if (phone.equals(FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getPhoneNumber())) {
+                if (phone.equals(FastDelivery.deliverOrders.get(i).getOrder().
+                        getCustomer().getContact().getPhoneNumber())) {
 
                     System.out.printf("Customer name \t\t: " + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getCusName() + "\n");
                     System.out.printf("Home address \t\t: " + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getAddress() + ","
@@ -309,53 +306,22 @@ public class DeliveryManScreen {
                     System.out.printf("Email address \t\t: " + FastDelivery.deliverOrders.get(i).getOrder().getCustomer().getContact().getEmail() + "\n");
                     deliveryManMenu();
 
-                } else {
-                    //
-//                System.out.printf(Constants.ERROR_OPTION_NOT_AVAILABLE);
-//                deliveryManMenu();
                 }
             }
         }
     }
-    
 
-
-
-private void breakTime() {
+    private void breakTime() {
 
         Calendar now = Calendar.getInstance();
         if (deliveryman.getWorkingStatus() != Constants.BREAKTIME) {
             deliveryman.setWorkingStatus(Constants.BREAKTIME);
             System.out.println("You are now break at " + now.getTime());
             deliveryManMenu();
-
         } else {
             deliveryman.setWorkingStatus(Constants.AVAILABLE);
             System.out.println("You had end your break at " + now.getTime());
             deliveryManMenu();
         }
     }
-//
-
-//    private String getEstimatedTime(long diffTime) {
-//        if (diffTime < Constants.MINUTE_MILLIS) {
-//            int seconds = (int) diffTime / 1000 % 60;
-//            return seconds + " seconds";
-//        } else if (diffTime < 50 * Constants.MINUTE_MILLIS) {
-//            int seconds = (int) diffTime / 1000 % 60;
-//            int minutes = (int) (diffTime / 1000 / 60 % 60);
-//            return minutes + " minutes " + seconds + " seconds";
-//        } else if (diffTime < 24 * Constants.HOUR_MILLIS) {
-//            int seconds = (int) diffTime / 1000 % 60;
-//            int minutes = (int) (diffTime / 1000 / 60 % 60);
-//            int hours = (int) (diffTime / 1000 / 60 / 60 % 24);
-//            return hours + " hours " + minutes + " minutes " + seconds + " seconds";
-//        } else {
-//            int seconds = (int) diffTime / 1000 % 60;
-//            int minutes = (int) (diffTime / 1000 / 60 % 60);
-//            int hours = (int) (diffTime / 1000 / 60 / 60 % 24);
-//            int days = (int) diffTime / 1000 / 60 / 60 / 24;
-//            return days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds";
-//        }
-//    }
 }
