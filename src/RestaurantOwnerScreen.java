@@ -106,6 +106,7 @@ public class RestaurantOwnerScreen {
         if (FastDelivery.restaurantOwnerList.addRestOwner(restaurantOwner)) {
             System.out.printf("\n");
             System.out.println(Constants.MSG_REG_SUCCESS);
+            FastDelivery.clearScreen();
             restaurantOwnerMenu();
         }
     }
@@ -133,6 +134,7 @@ public class RestaurantOwnerScreen {
 
         if (restaurantOwner != null) {
             if (password.equals(restaurantOwner.getPassword())) {
+                FastDelivery.clearScreen();
                 restaurantOwnerMenu();
             } else {
                 System.out.println(Constants.ERROR_LOG_IN);

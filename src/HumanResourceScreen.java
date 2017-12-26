@@ -58,6 +58,7 @@ public class HumanResourceScreen {
 
             if (currentUser != null) {
                 if (password.equals(currentUser.password)) {
+                    FastDelivery.clearScreen();
                     humanResourceMenu();
                 } else {
                     System.out.println(Constants.ERROR_LOG_IN);
@@ -510,7 +511,7 @@ public class HumanResourceScreen {
         System.out.printf("%-5s %-35s %-15s\n", "---", "------------", "----------------------");
 
         BaseListInterface<DeliveryMan> pendingDeliveryMan = new DeliveryManList<>();
-        
+
         int count = 1;
 
         while (FastDelivery.deliveryMen.hasNext()) {

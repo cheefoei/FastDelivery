@@ -87,13 +87,16 @@ public class FastDelivery {
 
         switch (roleNum) {
             case 1:
+                clearScreen();
 //                new CustomerScreen();
                 return;
             case 2:
+                clearScreen();
                 new RestaurantOwnerScreen();
                 return;
             case 3:
-                //new DeliveryManScreen();
+                clearScreen();
+//new DeliveryManScreen();
                 return;
             case 4:
                 clearScreen();
