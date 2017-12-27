@@ -213,7 +213,7 @@ public class CustomerScreen {
                 } else {
                     if (FastDelivery.orderList.addNewOrder(currentOrder)) {
 
-                        int max = FastDelivery.deliveryMen.size();
+                        int max = FastDelivery.deliveryMen.size() - 1;
                         int rand = new Random().nextInt((max - 0) + 1) + 0;
                         DeliveryMan dm = FastDelivery.deliveryMen.get(rand);
                         Date curr = new Date();
