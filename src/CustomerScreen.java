@@ -249,7 +249,8 @@ public class CustomerScreen {
                 }
             }
         }
-
+        System.out.printf("\nReceipt\n");
+        System.out.println("===========");
         System.out.printf("%-5s %-30s %-15s %-10s %-15s %-50s\n",
                 "No.", "Food Name", "Unit Price", "Quantity", "Total Price", "Remark");
         System.out.printf("%-5s %-30s %-15s %-10s %-15s %-50s\n",
