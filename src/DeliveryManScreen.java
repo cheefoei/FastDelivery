@@ -291,7 +291,7 @@ public class DeliveryManScreen {
             }
         } while (!v);
 
-        System.out.print("Enter customer's phone number >");
+        System.out.print("Enter customer's phone number >\n");
 
 //            Contact cont = FastDelivery.customerArray.get(i);
         for (int i = 0; i < FastDelivery.deliverOrders.size(); i++) {
