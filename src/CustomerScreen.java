@@ -67,16 +67,16 @@ public class CustomerScreen {
         do {
             valid = true;
 
-            System.out.println("|--------------------------------|");
-            System.out.println("|       Customer Main Menu       |");
-            System.out.println("|--------------------------------|");
-            System.out.println("|                                |");
-            System.out.println("|1. Place Order                  |");
-            System.out.println("|2. Display Order                |");
-            System.out.println("|3. Current Month Order Report   |");
-            System.out.println("|0. GO BACK                      |");
-            System.out.println("|                                |");
-            System.out.println("|--------------------------------|");
+            System.out.println("|----------------------------------------|");
+            System.out.println("|       Customer Main Menu               |");
+            System.out.println("|----------------------------------------|");
+            System.out.println("|                                        |");
+            System.out.println("|1. Place Order                          |");
+            System.out.println("|2. Display Order(Receipt)               |");
+            System.out.println("|3. Current Month Order History Report   |");
+            System.out.println("|0. GO BACK                              |");
+            System.out.println("|                                        |");
+            System.out.println("|----------------------------------------|");
             System.out.print("Your choice: ");
 
             int input = -1;
@@ -319,8 +319,8 @@ public class CustomerScreen {
                 calendar2.getActualMaximum(Calendar.DAY_OF_MONTH));
         Date endDate = calendar2.getTime();
 
-        System.out.printf("\nCurrent Month Order Report\n");
-        System.out.println("============================");
+        System.out.printf("\nCurrent Month Order History Report\n");
+        System.out.println("=====================================");
         System.out.printf("%-5s %-20s %-40s %-10s \n",
                 "No.", "Order ID", "Date Time", "Total Price");
         System.out.printf("%-5s %-20s %-40s %-10s \n",

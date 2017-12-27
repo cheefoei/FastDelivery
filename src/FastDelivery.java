@@ -146,7 +146,7 @@ public class FastDelivery {
                         "0125683786"
                 ),
                 "gal",
-                "wonder"
+                "123"
         );
         HumanResource hr2 = new HumanResource(
                 "Clark",
@@ -162,7 +162,7 @@ public class FastDelivery {
                         "0178524678"
                 ),
                 "clark",
-                "ken"
+                "123"
         );
         humanResources.add(hr1);
         humanResources.add(hr2);
@@ -182,7 +182,7 @@ public class FastDelivery {
                         "01111225578"
                 ),
                 "jess",
-                "fish"
+                "123"
         );
         DeliveryMan dm2 = new DeliveryMan(
                 "Ali",
@@ -198,7 +198,7 @@ public class FastDelivery {
                         "0182546897"
                 ),
                 "ali",
-                "ali123"
+                "123"
         );
         DeliveryMan dm3 = new DeliveryMan(
                 "Ahmad",
@@ -214,7 +214,7 @@ public class FastDelivery {
                         "0132457785"
                 ),
                 "ahmad",
-                "ahmad123"
+                "123"
         );
         DeliveryMan dm4 = new DeliveryMan(
                 "Alexandar",
@@ -230,7 +230,7 @@ public class FastDelivery {
                         "012145873"
                 ),
                 "alexandar",
-                "alex1234"
+                "123"
         );
         DeliveryMan dm5 = new DeliveryMan(
                 "Mandy",
@@ -246,7 +246,7 @@ public class FastDelivery {
                         "0165874893"
                 ),
                 "mandy",
-                "mandy123"
+                "123"
         );
         deliveryMen.add(dm1);
         deliveryMen.add(dm2);
@@ -268,7 +268,7 @@ public class FastDelivery {
                         "01111445879"
                 ),
                 "melvin",
-                "mmmm1234",
+                "123",
                 "Ultra Melvin",
                 "Blok B14 Pengkalan Tldm Teluk Muruk 43100 mohan Perak",
                 "0388888888"
@@ -286,7 +286,7 @@ public class FastDelivery {
                         "0101022222"
                 ),
                 "hanbin",
-                "kim",
+                "123",
                 "Han Bin Restaurant",
                 "No 22, Jalan Harmoni,Putra Height 47300 Shah Alam Selangor",
                 "0322222222"
@@ -304,7 +304,7 @@ public class FastDelivery {
                         "0101220202"
                 ),
                 "bobby",
-                "kim",
+                "123",
                 "Ticket to Korea",
                 "12-12 SS17/1 47650 Subang Jaya, Selangor",
                 "0320202020"
@@ -322,7 +322,7 @@ public class FastDelivery {
                         "0101022222"
                 ),
                 "mitra",
-                "siva",
+                "123",
                 "Kapitan Restaurant",
                 "No 34, Jalan Megah,Alam Denai 47300 Shah Alam Selangor",
                 "0333333333"
@@ -340,7 +340,7 @@ public class FastDelivery {
                         "0103434343"
                 ),
                 "abu",
-                "mohd",
+                "123",
                 "Maju maju restaurant",
                 "No. 77 SS19/1 47650 Subang Jaya, Selangor",
                 "0302121212"
@@ -438,7 +438,7 @@ public class FastDelivery {
                         "0101234567"
                 ),
                 "allan",
-                "allan0103"
+                "123"
         );
         Customer cus2 = new Customer(
                 "Ji Yong",
@@ -453,7 +453,7 @@ public class FastDelivery {
                         "0102345678"
                 ),
                 "gd",
-                "gd0818"
+                "123"
         );
         Customer cus3 = new Customer(
                 "Charlotte",
@@ -468,7 +468,7 @@ public class FastDelivery {
                         "0112345678"
                 ),
                 "charlotte",
-                "charlotte0505"
+                "123"
         );
         Customer cus4 = new Customer(
                 "Amelia Fu",
@@ -483,7 +483,7 @@ public class FastDelivery {
                         "0175896347"
                 ),
                 "amelia",
-                "a1234"
+                "123"
         );
         Customer cus5 = new Customer(
                 "Jack To",
@@ -498,7 +498,7 @@ public class FastDelivery {
                         "0142154268"
                 ),
                 "jack",
-                "jack0123"
+                "123"
         );
         customerArray.add(cus1);
         customerArray.add(cus2);
